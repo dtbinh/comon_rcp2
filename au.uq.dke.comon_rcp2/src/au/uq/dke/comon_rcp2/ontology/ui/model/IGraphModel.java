@@ -22,23 +22,27 @@ public interface IGraphModel {
 	
 	//find	
 	public GraphNode getNode(Object userObject);
-	public boolean containsNode(GraphNode node);
-	
 	public GraphArc getArc(Object userObject);
+
+	public boolean containsNode(Object userObject);
+	public boolean containsArc(Object userObject);
+	
+	public boolean containsNode(GraphNode node);
 	public boolean containsArc(GraphArc arc);
 	
 	public Collection<GraphNode> getConnectedNodes(Object nodeUserObject);
-	public Collection<GraphArc> getConnectedArcs(Object nodeUserObject);
+	//public Collection<GraphArc> getConnectedArcs(Object nodeUserObject);
 
 	public GraphNode getSourceNode(Object arcUserObject);
 	public GraphNode getDestinationNode(Object arcUserObject);
 
 	//aggregate methods
-	public Map getNodeMap();
-	public Collection<GraphNode> getVisibleNodes();
+	public Collection<GraphNode> getAllNodes();
+	public Collection<GraphArc> getAllArcs();	
 
-	public Map getArcMap();	
+	public Collection<GraphNode> getVisibleNodes();
 	public Collection<GraphArc> getVisibleArcs();
+
 	public Collection<Object> getArcTypes();
 
 	
