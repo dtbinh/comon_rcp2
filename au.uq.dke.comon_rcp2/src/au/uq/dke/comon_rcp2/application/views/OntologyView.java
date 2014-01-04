@@ -15,11 +15,9 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.GraphModel;
+import au.uq.dke.comon_rcp2.ontology.ui.model.ComonGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.model.IGraphModel;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
 import au.uq.dke.comon_rcp2.ontology.ui.view.Graph;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
 
 public class OntologyView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
@@ -38,9 +36,9 @@ public class OntologyView extends ViewPart {
 	    
 	    String userObject = "hi";
 	    
-	    IGraphModel graphModel = new GraphModel();
+	    IGraphModel graphModel = new ComonGraphModel();
 	    graphModel.addNode(userObject);
-	    Graph graph = new Graph();
+	    Graph graph = new Graph((ComonGraphModel)graphModel);
 	    frame.add(graph);
 	    graph.performLayout();
 
@@ -83,6 +81,6 @@ public class OntologyView extends ViewPart {
 	 * Passing the focus request to the viewer's control.
 	 */
 	public void setFocus() {
-		viewer.getControl().setFocus();
+		//viewer.getControl().setFocus();
 	}
 }

@@ -30,7 +30,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
-import au.uq.dke.comon_rcp2.ontology.ui.model.GraphModel;
+import au.uq.dke.comon_rcp2.ontology.ui.model.ComonGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.view.TopView;
 import au.uq.dke.comonviz.actions.LayoutAction;
 import au.uq.dke.comonviz.filter.FilterManager;
@@ -88,7 +88,7 @@ public class EntryPoint {
 	private static FlatGraph flatGraph;
 
 	/** the model representation of the graph, nodes and edges */
-	private static GraphModel graphModel;
+	private static ComonGraphModel graphModel;
 
 	private static DefaultMutableTreeNode ontologyTreeRoot;
 
@@ -149,7 +149,7 @@ public class EntryPoint {
 
 		filterManager = new FilterManager();
 		jFrame = new JFrame("CoMOnViz");
-		graphModel = new GraphModel();
+		graphModel = new ComonGraphModel();
 		this.getFilterManager().getArcTypeFilter().updateArcTypes();
 		flatGraph = new FlatGraph();
 		
@@ -223,7 +223,7 @@ public class EntryPoint {
 		return flatGraph;
 	}
 
-	public static GraphModel getGraphModel() {
+	public static ComonGraphModel getGraphModel() {
 		return graphModel;
 	}
 

@@ -208,7 +208,10 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	 */
 	public Paint getBackgroundPaint(GraphNode node) {
 		
-		Paint normalPaint = StyleManager.getStyleManager().getNodeBackgroundColor(node);
+		//TODO: fix it
+		//Paint normalPaint = StyleManager.getStyleManager().getNodeBackgroundColor(node);
+		
+		Paint normalPaint = Color.gray;
 		
 		
 		return (node.isSelected()? ((Color)normalPaint).darker(): normalPaint);
@@ -219,7 +222,10 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 
 	public Paint getBorderPaint(GraphNode node) {
 		
-		Paint normalPaint = StyleManager.getStyleManager().getNodeBorderColor(node);
+//		Paint normalPaint = StyleManager.getStyleManager().getNodeBorderColor(node);
+
+		//TODO: fix it
+		Paint normalPaint = Color.black;
 		
 		if(node.isSelected()){
 			return ((Color)normalPaint).darker().darker();
@@ -231,7 +237,10 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	}
 
 	public Stroke getBorderStroke(GraphNode node) {
-		Stroke stroke = StyleManager.getStyleManager().getNodeBorderStroke(node);
+
+		//TODO: fix it
+		//Stroke stroke = StyleManager.getStyleManager().getNodeBorderStroke(node);
+		Stroke stroke = new PFixedWidthStroke(3f);
 		return stroke;
 		//return (node.isSelected() ? borderSelectionStroke : (node.isHighlighted() ? borderHighlightStroke : borderStroke));
 	}

@@ -15,12 +15,13 @@ import javax.swing.Icon;
 import au.uq.dke.comon_rcp2.ontology.ui.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.GraphItem;
+import ca.uvic.cs.chisel.cajun.graph.GraphModel;
 import ca.uvic.cs.chisel.cajun.graph.GraphModelListener;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
 
-public class GraphModel implements IGraphModel {
+public class ComonGraphModel implements IGraphModel, GraphModel{
 
 	private Collection<GraphModelListener> listeners;
 
@@ -39,7 +40,7 @@ public class GraphModel implements IGraphModel {
 	private Set<Object> nodeTypes;
 	private Set<Object> arcTypes;
 
-	public GraphModel() {
+	public ComonGraphModel() {
 		this.listeners = new ArrayList<GraphModelListener>();
 		this.nodes = new HashMap<Object, GraphNode>();
 		this.arcs = new HashMap<Object, GraphArc>();
@@ -281,28 +282,13 @@ public class GraphModel implements IGraphModel {
 		}
 	}
 
+
 	public GraphNode addNode(Object userObject) {
-		return addNode(userObject, String.valueOf(userObject), null, null);
-	}
-
-	public GraphNode addNode(Object userObject, String text) {
-		return addNode(userObject, text, null, null);
-	}
-
-	public GraphNode addNode(Object userObject, String text, Icon icon) {
-		return addNode(userObject, text, icon, null);
-	}
-
-	public GraphNode addNode(Object userObject, String text, Icon icon,
-			Object type) {
 		if (userObject == null) {
 			throw new NullPointerException(
 					"All graph nodes must have a user object.");
 		}
 		if (!nodes.containsKey(userObject)) {
-			if (type == null) {
-				type = GraphItem.UNKNOWN_TYPE;
-			}
 			GraphNode node = new BasicGraphNode(userObject);
 			addNodeInternal(node);
 		}
