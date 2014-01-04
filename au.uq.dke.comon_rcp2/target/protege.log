@@ -1,0 +1,24 @@
+HCANN000001: Hibernate Commons Annotations {4.0.1.Final}
+HHH000412: Hibernate Core {4.2.0.CR1}
+HHH000206: hibernate.properties not found
+HHH000021: Bytecode provider name : javassist
+HHH000043: Configuring from resource: /hibernate.cfg.xml
+HHH000040: Configuration resource: /hibernate.cfg.xml
+HHH000223: Recognized obsolete hibernate namespace http://hibernate.sourceforge.net/. Use namespace http://www.hibernate.org/dtd/ instead. Refer to Hibernate 3.6 Migration Guide!
+HHH000041: Configured SessionFactory: null
+HHH000402: Using Hibernate built-in connection pool (not for production use!)
+HHH000115: Hibernate connection pool size: 1
+HHH000006: Autocommit mode: false
+HHH000401: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/comontest1]
+HHH000046: Connection properties: {user=wangwei, password=****}
+HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+HHH000399: Using default transaction strategy (direct JDBC transactions)
+HHH000397: Using ASTQueryTranslatorFactory
+HHH000227: Running hbm2ddl schema export
+HHH000389: Unsuccessful: alter table OntologyRelation drop foreign key FKA68EC8B938B08A0
+Table 'comontest1.ontologyrelation' doesn't exist
+HHH000389: Unsuccessful: alter table OntologyRelation drop foreign key FKA68EC8BE90272EA
+Table 'comontest1.ontologyrelation' doesn't exist
+HHH000389: Unsuccessful: alter table OntologyRelation drop foreign key FKA68EC8B801CB1BF
+Table 'comontest1.ontologyrelation' doesn't exist
+HHH000230: Schema export complete
