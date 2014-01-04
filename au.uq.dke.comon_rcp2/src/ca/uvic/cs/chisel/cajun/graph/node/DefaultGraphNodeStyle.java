@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.style;
+package ca.uvic.cs.chisel.cajun.graph.node;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -20,22 +20,19 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.util.GraphicsUtils;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.util.PFixedWidthStroke;
 
 /**
- * Provides the default styles for {@link BasicGraphNode_back}s. Supports different styles based on
+ * Provides the default styles for {@link DefaultGraphNode}s. Supports different styles based on
  * whether the node is highlighted, selected, or matching. Also has support for coloring nodes based
  * on node type.
  * 
  * @author Chris
  * @since  08-Nov-07
  */
-public class BasicGraphNodeStyle implements GraphNodeStyle {
+public class DefaultGraphNodeStyle implements GraphNodeStyle {
 	
 	protected static final Color BG = new Color(192, 192, 224);
 	protected static final int SHAPE_ARC = 5;
@@ -47,7 +44,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	protected Paint borderMatchingPaint;
 	protected Paint textPaint;
 	protected Color tooltipTextColor;
-	protected Color tooltipBackground = StyleManager.DEFAULT_TOOLTIP_BACKGROUND_COLOR;
+	protected Color tooltipBackground;
 
 	protected Stroke borderStroke;
 	protected Stroke borderSelectionStroke;
@@ -67,18 +64,19 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	protected Color defaultNodeColor;
 	protected Map<Object, Paint> nodeTypeToPaint;
 
-	public BasicGraphNodeStyle() {
+	public DefaultGraphNodeStyle() {
 		loadDefaultColors();
 		this.nextColorIndex = 0;
 		this.nodeTypeToPaint = new HashMap<Object, Paint>();
 		this.defaultNodeColor = BG;
-		this.bgPaint = new GradientPaint(0, 0, Color.yellow, 0, 20, defaultNodeColor, true);
+		this.bgPaint = new GradientPaint(0, 0, Color.white, 0, 20, defaultNodeColor, true);
 
 		borderPaint = Color.black;
 		borderHighlightPaint = Color.black;
 		borderSelectionPaint = Color.blue;
 		borderMatchingPaint = new Color(0, 224, 0);
 		textPaint = Color.black;
+		tooltipBackground = defaultColors[0];
 		tooltipTextColor = GraphicsUtils.getTextColor(tooltipBackground);
 
 		borderStroke = new PFixedWidthStroke(1f);
@@ -124,8 +122,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		if (nextColorIndex >= defaultColors.length) {
 			nextColorIndex = 0;
 		}
-		//Color color = defaultColors[nextColorIndex];
-		Color color = defaultColors[0];
+		Color color = defaultColors[nextColorIndex];
 		nextColorIndex++;
 		return color;
 	}
@@ -207,42 +204,15 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	 * that is returned, otherwise the default node background paint is returned.
 	 */
 	public Paint getBackgroundPaint(GraphNode node) {
-		
-		//TODO: fix it
-		//Paint normalPaint = StyleManager.getStyleManager().getNodeBackgroundColor(node);
-		
-		Paint normalPaint = Color.gray;
-		
-		
-		return (node.isSelected()? ((Color)normalPaint).darker(): normalPaint);
-		
-		
-		//return getTypePaint(node.getType());
+		return getTypePaint(node.getType());
 	}
 
 	public Paint getBorderPaint(GraphNode node) {
-		
-//		Paint normalPaint = StyleManager.getStyleManager().getNodeBorderColor(node);
-
-		//TODO: fix it
-		Paint normalPaint = Color.black;
-		
-		if(node.isSelected()){
-			return ((Color)normalPaint).darker().darker();
-		}else{
-
-			return  normalPaint;
-		}
-		//		return (node.isMatching() ? borderMatchingPaint : (node.isSelected() ? borderSelectionPaint : (node.isHighlighted() ? borderHighlightPaint : borderPaint)));
+		return (node.isMatching() ? borderMatchingPaint : (node.isSelected() ? borderSelectionPaint : (node.isHighlighted() ? borderHighlightPaint : borderPaint)));
 	}
 
 	public Stroke getBorderStroke(GraphNode node) {
-
-		//TODO: fix it
-		//Stroke stroke = StyleManager.getStyleManager().getNodeBorderStroke(node);
-		Stroke stroke = new PFixedWidthStroke(3f);
-		return stroke;
-		//return (node.isSelected() ? borderSelectionStroke : (node.isHighlighted() ? borderHighlightStroke : borderStroke));
+		return (node.isSelected() ? borderSelectionStroke : (node.isHighlighted() ? borderHighlightStroke : borderStroke));
 	}
 
 	public Font getFont(GraphNode node) {

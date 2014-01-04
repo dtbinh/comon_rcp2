@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
 import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
 
@@ -89,8 +89,8 @@ public class TreeInfoManager {
                                 if(i == j){
                                         continue;
                                 }
-                                BasicGraphNode iNode = (BasicGraphNode) treeNodeList.get(i).getUserObject();
-                                BasicGraphNode jNode = (BasicGraphNode) treeNodeList.get(j).getUserObject();
+                                BasicGraphNode_back iNode = (BasicGraphNode_back) treeNodeList.get(i).getUserObject();
+                                BasicGraphNode_back jNode = (BasicGraphNode_back) treeNodeList.get(j).getUserObject();
                                 
                                 for(GraphArc arc: jNode.getArcs()){
                                 	if(!arc.getType().equals("has subclass")){

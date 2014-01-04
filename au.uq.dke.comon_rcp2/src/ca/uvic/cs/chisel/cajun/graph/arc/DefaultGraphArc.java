@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.arc;
+package ca.uvic.cs.chisel.cajun.graph.arc;
 
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -19,24 +19,21 @@ import org.eclipse.zest.layouts.LayoutBendPoint;
 import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.arc.arrowhead.ArrowHead;
+import au.uq.dke.comon_rcp2.constant.UIConstants;
 import au.uq.dke.comon_rcp2.ontology.ui.model.arc.label.ArcLabel;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
-import au.uq.dke.comon_rcp2.ontology.ui.style.BasicGraphArcStyle;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArcStyle;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-public class BasicGraphArc extends PPath implements GraphArc {
+public class DefaultGraphArc extends PPath implements GraphArc {
 	private static final long serialVersionUID = 1530720146193007435L;
 
 	private static final double CURVE_FACTOR_BASE_OFFSET = 8.0;
 	private static final double SELF_ARC_DIAMETER = 20.0;
 
-	private final Object userObject;
+	private Object userObject;
 	private Object type;
 
 	private Object graphData;
@@ -73,7 +70,7 @@ public class BasicGraphArc extends PPath implements GraphArc {
 	}
 
 
-	public BasicGraphArc(Object userObject, GraphNode src, GraphNode dest) {
+	public DefaultGraphArc(Object userObject, GraphNode src, GraphNode dest) {
 		super();
 
 		this.userObject = userObject;
@@ -99,7 +96,7 @@ public class BasicGraphArc extends PPath implements GraphArc {
 //			addChild(image);
 //		}
 
-		this.style = new BasicGraphArcStyle();
+		this.style = new DefaultGraphArcStyle();
 
 		this.arcLabel = new ArcLabel(this, "label");
 		addChild(arcLabel);
@@ -324,7 +321,7 @@ public class BasicGraphArc extends PPath implements GraphArc {
 	}
 
 	public boolean equals(Object o) {
-		BasicGraphArc arc = (BasicGraphArc) o;
+		DefaultGraphArc arc = (DefaultGraphArc) o;
 		return this.getUserObject().equals(arc.getUserObject());
 	}
 
@@ -393,14 +390,14 @@ public class BasicGraphArc extends PPath implements GraphArc {
 			if (showArrowHead) {
 				Shape shape = endArrowHead.getShape();
 				g2.fill(shape);
-				g2.setStroke(ArrowHead.STROKE);
+				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
 				g2.draw(shape);
 			}
 
 			if (this.getType().toString().contains("associate")) {
 				Shape shape = startArrowHead.getShape();
 				g2.fill(shape);
-				g2.setStroke(ArrowHead.STROKE);
+				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
 				g2.draw(shape);
 			}
 		}
@@ -453,9 +450,9 @@ public class BasicGraphArc extends PPath implements GraphArc {
 			double lineDy = destY - srcY;
 			this.lineSlope = lineDy / lineDx;
 
-			Rectangle2D srcEllipseFrame = ((BasicGraphNode_back) BasicGraphArc.this
+			Rectangle2D srcEllipseFrame = ((BasicGraphNode_back) DefaultGraphArc.this
 					.getSource()).getEllipse().getFrame();
-			Rectangle2D dstEllipseFrame = ((BasicGraphNode_back) BasicGraphArc.this
+			Rectangle2D dstEllipseFrame = ((BasicGraphNode_back) DefaultGraphArc.this
 					.getDestination()).getEllipse().getFrame();
 			
 			
@@ -477,8 +474,8 @@ public class BasicGraphArc extends PPath implements GraphArc {
 			Arrays.sort(intersectionPointsX);
 
 			///
-			Point2D.Double srcArrowIntersectionPoints[] = getIntersectionPoints(srcEllipseFrame, 2 * ArrowHead.getArrowSizeConstant());
-			Point2D.Double dstArrowIntersectionPoints[] = getIntersectionPoints(dstEllipseFrame, 2 * ArrowHead.getArrowSizeConstant());
+			Point2D.Double srcArrowIntersectionPoints[] = getIntersectionPoints(srcEllipseFrame, 2 * UIConstants.ARROWHEAD_SIZE);
+			Point2D.Double dstArrowIntersectionPoints[] = getIntersectionPoints(dstEllipseFrame, 2 * UIConstants.ARROWHEAD_SIZE);
 
 			Map<Double, Point2D.Double> arrowIntersectionPointsMap = new HashMap<Double, Point.Double>();
 			arrowIntersectionPointsMap.put(srcArrowIntersectionPoints[0].x, srcArrowIntersectionPoints[0]);

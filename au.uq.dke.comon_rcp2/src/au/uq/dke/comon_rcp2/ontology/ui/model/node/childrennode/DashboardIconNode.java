@@ -7,7 +7,7 @@ import java.awt.Paint;
 
 import javax.swing.ImageIcon;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
 public class DashboardIconNode extends BasicIconNode{

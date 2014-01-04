@@ -6,7 +6,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
 
 
 public class JTreeUtil {
@@ -29,7 +29,7 @@ public class JTreeUtil {
 
 		for (DefaultMutableTreeNode node : descendants) {
 
-			if (((BasicGraphNode) node.getUserObject()).getText()
+			if (((BasicGraphNode_back) node.getUserObject()).getText()
 					.startsWith(regex)) {
 				// jTree.scrollPathToVisible(new TreePath(node.getPath()));
 				jTree.setSelectionPath(new TreePath(node.getPath()));
