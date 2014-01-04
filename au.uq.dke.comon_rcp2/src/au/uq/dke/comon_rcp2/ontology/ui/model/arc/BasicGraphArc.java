@@ -72,17 +72,8 @@ public class BasicGraphArc extends PPath implements GraphArc {
 		return middlePoint;
 	}
 
+
 	public BasicGraphArc(Object userObject, GraphNode src, GraphNode dest) {
-		this(userObject, src, dest, UNKNOWN_TYPE);
-	}
-
-	public BasicGraphArc(Object userObject, GraphNode src, GraphNode dest,
-			Object type) {
-		this(userObject, src, dest, null, type);
-	}
-
-	public BasicGraphArc(Object userObject, GraphNode src, GraphNode dest,
-			Icon icon, Object type) {
 		super();
 
 		this.userObject = userObject;
@@ -109,9 +100,8 @@ public class BasicGraphArc extends PPath implements GraphArc {
 //		}
 
 		this.style = new BasicGraphArcStyle();
-		String name = ((OntologyRelationship)this.getUserObject()).getName();
 
-		this.arcLabel = new ArcLabel(this, name);
+		this.arcLabel = new ArcLabel(this, "label");
 		addChild(arcLabel);
 
 		// this.updateArcPath();

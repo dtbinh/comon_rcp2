@@ -12,7 +12,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-public class View extends ViewPart {
+public class SampleView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
 
 	private TableViewer viewer;

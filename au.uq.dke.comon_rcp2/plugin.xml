@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="Perspective"
-            class="au.uq.dke.comon_rcp2.application.views.Perspective"
+            class="au.uq.dke.comon_rcp2.application.perspectives.Perspective"
             id="au.uq.dke.comon_rcp2.perspective">
       </perspective>
    </extension>
