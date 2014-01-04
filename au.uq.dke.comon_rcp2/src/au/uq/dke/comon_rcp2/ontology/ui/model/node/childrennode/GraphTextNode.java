@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.node.icon;
+package au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,18 +15,16 @@ public class GraphTextNode extends PText {
 
 	@Override
 	public Font getFont() {
-		Font font = style.getFont(BasicGraphNode.this);
+		Font font = null;
 		if (font == null) {
 			font = DEFAULT_FONT;
 		}
-		font = font
-				.deriveFont(StyleManager.getStyleManager().DEFAULT_NODE_TEXT_FONT_SIZE);
 		return font;
 	}
 
 	@Override
 	public Paint getTextPaint() {
-		Paint paint = style.getTextPaint(BasicGraphNode.this);
+		Paint paint = null;
 		if (paint == null) {
 			paint = Color.black;
 		}

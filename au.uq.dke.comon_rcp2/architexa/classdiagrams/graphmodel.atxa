@@ -1,4 +1,4 @@
-<,weiwang.thu@gmail.com,weiwang.thu@gmail.com> <http://www.architexa.com/rdf/core#creator> "true" .
+<,weiwang.thu@gmail.com,weiwang.thu@gmail.com,weiwang.thu@gmail.com> <http://www.architexa.com/rdf/core#creator> "true" .
 
 @prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -7,72 +7,93 @@
 @prefix atxa: <http://www.architexa.com/rdf/> .
 @prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
 
-<http://www.architexa.com/rdf/rse-eclipse#architexa_slclassdiagrams_slClass.atxa> a atxa-core:reloFile .
+<http://www.architexa.com/rdf/rse-eclipse#architexa_slclassdiagrams_slgraphmodel.atxa> a atxa-core:reloFile .
 
 atxa:DetailNode atxa-core:detailLevel "0" .
 
 atxa-core:docRoot atxa-core:browseModel "com.architexa.diagrams.relo.jdt/com.architexa.diagrams.relo.jdt.browse.ClassStrucBrowseModel" ;
-	atxa-core:contains _:node18ddmsdeex7684 .
+	atxa-core:contains _:node18ddruuhsx7 .
 
-_:node18ddmsdeex7684 a atxa-core:node ;
-	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2> ;
-	atxa-core:posX "435" ;
-	atxa-core:posY "203" .
-
-<http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2$NewGraphModel> .
-
-_:node18ddmsdeex7684 atxa-core:contains _:node18ddmsdeex7685 .
-
-_:node18ddmsdeex7685 a atxa-core:node ;
-	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2$NewGraphModel> ;
-	atxa-core:posX "441" ;
-	atxa-core:posY "237" .
-
-_:node18ddmsdeex7563 a atxa-core:link ;
-	atxa-core:model atxa-jdt:inherits ;
-	rdf:subject _:node18ddmsdeex7685 ;
-	rdf:object _:node18ddmsdeex7686 ;
-	atxa-core:bendpoint _:node18ddmsdeex7687 .
-
-_:node18ddmsdeex7687 atxa-core:bpLocation "534,161" ;
-	atxa-core:bpIndex "0" .
-
-_:node18ddmsdeex7563 atxa-core:bendpoint _:node18ddmsdeex7688 .
-
-_:node18ddmsdeex7688 atxa-core:bpLocation "499,161" ;
-	atxa-core:bpIndex "1" .
-
-atxa-core:docRoot atxa-core:contains _:node18ddmsdeex7689 .
-
-_:node18ddmsdeex7689 a atxa-core:node ;
+_:node18ddruuhsx7 a atxa-core:node ;
 	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph> ;
 	atxa-core:posX "388" ;
 	atxa-core:posY "-45" .
 
 <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph$GraphModel> , <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph$DefaultGraphModel> .
 
-_:node18ddmsdeex7689 atxa-core:contains _:node18ddmsdeex7690 .
+_:node18ddruuhsx7 atxa-core:contains _:node18ddruuhsx8 .
 
-_:node18ddmsdeex7690 a atxa-core:node ;
+_:node18ddruuhsx8 a atxa-core:node ;
 	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph$GraphModel> ;
 	atxa-core:posX "425" ;
 	atxa-core:posY "-11" .
 
-_:node18ddmsdeex7689 atxa-core:contains _:node18ddmsdeex7686 .
+_:node18ddruuhsx7 atxa-core:contains _:node18ddruuhsx4 .
 
-_:node18ddmsdeex7686 a atxa-core:node ;
+_:node18ddruuhsx4 a atxa-core:node ;
 	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#ca.uvic.cs.chisel.cajun.graph$DefaultGraphModel> ;
 	atxa-core:posX "394" ;
 	atxa-core:posY "88" .
 
-_:node18ddmsdeex7575 a atxa-core:link ;
+_:node18ddruuhsx9 a atxa-core:link ;
 	atxa-core:model atxa-jdt:inherits ;
-	rdf:subject _:node18ddmsdeex7686 ;
-	rdf:object _:node18ddmsdeex7690 ;
-	atxa-core:bendpoint _:node18ddmsdeex7691 .
+	rdf:subject _:node18ddruuhsx4 ;
+	rdf:object _:node18ddruuhsx8 ;
+	atxa-core:bendpoint _:node18ddmsdeex8273 .
 
-_:node18ddmsdeex7691 atxa-core:bpLocation "499,62" ;
+_:node18ddmsdeex8273 atxa-core:bpLocation "499,62" ;
 	atxa-core:bpIndex "0" .
+
+atxa-core:docRoot atxa-core:contains _:node18ddmsdeex8019 .
+
+_:node18ddmsdeex8019 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model> ;
+	atxa-core:posX "88" ;
+	atxa-core:posY "308" .
+
+<http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model> atxa-core:contains <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model$GraphModel> , <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model$IGraphModel> .
+
+_:node18ddmsdeex8019 atxa-core:contains _:node18ddmsdeex8021 .
+
+_:node18ddmsdeex8021 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model$GraphModel> ;
+	atxa-core:posX "342" ;
+	atxa-core:posY "440" .
+
+_:node18ddmsdeex7974 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node18ddmsdeex8021 ;
+	rdf:object _:node18ddruuhsx4 ;
+	atxa-core:bendpoint _:node18ddmsdeex8274 .
+
+_:node18ddmsdeex8274 atxa-core:bpLocation "416,161" ;
+	atxa-core:bpIndex "0" .
+
+_:node18ddmsdeex7974 atxa-core:bendpoint _:node18ddmsdeex8275 .
+
+_:node18ddmsdeex8275 atxa-core:bpLocation "499,161" ;
+	atxa-core:bpIndex "1" .
+
+_:node18ddmsdeex8056 a atxa-core:link ;
+	atxa-core:model atxa-jdt:inherits ;
+	rdf:subject _:node18ddmsdeex8021 ;
+	rdf:object _:node18ddmsdeex8020 ;
+	atxa-core:bendpoint _:node18ddmsdeex8276 .
+
+_:node18ddmsdeex8276 atxa-core:bpLocation "416,415" ;
+	atxa-core:bpIndex "0" .
+
+_:node18ddmsdeex8056 atxa-core:bendpoint _:node18ddmsdeex8277 .
+
+_:node18ddmsdeex8277 atxa-core:bpLocation "171,415" ;
+	atxa-core:bpIndex "1" .
+
+_:node18ddmsdeex8019 atxa-core:contains _:node18ddmsdeex8020 .
+
+_:node18ddmsdeex8020 a atxa-core:node ;
+	atxa-core:model <http://www.architexa.com/rdf/jdt-wkspc#au.uq.dke.comon_rcp2.ontology.ui.model$IGraphModel> ;
+	atxa-core:posX "94" ;
+	atxa-core:posY "342" .
 
 @prefix atxa-rse-eclipse: <http://www.architexa.com/rdf/rse-eclipse#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -81,6 +102,6 @@ _:node18ddmsdeex7691 atxa-core:bpLocation "499,62" ;
 @prefix atxa: <http://www.architexa.com/rdf/> .
 @prefix atxa-jdt: <http://www.architexa.com/rdf/jdt#> .
 
-<http://www.architexa.com/rdf/rse-eclipse#architexa_slclassdiagrams_slClass.atxa> a atxa-core:reloFile ;
-	atxa-core:contains _:node18ddmsdeex7685 , _:node18ddmsdeex7684 , _:node18ddmsdeex7690 , _:node18ddmsdeex7686 , _:node18ddmsdeex7689 , atxa-core:docRoot , _:node18ddmsdeex7685 , _:node18ddmsdeex7684 , _:node18ddmsdeex7690 , _:node18ddmsdeex7686 , _:node18ddmsdeex7689 , atxa-core:docRoot , _:node18ddmsdeex7563 , _:node18ddmsdeex7575 , _:node18ddmsdeex7563 , _:node18ddmsdeex7575 .
+<http://www.architexa.com/rdf/rse-eclipse#architexa_slclassdiagrams_slgraphmodel.atxa> a atxa-core:reloFile ;
+	atxa-core:contains _:node18ddruuhsx8 , _:node18ddruuhsx4 , _:node18ddruuhsx7 , _:node18ddmsdeex8021 , _:node18ddmsdeex8020 , _:node18ddmsdeex8019 , atxa-core:docRoot , _:node18ddruuhsx8 , _:node18ddruuhsx4 , _:node18ddruuhsx7 , _:node18ddmsdeex8021 , _:node18ddmsdeex8020 , _:node18ddmsdeex8019 , atxa-core:docRoot , _:node18ddruuhsx9 , _:node18ddmsdeex7974 , _:node18ddmsdeex8056 , _:node18ddruuhsx9 , _:node18ddmsdeex7974 , _:node18ddmsdeex8056 .
 

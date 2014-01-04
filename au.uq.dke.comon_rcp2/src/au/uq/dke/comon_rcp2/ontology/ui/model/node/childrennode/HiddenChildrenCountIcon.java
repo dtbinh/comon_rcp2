@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.node.icon;
+package au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -6,8 +6,8 @@ import java.awt.Paint;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-import au.uq.dke.comonviz.EntryPoint;
-import au.uq.dke.comonviz.ui.ontology.StyleManager;
+import au.uq.dke.comon_rcp2.EntryPoint;
+import au.uq.dke.comon_rcp2.ontology.ui.style.StyleManager;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;

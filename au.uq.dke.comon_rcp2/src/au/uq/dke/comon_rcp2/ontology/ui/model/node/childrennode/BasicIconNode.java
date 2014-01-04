@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.node;
+package au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode;
 
 import java.awt.Image;
 import java.awt.geom.Rectangle2D;

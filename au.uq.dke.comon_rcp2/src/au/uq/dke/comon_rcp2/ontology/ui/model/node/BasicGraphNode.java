@@ -29,9 +29,11 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.icon.DashboardIconNode;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.icon.HiddenChildrenCountIcon;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.icon.RecordsTableIconNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.BasicIconNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.DashboardIconNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.GraphTextNode;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.HiddenChildrenCountIcon;
+import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.RecordsTableIconNode;
 import au.uq.dke.comon_rcp2.ontology.ui.style.BasicGraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
@@ -44,24 +46,8 @@ import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-/**
- * Default graph node implementation. Displays some text and possible an
- * image/icon.
- * 
- * @author Chris Callendar
- * @since 30-Oct-07
- */
 public class BasicGraphNode extends PNode implements GraphNode {
 
-	@Override
-	public boolean equals(Object obj) {
-		OntologyClass thisCls = (OntologyClass) this.getUserObject();
-		OntologyClass tgtCls = (OntologyClass) ((BasicGraphNode) obj)
-				.getUserObject();
-
-		return thisCls.equals(tgtCls);
-
-	}
 
 	private static final long serialVersionUID = 3223950711940456476L;
 
@@ -173,18 +159,6 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		setText(text);
 		setType(type);
 
-		if (this.getRecordType() != null) {
-			OntologyClass ontologyClass = (OntologyClass) this.getUserObject();
-			if (ontologyClass.isHasTable()) {
-				tableIconNode = new RecordsTableIconNode();
-				this.addChild(tableIconNode);
-
-			}
-			if (ontologyClass.isHasDashboard()) {
-				dashboardIconNode = new DashboardIconNode();
-				this.addChild(dashboardIconNode);
-			}
-		}
 
 		initBounds();
 
@@ -301,14 +275,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		return fullText;
 	}
 
-	public long getId() {
 
-		return ((OntologyClass) userObject).getId();
-	}
-
-	public long getBranchId() {
-		return ((OntologyClass) userObject).getBranchId();
-	}
 
 	public void setText(String s) {
 		if (s == null) {
@@ -401,29 +368,11 @@ public class BasicGraphNode extends PNode implements GraphNode {
 
 	@Override
 	public String toString() {
-		return ((OntologyClass) this.getUserObject()).getName();
+		return this.getText();
 
 	}
 
 	public String getTooltip() {
-		if (tooltip == null) {
-			Collection<OWLAnnotation> owlAnnotationSet = ((OWLClass) userObject)
-					.getAnnotations(EntryPoint.ontology);
-			if (owlAnnotationSet.size() != 0) {
-				String annotation = ((OWLAnnotation) owlAnnotationSet.toArray()[0])
-						.getValue().toString();
-				annotation = annotation.substring(1, annotation.length() - 1);
-
-				annotation = this.splitTextIntoLines(annotation,
-						MAX_TOOLTIP_LINES, MAX_TOOLTIP_CHARS_IN_A_LINE);
-
-				// annotation = EntryPoint.getAnnotationManager()
-				// .getStylizedAnnotation(annotation);
-
-				return annotation;
-
-			}
-		}
 		return "";
 	}
 
@@ -733,7 +682,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 
 	@Override
 	protected void paint(PPaintContext paintContext) {
-		this.setText(((OntologyClass) this.getUserObject()).getName());
+		this.setText("test text");
 		Graphics2D g2 = paintContext.getGraphics();
 
 		// this.setB
@@ -834,50 +783,6 @@ public class BasicGraphNode extends PNode implements GraphNode {
 
 	public void setFixedLocation(boolean fixedLocation) {
 		this.fixedLocation = fixedLocation;
-	}
-
-	public boolean hasTable() {
-		Class<BasicRecord> recordType = this.getRecordType();
-		if (recordType != null) {
-			// if(recordType)
-		}
-
-		return false;
-	}
-
-	public Class<BasicRecord> getRecordType() {
-		String branchName = DatabaseUtils.getBranchNodeName(this);
-		String parentPackageName = StringUtils
-				.getTableNameByNodeName(branchName);
-		String modelClassNamePrefix = "database.model.data."
-				+ ReflectionUtils.toFirstLetterLowerCase(parentPackageName)
-				+ ".";
-
-		String tableName = StringUtils.getTableNameByNodeName(this.getText());
-
-		if (tableName.equalsIgnoreCase("RiskIdentification")
-				|| tableName.equalsIgnoreCase("RiskAnalysis")
-				|| tableName.equals("RiskEvaluation")
-				|| tableName.equals("ComplianceManagement")) {
-			return null;
-		}
-
-		if (tableName.equalsIgnoreCase("ProcessActivity")) {
-			int a = 1;
-		}
-
-		String fullClassName = modelClassNamePrefix + tableName;
-		Class recordType = null;
-		try {
-			recordType = Class.forName(fullClassName);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		if (recordType != null) {
-			int a = 1;
-		}
-		return recordType;
-
 	}
 
 }

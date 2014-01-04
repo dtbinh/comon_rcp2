@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.node.icon;
+package au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,7 +8,6 @@ import java.awt.Paint;
 import javax.swing.ImageIcon;
 
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicIconNode;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
 public class RecordsTableIconNode extends BasicIconNode {
@@ -28,9 +27,10 @@ public class RecordsTableIconNode extends BasicIconNode {
 	}
 
 	public Class getRecordType() {
-		BasicGraphNode parentNode = (BasicGraphNode) this.getParent();
-		Class recordType = parentNode.getRecordType();
-		return recordType;
+//		BasicGraphNode parentNode = (BasicGraphNode) this.getParent();
+//		Class recordType = parentNode.getRecordType();
+//		return recordType;
+		return null;
 	}
 
 	@Override

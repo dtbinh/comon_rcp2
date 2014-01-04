@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.ontology.ui.model.node.icon;
+package au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode;
 
 import java.io.File;
 import java.io.IOException;
