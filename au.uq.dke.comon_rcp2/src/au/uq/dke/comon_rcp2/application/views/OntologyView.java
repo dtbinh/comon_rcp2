@@ -1,4 +1,8 @@
-package au.uq.dke.comon_rcp2.application;
+package au.uq.dke.comon_rcp2.application.views;
+
+import java.awt.Frame;
+
+import javax.swing.JButton;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -6,13 +10,14 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.awt.SWT_AWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-public class View extends ViewPart {
+public class OntologyView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
 
 	private TableViewer viewer;
@@ -60,12 +65,12 @@ public class View extends ViewPart {
 	 * it.
 	 */
 	public void createPartControl(Composite parent) {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
-				| SWT.V_SCROLL);
-		viewer.setContentProvider(new ViewContentProvider());
-		viewer.setLabelProvider(new ViewLabelProvider());
-		// Provide the input to the ContentProvider
-		viewer.setInput(new String[] {"One", "Two", "Three"});
+	    Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
+	    Frame frame = SWT_AWT.new_Frame(composite);
+	    
+	    JButton jbt1 = new JButton();
+	    frame.add(jbt1);
+
 	}
 
 	/**

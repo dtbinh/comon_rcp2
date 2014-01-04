@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2.application;
+package au.uq.dke.comon_rcp2.application.views;
 
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
