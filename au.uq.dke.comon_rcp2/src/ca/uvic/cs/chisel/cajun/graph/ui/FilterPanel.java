@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 import ca.uvic.cs.chisel.cajun.actions.CajunAction;
 import ca.uvic.cs.chisel.cajun.filter.FilterChangedEvent;
 import ca.uvic.cs.chisel.cajun.filter.FilterChangedListener;
-import ca.uvic.cs.chisel.cajun.graph.GraphItemStyle;
+import ca.uvic.cs.chisel.cajun.graph.IGraphItemStyle;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
 import ca.uvic.cs.chisel.cajun.util.GradientPainter;
 import ca.uvic.cs.chisel.cajun.util.ToStringComparator;
@@ -64,9 +64,9 @@ public abstract class FilterPanel extends JPanel implements FilterChangedListene
 
 	private String title;
 	private Icon icon;
-	private GraphItemStyle style;
+	private IGraphItemStyle style;
 
-	public FilterPanel(String title, Icon icon, GraphItemStyle style) {
+	public FilterPanel(String title, Icon icon, IGraphItemStyle style) {
 		super(new BorderLayout());
 		this.title = title;
 		this.icon = icon;
@@ -78,11 +78,11 @@ public abstract class FilterPanel extends JPanel implements FilterChangedListene
 		reload();
 	}
 	
-	public GraphItemStyle getStyle() {
+	public IGraphItemStyle getStyle() {
 		return style;
 	}
 	
-	public void setStyle(GraphItemStyle style) {
+	public void setStyle(IGraphItemStyle style) {
 		this.style = style;
 	}
 

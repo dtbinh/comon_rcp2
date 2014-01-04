@@ -10,16 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ca.uvic.cs.chisel.cajun.graph.Graph;
+import ca.uvic.cs.chisel.cajun.graph.IGraph;
 import ca.uvic.cs.chisel.cajun.graph.GraphItem;
-import ca.uvic.cs.chisel.cajun.graph.GraphModel;
+import ca.uvic.cs.chisel.cajun.graph.IGraphModel;
 import ca.uvic.cs.chisel.cajun.graph.GraphModelAdapter;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class FilterManager {
 
-	private Graph graph;
+	private IGraph graph;
 
 	private List<FilterChangedListener> listeners;
 	private List<GraphFilter> filters;
@@ -29,7 +29,7 @@ public class FilterManager {
 	// maps the arc types to their visibilities
 	private Map<Object, Boolean> arcTypesVisibilityMap;
 
-	public FilterManager(Graph graph) {
+	public FilterManager(IGraph graph) {
 		this.graph = graph;
 		NodeAndArcTypeListener listener = new NodeAndArcTypeListener();
 		// this listens for when a new model is set
@@ -93,14 +93,14 @@ public class FilterManager {
 		return (filters.size() > 0);
 	}
 
-	public void applyFilters(GraphModel model) {
+	public void applyFilters(IGraphModel model) {
 		applyNodeFilters(model);
 		applyArcFilters(model);
 	}
 
-	private void applyNodeFilters(GraphModel model) {
-		Collection<GraphNode> nodes = model.getAllNodes();
-		for (GraphNode node : nodes) {
+	private void applyNodeFilters(IGraphModel model) {
+		Collection<IGraphNode> nodes = model.getAllNodes();
+		for (IGraphNode node : nodes) {
 			//boolean oldVisibility = node.isVisible();
 			boolean newVisibility = true; // visible by default
 			for (GraphFilter filter : filters) {
@@ -120,9 +120,9 @@ public class FilterManager {
 		}
 	}
 
-	private void applyArcFilters(GraphModel model) {
-		Collection<GraphArc> arcs = model.getAllArcs();
-		for (GraphArc arc : arcs) {
+	private void applyArcFilters(IGraphModel model) {
+		Collection<IGraphArc> arcs = model.getAllArcs();
+		for (IGraphArc arc : arcs) {
 			boolean oldVisibility = arc.isVisible();
 			boolean newVisibility = true; // visible by default
 			for (GraphFilter filter : filters) {
@@ -209,7 +209,7 @@ public class FilterManager {
 	}
 
 	protected void updateArcTypes() {
-		GraphModel model = graph.getModel();
+		IGraphModel model = graph.getModel();
 		Collection<Object> newArcTypes = model.getArcTypes();
 		if (newArcTypes.isEmpty()) {
 			arcTypesVisibilityMap.clear();
@@ -231,7 +231,7 @@ public class FilterManager {
 	}
 
 	protected void updateNodeTypes() {
-		GraphModel model = graph.getModel();
+		IGraphModel model = graph.getModel();
 		// ensure that the new node types match the old ones,
 		// preserving the original node type visibilities
 		Collection<Object> newNodeTypes = model.getNodeTypes();
@@ -255,7 +255,7 @@ public class FilterManager {
 	}
 
 	/**
-	 * Listens for {@link Graph} property change events, and for graph model events and updates the
+	 * Listens for {@link IGraph} property change events, and for graph model events and updates the
 	 * node and arc types visibility maps.
 	 * 
 	 * @author Chris
@@ -264,7 +264,7 @@ public class FilterManager {
 	private class NodeAndArcTypeListener extends GraphModelAdapter implements PropertyChangeListener {
 
 		public void propertyChange(PropertyChangeEvent evt) {
-			if (Graph.GRAPH_MODEL_PROPERTY.equals(evt.getPropertyName())) {
+			if (IGraph.GRAPH_MODEL_PROPERTY.equals(evt.getPropertyName())) {
 				updateNodeAndArcTypes();
 			}
 		}

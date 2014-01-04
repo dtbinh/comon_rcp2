@@ -1,14 +1,14 @@
 package ca.uvic.cs.chisel.cajun.graph.handlers;
 
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
 import edu.umd.cs.piccolo.event.PInputEvent;
 import edu.umd.cs.piccolo.event.PInputEventFilter;
 
 /**
- * Highlights {@link GraphNode} and {@link GraphArc} objects on mouse over.
+ * Highlights {@link IGraphNode} and {@link IGraphArc} objects on mouse over.
  * 
  * @author Chris
  * @since  9-Nov-07
@@ -41,11 +41,11 @@ public class HighlightHandler extends PBasicInputEventHandler {
 		if (highlight) {
 			target.moveToFront();
 		}
-		if (target instanceof GraphNode) {
-			GraphNode node = (GraphNode) target;
+		if (target instanceof IGraphNode) {
+			IGraphNode node = (IGraphNode) target;
 			node.setHighlighted(highlight);
-		} else if (target instanceof GraphArc) {
-			GraphArc arc = (GraphArc) target;
+		} else if (target instanceof IGraphArc) {
+			IGraphArc arc = (IGraphArc) target;
 			arc.setHighlighted(highlight);
 		}
 	}

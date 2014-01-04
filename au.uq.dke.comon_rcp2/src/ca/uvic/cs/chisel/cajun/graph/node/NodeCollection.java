@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Holds a list of {@link GraphNode}s.
+ * Holds a list of {@link IGraphNode}s.
  * Handles additions and removals and fires changes to any {@link GraphNodeCollectionListener} listeners.
  *
  * @see GraphNodeCollectionListener
@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class NodeCollection {
 
-	private List<GraphNode> nodes;
+	private List<IGraphNode> nodes;
 	private List<GraphNodeCollectionListener> listeners;
 	
 	public NodeCollection() {
-		nodes = new ArrayList<GraphNode>();
+		nodes = new ArrayList<IGraphNode>();
 		listeners = new ArrayList<GraphNodeCollectionListener>();
 	}
 	
@@ -33,7 +33,7 @@ public class NodeCollection {
 		return listeners.remove(nsl);
 	}
 	
-	protected void fireCollectionChange(Collection<GraphNode> oldNodes, Collection<GraphNode> newNodes) {
+	protected void fireCollectionChange(Collection<IGraphNode> oldNodes, Collection<IGraphNode> newNodes) {
 		List<GraphNodeCollectionListener> nsls = new ArrayList<GraphNodeCollectionListener>(listeners);
 		GraphNodeCollectionEvent evt = new GraphNodeCollectionEvent(this, oldNodes, newNodes);
 		for (GraphNodeCollectionListener nsl : nsls) {
@@ -42,11 +42,11 @@ public class NodeCollection {
 	}
 	
 	/**
-	 * Returns the collection of {@link GraphNode} objects.
+	 * Returns the collection of {@link IGraphNode} objects.
 	 * Modifications will not cause events to be fired.
 	 * @return the collection
 	 */
-	public Collection<GraphNode> getNodes() {
+	public Collection<IGraphNode> getNodes() {
 		return nodes;
 	}
 
@@ -54,7 +54,7 @@ public class NodeCollection {
 	 * Returns the first node in the list or null if empty.
 	 * @return the first node or null if empty
 	 */
-	public GraphNode getFirstNode() {
+	public IGraphNode getFirstNode() {
 		return (nodes.isEmpty() ? null : nodes.get(0));
 	}
 	
@@ -77,7 +77,7 @@ public class NodeCollection {
 	 * @param node the node to check
 	 * @return true of this collection contains the node
 	 */
-	public boolean containsNode(GraphNode node) {
+	public boolean containsNode(IGraphNode node) {
 		return (node != null ? nodes.contains(node) : false);
 	}
 
@@ -88,8 +88,8 @@ public class NodeCollection {
 	 */
 	public void clear() {
 		if (!this.nodes.isEmpty()) {
-			List<GraphNode> oldNodes = this.nodes;
-			nodes = new ArrayList<GraphNode>();
+			List<IGraphNode> oldNodes = this.nodes;
+			nodes = new ArrayList<IGraphNode>();
 			fireCollectionChange(oldNodes, this.nodes);
 		}
 	}
@@ -101,7 +101,7 @@ public class NodeCollection {
 	 * doesn't already contain only this node.
 	 * @param node the node to set as the collection
 	 */
-	public void setNode(GraphNode node) {
+	public void setNode(IGraphNode node) {
 		// no change - still empty
 		if ((node == null) && this.nodes.isEmpty()) {
 			return;
@@ -111,8 +111,8 @@ public class NodeCollection {
 			return;
 		}
 		// change
-		List<GraphNode> oldNodes = this.nodes;
-		nodes = new ArrayList<GraphNode>();
+		List<IGraphNode> oldNodes = this.nodes;
+		nodes = new ArrayList<IGraphNode>();
 		if (node != null) {
 			nodes.add(node);
 		}
@@ -124,12 +124,12 @@ public class NodeCollection {
 	 * Fires a collection change event
 	 * @param nodes the nodes to set, if null then the nodes are cleared
 	 */
-	public void setNodes(Collection<GraphNode> nodes) {
-		List<GraphNode> oldNodes = this.nodes;
+	public void setNodes(Collection<IGraphNode> nodes) {
+		List<IGraphNode> oldNodes = this.nodes;
 		if ((nodes == null) || nodes.isEmpty()) {
-			this.nodes = new ArrayList<GraphNode>();
+			this.nodes = new ArrayList<IGraphNode>();
 		} else {
-			this.nodes = new ArrayList<GraphNode>(nodes);
+			this.nodes = new ArrayList<IGraphNode>(nodes);
 		}
 		fireCollectionChange(oldNodes, this.nodes);
 	}
@@ -140,9 +140,9 @@ public class NodeCollection {
 	 * Fires a collection change event.
 	 * @param node the node to add or remove
 	 */
-	public void addOrRemoveNode(GraphNode node) {
+	public void addOrRemoveNode(IGraphNode node) {
 		if (node != null) {
-			List<GraphNode> oldNodes = this.nodes;
+			List<IGraphNode> oldNodes = this.nodes;
 			if (nodes.contains(node)) {
 				nodes.remove(node);
 			} else {
@@ -159,10 +159,10 @@ public class NodeCollection {
 	 * @param node the node to add
 	 * @return true if the node was added (didn't exist in this in this collection)
 	 */
-	public boolean addNode(GraphNode node) {
+	public boolean addNode(IGraphNode node) {
 		boolean added = false;
 		if (node != null) {
-			List<GraphNode> oldNodes = this.nodes;
+			List<IGraphNode> oldNodes = this.nodes;
 			added = !nodes.remove(node);
 			nodes.add(0, node);
 			if (added) {
@@ -178,10 +178,10 @@ public class NodeCollection {
 	 * @param node the node to remove
 	 * @return true if the node was removed
 	 */
-	public boolean removeNode(GraphNode node) {
+	public boolean removeNode(IGraphNode node) {
 		boolean removed = false;
 		if (node != null) {
-			List<GraphNode> oldNodes = this.nodes;
+			List<IGraphNode> oldNodes = this.nodes;
 			removed = nodes.remove(node);
 			if (removed) {
 				fireCollectionChange(oldNodes, this.nodes);

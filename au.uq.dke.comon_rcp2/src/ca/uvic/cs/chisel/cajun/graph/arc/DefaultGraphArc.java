@@ -21,13 +21,13 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
 import au.uq.dke.comon_rcp2.constant.UIConstants;
 import au.uq.dke.comon_rcp2.ontology.ui.model.arc.label.ArcLabel;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-public class DefaultGraphArc extends PPath implements GraphArc {
+public class DefaultGraphArc extends PPath implements IGraphArc {
 	private static final long serialVersionUID = 1530720146193007435L;
 
 	private static final double CURVE_FACTOR_BASE_OFFSET = 8.0;
@@ -38,15 +38,15 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 
 	private Object graphData;
 
-	private GraphNode src;
-	private GraphNode dest;
+	private IGraphNode src;
+	private IGraphNode dest;
 
 	private Object layoutObject;
 
 	private boolean selected;
 	private boolean highlighted;
 
-	private GraphArcStyle style;
+	private IGraphArcStyle style;
 
 	// private GeneralPath path;
 	private int curveFactor = 0;
@@ -70,7 +70,7 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 	}
 
 
-	public DefaultGraphArc(Object userObject, GraphNode src, GraphNode dest) {
+	public DefaultGraphArc(Object userObject, IGraphNode src, IGraphNode dest) {
 		super();
 
 		this.userObject = userObject;
@@ -99,7 +99,7 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 		this.style = new DefaultGraphArcStyle();
 
 		this.arcLabel = new ArcLabel(this, "label");
-		addChild(arcLabel);
+		//addChild(arcLabel);
 
 		// this.updateArcPath();
 	}
@@ -125,11 +125,11 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 		this.type = (type != null ? type : UNKNOWN_TYPE);
 	}
 
-	public GraphNode getSource() {
+	public IGraphNode getSource() {
 		return src;
 	}
 
-	public GraphNode getDestination() {
+	public IGraphNode getDestination() {
 		return dest;
 	}
 
@@ -149,11 +149,11 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 		this.inverted = inverted;
 	}
 
-	public GraphArcStyle getArcStyle() {
+	public IGraphArcStyle getArcStyle() {
 		return style;
 	}
 
-	public void setArcStyle(GraphArcStyle style) {
+	public void setArcStyle(IGraphArcStyle style) {
 		if ((style != null) && (this.style != style)) {
 			this.style = style;
 			invalidateFullBounds();
@@ -181,8 +181,8 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 
 	@Override
 	public String toString() {
-		GraphNode src = (isInverted() ? getDestination() : getSource());
-		GraphNode dest = (isInverted() ? getSource() : getDestination());
+		IGraphNode src = (isInverted() ? getDestination() : getSource());
+		IGraphNode dest = (isInverted() ? getSource() : getDestination());
 		// return src + " -- " + getType() + " --> " + dest;
 		return "\nSRC: " + src + "\n" + getType() + "\n" + "DST: " + dest
 				+ "\n";
@@ -227,8 +227,8 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 	public void updateArcPath() {
 		reset();
 
-		BasicGraphNode_back srcNode = (BasicGraphNode_back) src;
-		BasicGraphNode_back destNode = (BasicGraphNode_back) dest;
+		DefaultGraphNode srcNode = (DefaultGraphNode) src;
+		DefaultGraphNode destNode = (DefaultGraphNode) dest;
 
 		// invert the arc path which will invert the arrowhead
 		Rectangle2D srcBounds = (isInverted() ? destNode.getBounds() : srcNode
@@ -450,9 +450,9 @@ public class DefaultGraphArc extends PPath implements GraphArc {
 			double lineDy = destY - srcY;
 			this.lineSlope = lineDy / lineDx;
 
-			Rectangle2D srcEllipseFrame = ((BasicGraphNode_back) DefaultGraphArc.this
+			Rectangle2D srcEllipseFrame = ((DefaultGraphNode) DefaultGraphArc.this
 					.getSource()).getEllipse().getFrame();
-			Rectangle2D dstEllipseFrame = ((BasicGraphNode_back) DefaultGraphArc.this
+			Rectangle2D dstEllipseFrame = ((DefaultGraphNode) DefaultGraphArc.this
 					.getDestination()).getEllipse().getFrame();
 			
 			

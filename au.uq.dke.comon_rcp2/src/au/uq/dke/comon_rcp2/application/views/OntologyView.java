@@ -18,6 +18,7 @@ import org.eclipse.ui.part.ViewPart;
 import au.uq.dke.comon_rcp2.ontology.ui.model.ComonGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.model.IGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.view.Graph;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class OntologyView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
@@ -34,10 +35,16 @@ public class OntologyView extends ViewPart {
 	    
 	    //JButton jbt1 = new JButton();
 	    
-	    String userObject = "hi";
+	    String srcObject = "src";
+	    String dstObject = "dst";
+	    
+	    String rel = "rel";
 	    
 	    IGraphModel graphModel = new ComonGraphModel();
-	    graphModel.addNode(userObject);
+	    IGraphNode srcNode = graphModel.addNode(srcObject);
+	    IGraphNode dstNode = graphModel.addNode(dstObject);
+	    graphModel.addArc(rel, srcNode, dstNode);
+	    
 	    Graph graph = new Graph((ComonGraphModel)graphModel);
 	    frame.add(graph);
 	    graph.performLayout();

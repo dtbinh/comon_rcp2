@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolox.util.PFixedWidthStroke;
 
 /**
@@ -161,7 +161,7 @@ public class StyleManager {
 
 	}
 
-	public Stroke getNodeBorderStroke(GraphNode graphNode) {
+	public Stroke getNodeBorderStroke(IGraphNode graphNode) {
 		int level = ((OntologyClass) graphNode.getUserObject()).getLevel();
 		float normalBorderStrokeWidth = this.MAX_BORDER_STROKE_WIDTH / level;
 		float borderStrokeWidth = graphNode.isSelected() ? normalBorderStrokeWidth
@@ -171,7 +171,7 @@ public class StyleManager {
 
 	}
 
-	public Color getNodeBackgroundColor(GraphNode node) {
+	public Color getNodeBackgroundColor(IGraphNode node) {
 
 		Object branchGraphNode = EntryPoint.getGraphModel().getBranchGraphNode(
 				node);
@@ -215,7 +215,7 @@ public class StyleManager {
 		return nodeColor;
 	}
 
-	public Color getNodeBorderColor(GraphNode graphNode) {
+	public Color getNodeBorderColor(IGraphNode graphNode) {
 		Color backgroundColor = getNodeBackgroundColor(graphNode);
 
 		// ColorSpace colorSpace = new ColorSpace(ColorSpace.TYPE_HSV, 3);

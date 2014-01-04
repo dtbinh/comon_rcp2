@@ -25,7 +25,7 @@ public class FlatGraph extends AbstractGraph {
 		this.showNodeTooltips = true;
 	}
 	
-	public FlatGraph(GraphModel model) {
+	public FlatGraph(IGraphModel model) {
 		super(model);
 
 		setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);

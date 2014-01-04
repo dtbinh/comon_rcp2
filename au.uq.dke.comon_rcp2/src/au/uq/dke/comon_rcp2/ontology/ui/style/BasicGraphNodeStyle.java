@@ -20,9 +20,8 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeStyle;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.util.GraphicsUtils;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.util.PFixedWidthStroke;
@@ -35,7 +34,7 @@ import edu.umd.cs.piccolox.util.PFixedWidthStroke;
  * @author Chris
  * @since  08-Nov-07
  */
-public class BasicGraphNodeStyle implements GraphNodeStyle {
+public class BasicGraphNodeStyle implements IGraphNodeStyle {
 	
 	protected static final Color BG = new Color(192, 192, 224);
 	protected static final int SHAPE_ARC = 5;
@@ -198,7 +197,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		}
 	}
 
-	public Shape getNodeShape(GraphNode node, Rectangle2D bounds) {
+	public Shape getNodeShape(IGraphNode node, Rectangle2D bounds) {
 		return new RoundRectangle2D.Double(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight(), SHAPE_ARC, SHAPE_ARC);
 	}
 
@@ -206,7 +205,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 	 * Returns the background paint for the node. If the node's type has a mapped color/paint then
 	 * that is returned, otherwise the default node background paint is returned.
 	 */
-	public Paint getBackgroundPaint(GraphNode node) {
+	public Paint getBackgroundPaint(IGraphNode node) {
 		
 		//TODO: fix it
 		//Paint normalPaint = StyleManager.getStyleManager().getNodeBackgroundColor(node);
@@ -220,7 +219,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		//return getTypePaint(node.getType());
 	}
 
-	public Paint getBorderPaint(GraphNode node) {
+	public Paint getBorderPaint(IGraphNode node) {
 		
 //		Paint normalPaint = StyleManager.getStyleManager().getNodeBorderColor(node);
 
@@ -236,7 +235,7 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		//		return (node.isMatching() ? borderMatchingPaint : (node.isSelected() ? borderSelectionPaint : (node.isHighlighted() ? borderHighlightPaint : borderPaint)));
 	}
 
-	public Stroke getBorderStroke(GraphNode node) {
+	public Stroke getBorderStroke(IGraphNode node) {
 
 		//TODO: fix it
 		//Stroke stroke = StyleManager.getStyleManager().getNodeBorderStroke(node);
@@ -245,11 +244,11 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		//return (node.isSelected() ? borderSelectionStroke : (node.isHighlighted() ? borderHighlightStroke : borderStroke));
 	}
 
-	public Font getFont(GraphNode node) {
+	public Font getFont(IGraphNode node) {
 		return (node.isSelected() ? textSelectionFont : (node.isHighlighted() ? textHighlightFont : textFont));
 	}
 
-	public Paint getTextPaint(GraphNode node) {
+	public Paint getTextPaint(IGraphNode node) {
 		return textPaint;
 	}
 
@@ -265,19 +264,19 @@ public class BasicGraphNodeStyle implements GraphNodeStyle {
 		return tooltipFont;
 	}
 
-	public Collection<Icon> getOverlayIcons(GraphNode graphNode) {
+	public Collection<Icon> getOverlayIcons(IGraphNode graphNode) {
 		return null;
 	}
 
-	public Icon getOverlayIcon(GraphNode graphNode) {
+	public Icon getOverlayIcon(IGraphNode graphNode) {
 		return overlayIcon;
 	}
 
-	public Point2D getOverlayIconPosition(GraphNode graphNode, Icon icon) {
+	public Point2D getOverlayIconPosition(IGraphNode graphNode, Icon icon) {
 		return getOverlayIconPosition(graphNode);
 	}
 
-	public Point2D getOverlayIconPosition(GraphNode graphNode) {
+	public Point2D getOverlayIconPosition(IGraphNode graphNode) {
 		if (overlayIconPosition != null) {
 			return overlayIconPosition;
 		}

@@ -6,20 +6,20 @@ import java.util.Collection;
 import org.eclipse.zest.layouts.LayoutEntity;
 
 import ca.uvic.cs.chisel.cajun.graph.GraphItem;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 
-public interface GraphNode extends GraphItem, LayoutEntity {
+public interface IGraphNode extends GraphItem, LayoutEntity {
 
 	/**
 	 * Returns all the connect nodes. It does this by looking at all the arcs and collecting the
 	 * nodes for each.
 	 */
-	public Collection<GraphNode> getConnectedNodes();
+	public Collection<IGraphNode> getConnectedNodes();
 
 	/**
 	 * Returns all the arcs that have this node as a source or destination.
 	 */
-	public Collection<GraphArc> getArcs();
+	public Collection<IGraphArc> getArcs();
 
 	/**
 	 * Returns the incoming and/or outgoing arcs attached to this node. If both incoming and
@@ -30,11 +30,11 @@ public interface GraphNode extends GraphItem, LayoutEntity {
 	 * @param outgoing if true then outgoing arcs will be returned
 	 * @return the matching arcs
 	 */
-	public Collection<GraphArc> getArcs(boolean incoming, boolean outgoing);
+	public Collection<IGraphArc> getArcs(boolean incoming, boolean outgoing);
 
-	public GraphNodeStyle getNodeStyle();
+	public IGraphNodeStyle getNodeStyle();
 
-	public void setNodeStyle(GraphNodeStyle style);
+	public void setNodeStyle(IGraphNodeStyle style);
 
 	public String getText();
 	public void setText(String text);
@@ -45,8 +45,8 @@ public interface GraphNode extends GraphItem, LayoutEntity {
 	public boolean setSize(double w, double h);
 
 	// these methods are used by the GraphModel
-	void addArc(GraphArc arc);
-	void removeArc(GraphArc arc);
+	void addArc(IGraphArc arc);
+	void removeArc(IGraphArc arc);
 
 	// used with searching
 	boolean isMatching();

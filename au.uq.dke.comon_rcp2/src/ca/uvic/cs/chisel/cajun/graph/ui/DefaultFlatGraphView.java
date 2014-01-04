@@ -31,7 +31,7 @@ import ca.uvic.cs.chisel.cajun.actions.ZoomInAction;
 import ca.uvic.cs.chisel.cajun.actions.ZoomOutAction;
 import ca.uvic.cs.chisel.cajun.filter.FilterManager;
 import ca.uvic.cs.chisel.cajun.graph.FlatGraph;
-import ca.uvic.cs.chisel.cajun.graph.Graph;
+import ca.uvic.cs.chisel.cajun.graph.IGraph;
 import ca.uvic.cs.chisel.cajun.graph.GraphModelAdapter;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
 import edu.umd.cs.piccolox.swing.PScrollPane;
@@ -131,7 +131,7 @@ public class DefaultFlatGraphView extends JPanel {
 	}
 
 	/**
-	 * Returns the main panel - this contains the {@link Graph} in the center position of the panel
+	 * Returns the main panel - this contains the {@link IGraph} in the center position of the panel
 	 * which is using a {@link BorderLayout}.
 	 * 
 	 * @return JPanel
@@ -214,7 +214,7 @@ public class DefaultFlatGraphView extends JPanel {
 			};
 			graph.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent evt) {
-					if (Graph.GRAPH_NODE_STYLE_PROPERTY.equals(evt.getPropertyName())) {
+					if (IGraph.GRAPH_NODE_STYLE_PROPERTY.equals(evt.getPropertyName())) {
 						nodeFilterPanel.setStyle(graph.getGraphNodeStyle());
 					}
 				}
@@ -248,7 +248,7 @@ public class DefaultFlatGraphView extends JPanel {
 			};
 			graph.addPropertyChangeListener(new PropertyChangeListener() {
 				public void propertyChange(PropertyChangeEvent evt) {
-					if (Graph.GRAPH_ARC_STYLE_PROPERTY.equals(evt.getPropertyName())) {
+					if (IGraph.GRAPH_ARC_STYLE_PROPERTY.equals(evt.getPropertyName())) {
 						arcFilterPanel.setStyle(graph.getGraphArcStyle());
 					}
 				}

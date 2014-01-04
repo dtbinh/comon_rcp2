@@ -11,10 +11,10 @@ import java.util.Collection;
 public class GraphNodeCollectionEvent {
 
 	private NodeCollection nodeCollection;
-	private Collection<GraphNode> newNodes;
-	private Collection<GraphNode> oldNodes;
+	private Collection<IGraphNode> newNodes;
+	private Collection<IGraphNode> oldNodes;
 	
-	public GraphNodeCollectionEvent(NodeCollection nodeCollection, Collection<GraphNode> oldNodes, Collection<GraphNode> newNodes) {
+	public GraphNodeCollectionEvent(NodeCollection nodeCollection, Collection<IGraphNode> oldNodes, Collection<IGraphNode> newNodes) {
 		this.nodeCollection = nodeCollection;
 		this.oldNodes = oldNodes;
 		this.newNodes = newNodes;
@@ -24,11 +24,11 @@ public class GraphNodeCollectionEvent {
 		return nodeCollection;
 	}
 	
-	public Collection<GraphNode> getNewNodes() {
+	public Collection<IGraphNode> getNewNodes() {
 		return newNodes;
 	}
 	
-	public Collection<GraphNode> getOldNodes() {
+	public Collection<IGraphNode> getOldNodes() {
 		return oldNodes;
 	}
 

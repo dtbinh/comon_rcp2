@@ -11,13 +11,13 @@ import java.util.Map;
 
 import javax.swing.Icon;
 
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArcStyle;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
 import ca.uvic.cs.chisel.cajun.util.GraphicsUtils;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolox.util.PFixedWidthStroke;
 
-public class BasicGraphArcStyle implements GraphArcStyle {
+public class BasicGraphArcStyle implements IGraphArcStyle {
 
 	private static final float THICK_STROKE_WIDTH = 5f;
 	private static final float MEDIUM_STROKE_WIDTH = 3f;
@@ -178,11 +178,11 @@ public class BasicGraphArcStyle implements GraphArcStyle {
 	 *            the arc whose paint/color will be returned
 	 * @return the paint or color for the arc
 	 */
-	public Paint getPaint(GraphArc arc) {
+	public Paint getPaint(IGraphArc arc) {
 		return getTypePaint(arc.getType());
 	}
 
-	public Stroke getStroke(GraphArc arc) {
+	public Stroke getStroke(IGraphArc arc) {
 //		float width = (arc.isSelected() && arc.isHighlighted() ? THICK_STROKE_WIDTH
 //				: (arc.isHighlighted() || arc.isSelected() ? MEDIUM_STROKE_WIDTH
 //						: THIN_STROKE_WIDTH));

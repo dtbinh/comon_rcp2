@@ -6,21 +6,20 @@ import au.uq.dke.comon_rcp2.ontology.ui.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.DefaultGraphModel;
 import ca.uvic.cs.chisel.cajun.graph.GraphModelListener;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 
 public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 
 	@Override
-	public GraphArc addArc(Object userObject, GraphNode src, GraphNode dest) {
-		return super.addArc(userObject, src, dest, null);
+	public IGraphArc addArc(Object userObject, IGraphNode src, IGraphNode dest) {
+		return super.addArc(userObject, src, dest);
 	}
 
 
-
 	@Override
-	public GraphNode addNode(Object userObject) {
+	public IGraphNode addNode(Object userObject) {
 		return super.addNode(userObject);
 	}
 
@@ -41,47 +40,47 @@ public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 	}
 
 	@Override
-	public GraphNode getNode(Object userObject) {
+	public IGraphNode getNode(Object userObject) {
 		return super.getNode(userObject);
 	}
 
 	@Override
-	public boolean containsNode(GraphNode node) {
+	public boolean containsNode(IGraphNode node) {
 		return super.containsNode(node);
 	}
 
 	@Override
-	public GraphArc getArc(Object userObject) {
+	public IGraphArc getArc(Object userObject) {
 		return super.getArc(userObject);
 	}
 
 	@Override
-	public boolean containsArc(GraphArc arc) {
+	public boolean containsArc(IGraphArc arc) {
 		return super.containsArc(arc);
 	}
 
 	@Override
-	public Collection<GraphNode> getConnectedNodes(Object nodeUserObject) {
+	public Collection<IGraphNode> getConnectedNodes(Object nodeUserObject) {
 		return super.getConnectedNodes(nodeUserObject);
 	}
 
 	@Override
-	public GraphNode getSourceNode(Object arcUserObject) {
+	public IGraphNode getSourceNode(Object arcUserObject) {
 		return super.getSourceNode(arcUserObject);
 	}
 
 	@Override
-	public GraphNode getDestinationNode(Object arcUserObject) {
+	public IGraphNode getDestinationNode(Object arcUserObject) {
 		return super.getDestinationNode(arcUserObject);
 	}
 
 	@Override
-	public Collection<GraphNode> getVisibleNodes() {
+	public Collection<IGraphNode> getVisibleNodes() {
 		return super.getVisibleNodes();
 	}
 
 	@Override
-	public Collection<GraphArc> getVisibleArcs() {
+	public Collection<IGraphArc> getVisibleArcs() {
 		return super.getVisibleArcs();
 	}
 
@@ -101,18 +100,18 @@ public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 	}
 
 	@Override
-	public void arrangeArcs(GraphNode src, GraphNode dest) {
+	public void arrangeArcs(IGraphNode src, IGraphNode dest) {
 		super.arrangeArcs(src, dest);
 	}
 
 	@Override
-	public Collection<GraphNode> getAllNodes() {
+	public Collection<IGraphNode> getAllNodes() {
 		return super.getAllNodes();
 	}
 
 
 	@Override
-	public Collection<GraphArc> getAllArcs() {
+	public Collection<IGraphArc> getAllArcs() {
 		return super.getAllArcs();
 	}
 
@@ -120,7 +119,7 @@ public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 
 	@Override
 	public boolean containsNode(Object userObject) {
-		GraphNode graphNode = new BasicGraphNode(userObject);
+		IGraphNode graphNode = new BasicGraphNode(userObject);
 		return super.containsNode(graphNode);
 	}
 
@@ -128,7 +127,7 @@ public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 
 	@Override
 	public boolean containsArc(Object userObject) {
-		GraphArc graphArc = new BasicGraphArc(userObject, null, null);
+		IGraphArc graphArc = new BasicGraphArc(userObject, null, null);
 		return super.containsArc(graphArc);
 	}
 

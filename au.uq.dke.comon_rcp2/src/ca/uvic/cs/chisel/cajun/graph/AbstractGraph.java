@@ -32,15 +32,15 @@ import ca.uvic.cs.chisel.cajun.filter.FilterChangedEvent;
 import ca.uvic.cs.chisel.cajun.filter.FilterChangedListener;
 import ca.uvic.cs.chisel.cajun.filter.FilterManager;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArcStyle;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArcStyle;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
 import ca.uvic.cs.chisel.cajun.graph.handlers.GraphPopupListener;
 import ca.uvic.cs.chisel.cajun.graph.handlers.KeyHandlerDelegate;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNodeStyle;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionEvent;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeStyle;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.graph.node.NodeCollection;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
 import ca.uvic.cs.chisel.cajun.util.CustomToolTip;
@@ -50,7 +50,7 @@ import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PInputEventListener;
 
-public abstract class AbstractGraph extends PCanvas implements Graph {
+public abstract class AbstractGraph extends PCanvas implements IGraph {
 	private static final long serialVersionUID = -2767059869604101888L;
 
 	public static final int ARC_LAYER_INDEX = 0;
@@ -59,14 +59,14 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 	private static final Border FOCUS_LOST_BORDER = BorderFactory.createEmptyBorder(3, 3, 3, 3);
 	private static final Border FOCUS_GAINED_BORDER = BorderFactory.createLineBorder(Color.GREEN.darker(), 3);
 
-	protected GraphModel model;
+	protected IGraphModel model;
 	protected FilterManager filterManager;
 
 	private NodeCollection selectedNodes;
 	private NodeCollection matchingNodes;
 
-	private GraphNodeStyle nodeStyle;
-	private GraphArcStyle arcStyle;
+	private IGraphNodeStyle nodeStyle;
+	private IGraphArcStyle arcStyle;
 
 	private Color ttTextColor = Color.black;
 	private Color ttBackground = Color.white;
@@ -86,26 +86,26 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		public void graphCleared() {
 			clear();
 		}
-		public void graphNodeAdded(GraphNode node) {
+		public void graphNodeAdded(IGraphNode node) {
 			addGraphNode(node);
 		}
-		public void graphNodeRemoved(GraphNode node) {
+		public void graphNodeRemoved(IGraphNode node) {
 			removeGraphNode(node);
 		}
-		public void graphArcAdded(GraphArc arc) {
+		public void graphArcAdded(IGraphArc arc) {
 			addGraphArc(arc);
 		}
-		public void graphArcRemoved(GraphArc arc) {
+		public void graphArcRemoved(IGraphArc arc) {
 			removeGraphArc(arc);
 		}
 	};
 
 	private GraphNodeCollectionListener selectionListener = new GraphNodeCollectionListener() {
 		public void collectionChanged(GraphNodeCollectionEvent evt) {
-			for (GraphNode node : evt.getOldNodes()) {
+			for (IGraphNode node : evt.getOldNodes()) {
 				node.setSelected(false);
 			}
-			for (GraphNode node : evt.getNewNodes()) {
+			for (IGraphNode node : evt.getNewNodes()) {
 				node.setSelected(true);
 			}
 		}
@@ -114,10 +114,10 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 	private GraphNodeCollectionListener matchingListener = new GraphNodeCollectionListener() {
 		public void collectionChanged(GraphNodeCollectionEvent evt) {
 			// update the selected nodes
-			for (GraphNode node : evt.getOldNodes()) {
+			for (IGraphNode node : evt.getOldNodes()) {
 				node.setMatching(false);
 			}
-			for (GraphNode node : evt.getNewNodes()) {
+			for (IGraphNode node : evt.getNewNodes()) {
 				node.setMatching(true);
 			}
 		}
@@ -141,7 +141,7 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		}
 	};
 
-	public AbstractGraph(GraphModel model) {
+	public AbstractGraph(IGraphModel model) {
 		this();
 
 		// do this last after the layers and listeners have be created
@@ -298,15 +298,15 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		selectedNodes.clear();
 	}
 
-	public Collection<GraphNode> getSelectedNodes() {
+	public Collection<IGraphNode> getSelectedNodes() {
 		return selectedNodes.getNodes();
 	}
 
-	public GraphNode getFirstSelectedNode() {
+	public IGraphNode getFirstSelectedNode() {
 		return (selectedNodes.isEmpty() ? null : selectedNodes.getFirstNode());
 	}
 
-	public void setSelectedNodes(Collection<GraphNode> nodes) {
+	public void setSelectedNodes(Collection<IGraphNode> nodes) {
 		selectedNodes.setNodes(nodes);
 	}
 
@@ -314,20 +314,20 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		return selectedNodes;
 	}
 
-	public Collection<GraphNode> getMatchingNodes() {
+	public Collection<IGraphNode> getMatchingNodes() {
 		return matchingNodes.getNodes();
 	}
 
-	public void setMatchingNodes(Collection<GraphNode> nodes) {
+	public void setMatchingNodes(Collection<IGraphNode> nodes) {
 		matchingNodes.setNodes(nodes);
 	}
 
-	public GraphModel getModel() {
+	public IGraphModel getModel() {
 		return model;
 	}
 
-	public void setModel(GraphModel model) {
-		GraphModel oldModel = this.model;
+	public void setModel(IGraphModel model) {
+		IGraphModel oldModel = this.model;
 		oldModel.removeGraphModelListener(modelListener);
 
 		// now remove any of "our" graph model listeners
@@ -353,14 +353,14 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		firePropertyChange(GRAPH_MODEL_PROPERTY, oldModel, this.model);
 	}
 
-	public void setGraphArcStyle(GraphArcStyle style) {
+	public void setGraphArcStyle(IGraphArcStyle style) {
 		if ((style != null) && (this.arcStyle != style)) {
-			GraphArcStyle oldStyle = this.arcStyle;
+			IGraphArcStyle oldStyle = this.arcStyle;
 			this.arcStyle = style;
 
 			// now update the styles on all arcs
-			Collection<GraphArc> arcs = model.getAllArcs();
-			for (GraphArc arc : arcs) {
+			Collection<IGraphArc> arcs = model.getAllArcs();
+			for (IGraphArc arc : arcs) {
 				arc.setArcStyle(this.arcStyle);
 			}
 
@@ -368,18 +368,18 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		}
 	}
 
-	public GraphArcStyle getGraphArcStyle() {
+	public IGraphArcStyle getGraphArcStyle() {
 		return arcStyle;
 	}
 
-	public void setGraphNodeStyle(GraphNodeStyle style) {
+	public void setGraphNodeStyle(IGraphNodeStyle style) {
 		if ((style != null) && (this.nodeStyle != style)) {
-			GraphNodeStyle oldStyle = this.nodeStyle;
+			IGraphNodeStyle oldStyle = this.nodeStyle;
 			this.nodeStyle = style;
 
 			// now update the styles on all nodes
-			Collection<GraphNode> nodes = model.getAllNodes();
-			for (GraphNode node : nodes) {
+			Collection<IGraphNode> nodes = model.getAllNodes();
+			for (IGraphNode node : nodes) {
 				node.setNodeStyle(this.nodeStyle);
 			}
 
@@ -387,7 +387,7 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		}
 	}
 
-	public GraphNodeStyle getGraphNodeStyle() {
+	public IGraphNodeStyle getGraphNodeStyle() {
 		return nodeStyle;
 	}
 
@@ -400,7 +400,7 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		addGraphItems(model.getAllNodes(), model.getAllArcs());
 	}
 
-	protected void addGraphArc(GraphArc arc) {
+	protected void addGraphArc(IGraphArc arc) {
 		// copy the default arc style into the arc
 		if ((getGraphArcStyle() != null) && !getGraphArcStyle().equals(arc.getArcStyle())) {
 			arc.setArcStyle(getGraphArcStyle());
@@ -414,7 +414,7 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		}
 	}
 
-	protected void addGraphNode(GraphNode node) {
+	protected void addGraphNode(IGraphNode node) {
 		// copy the default node style into the node
 		if ((getGraphNodeStyle() != null) && !getGraphNodeStyle().equals(node.getNodeStyle())) {
 			node.setNodeStyle(getGraphNodeStyle());
@@ -426,32 +426,32 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		}
 	}
 
-	protected void removeGraphNode(GraphNode node) {
+	protected void removeGraphNode(IGraphNode node) {
 		if (node instanceof PNode) {
 			removeNode((PNode) node);
 		}
 	}
 
-	protected void removeGraphArc(GraphArc arc) {
+	protected void removeGraphArc(IGraphArc arc) {
 		if (arc instanceof PNode) {
 			removeArc((PNode) arc);
 		}
 	}
 
-	protected void addGraphItems(Collection<GraphNode> nodesToAdd, Collection<GraphArc> arcsToAdd) {
-		for (GraphNode node : nodesToAdd) {
+	protected void addGraphItems(Collection<IGraphNode> nodesToAdd, Collection<IGraphArc> arcsToAdd) {
+		for (IGraphNode node : nodesToAdd) {
 			addGraphNode(node);
 		}
-		for (GraphArc arc : arcsToAdd) {
+		for (IGraphArc arc : arcsToAdd) {
 			addGraphArc(arc);
 		}
 	}
 
-	protected void removeGraphItems(Collection<GraphNode> nodesToRemove, Collection<GraphArc> arcsToRemove) {
-		for (GraphNode node : nodesToRemove) {
+	protected void removeGraphItems(Collection<IGraphNode> nodesToRemove, Collection<IGraphArc> arcsToRemove) {
+		for (IGraphNode node : nodesToRemove) {
 			removeGraphNode(node);
 		}
-		for (GraphArc arc : arcsToRemove) {
+		for (IGraphArc arc : arcsToRemove) {
 			removeGraphArc(arc);
 		}
 	}
@@ -525,14 +525,14 @@ public abstract class AbstractGraph extends PCanvas implements Graph {
 		if (e != null) {
 			PNode pnode = getCamera().pick(e.getX(), e.getY(), 1).getPickedNode();
 			if (pnode.getVisible()) {
-				if (pnode instanceof GraphNode && isShowNodeTooltips()) {
-					GraphNode node = (GraphNode) pnode;
+				if (pnode instanceof IGraphNode && isShowNodeTooltips()) {
+					IGraphNode node = (IGraphNode) pnode;
 					tooltipText = node.getTooltip();
 					ttBackground = node.getNodeStyle().getTooltipBackgroundColor();
 					ttTextColor = node.getNodeStyle().getTooltipTextColor();
 					ttFont = node.getNodeStyle().getTooltipFont();
-				} else if (pnode instanceof GraphArc) {
-					GraphArc arc = (GraphArc) pnode;
+				} else if (pnode instanceof IGraphArc) {
+					IGraphArc arc = (IGraphArc) pnode;
 					tooltipText = arc.getTooltip();
 					if (tooltipText == null || tooltipText.equals("")) {
 						tooltipText = arc.getSource().getText() + " ---" + arc.getType() + "---> " + arc.getDestination().getText();

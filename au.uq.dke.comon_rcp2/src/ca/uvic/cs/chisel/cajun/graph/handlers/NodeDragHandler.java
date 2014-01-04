@@ -1,13 +1,13 @@
 package ca.uvic.cs.chisel.cajun.graph.handlers;
 
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PDragEventHandler;
 import edu.umd.cs.piccolo.event.PInputEvent;
 import edu.umd.cs.piccolo.util.PDimension;
 
 /**
- * Handles dragging {@link GraphNode}s around the canvas.
+ * Handles dragging {@link IGraphNode}s around the canvas.
  * 
  * @author Chris
  * @since  9-Nov-07
@@ -35,9 +35,9 @@ public class NodeDragHandler extends PDragEventHandler {
 	protected void drag(PInputEvent e) {
 		//super.drag(e);
 		PNode pnode = getDraggedNode();
-		if (pnode instanceof GraphNode) {
+		if (pnode instanceof IGraphNode) {
 			// MOVE node
-			GraphNode graphNode = (GraphNode) pnode;
+			IGraphNode graphNode = (IGraphNode) pnode;
 			PDimension d = e.getDeltaRelativeTo(pnode);
 			pnode.localToParent(d);
 			double dx = d.getWidth();

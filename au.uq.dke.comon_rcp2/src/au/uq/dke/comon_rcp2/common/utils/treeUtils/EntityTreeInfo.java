@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import uk.ac.manchester.cs.bhig.util.Tree;
 
 public class EntityTreeInfo {
@@ -30,7 +30,7 @@ public class EntityTreeInfo {
 	 */
 	private int level = 0;
 	
-	private GraphNode graphNode;
+	private IGraphNode graphNode;
 	
 	public OWLEntity getOwlEntity() {
 		return owlEntity;
@@ -62,10 +62,10 @@ public class EntityTreeInfo {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public GraphNode getGraphNode() {
+	public IGraphNode getGraphNode() {
 		return graphNode;
 	}
-	public void setGraphNode(GraphNode graphNode) {
+	public void setGraphNode(IGraphNode graphNode) {
 		this.graphNode = graphNode;
 	}
 	public EntityTreeInfo(OWLEntity owlEntity, Tree treeNode, OWLEntity branchObject, int level, int siblingNumber){

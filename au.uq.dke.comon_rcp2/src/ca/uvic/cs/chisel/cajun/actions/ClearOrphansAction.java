@@ -1,10 +1,10 @@
 package ca.uvic.cs.chisel.cajun.actions;
 
 import ca.uvic.cs.chisel.cajun.graph.DefaultGraphModel;
-import ca.uvic.cs.chisel.cajun.graph.Graph;
-import ca.uvic.cs.chisel.cajun.graph.GraphModel;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.IGraph;
+import ca.uvic.cs.chisel.cajun.graph.IGraphModel;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
 
 public class ClearOrphansAction extends CajunAction {
@@ -13,9 +13,9 @@ public class ClearOrphansAction extends CajunAction {
 	private static final String ACTION_NAME = "Remove Orphan Nodes";
 	
 	private DefaultGraphModel model;
-	private Graph graph;
+	private IGraph graph;
 	
-	public ClearOrphansAction(GraphModel model, Graph graph) {
+	public ClearOrphansAction(IGraphModel model, IGraph graph) {
 		super(ACTION_NAME, ResourceHandler.getIcon("chart_line_delete.png"));
 		this.model = (DefaultGraphModel)model;
 		this.graph = graph;
@@ -25,17 +25,17 @@ public class ClearOrphansAction extends CajunAction {
 	public void doAction() {
 		boolean graphChanged = false;
 		
-		GraphNode nodes[] = model.getAllNodes().toArray(new GraphNode[model.getAllNodes().size()]);
+		IGraphNode nodes[] = model.getAllNodes().toArray(new IGraphNode[model.getAllNodes().size()]);
 		
 		// goes through all nodes and hides any that have no arcs or have no visible arcs
-		for(GraphNode node : nodes) {
+		for(IGraphNode node : nodes) {
 			if(node.getArcs().size() == 0) {
 				graphChanged = true;
 				model.removeNode(node.getUserObject());
 			}
 			else {
 				boolean found = false;
-				for(GraphArc arc : node.getArcs()) {
+				for(IGraphArc arc : node.getArcs()) {
 					if(arc.isVisible()) {
 						found = true;
 					}

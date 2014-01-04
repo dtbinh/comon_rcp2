@@ -8,8 +8,8 @@ import java.awt.Component;
 
 import javax.swing.JPopupMenu;
 
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
@@ -82,9 +82,9 @@ public class GraphPopupListener extends PBasicInputEventHandler {
 	protected boolean beforeShowPopup(PInputEvent e) {
 		boolean show = true;
 		PNode node = e.getPickedNode();
-		if (node instanceof GraphNode) {
+		if (node instanceof IGraphNode) {
 			popup = nodeMenu;
-		} else if (node instanceof GraphArc) {
+		} else if (node instanceof IGraphArc) {
 			popup = arcMenu;
 		} else if (node instanceof PCamera) {
 			popup = canvasMenu;

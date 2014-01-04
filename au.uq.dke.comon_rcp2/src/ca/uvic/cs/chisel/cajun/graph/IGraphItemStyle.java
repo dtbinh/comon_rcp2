@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import javax.swing.Icon;
 
-public interface GraphItemStyle {
+public interface IGraphItemStyle {
 
 	/**
 	 * Sets the node/arc types - this maps a color/gradient to each type.

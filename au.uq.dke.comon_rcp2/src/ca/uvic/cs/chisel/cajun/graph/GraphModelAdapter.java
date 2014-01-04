@@ -1,23 +1,23 @@
 package ca.uvic.cs.chisel.cajun.graph;
 
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class GraphModelAdapter implements GraphModelListener {
 	
 	public void graphCleared() {
 	}
 	
-	public void graphArcAdded(GraphArc arc) {
+	public void graphArcAdded(IGraphArc arc) {
 	}
 
-	public void graphArcRemoved(GraphArc arc) {
+	public void graphArcRemoved(IGraphArc arc) {
 	}
 
-	public void graphNodeAdded(GraphNode node) {
+	public void graphNodeAdded(IGraphNode node) {
 	}
 
-	public void graphNodeRemoved(GraphNode node) {
+	public void graphNodeRemoved(IGraphNode node) {
 	}
 
 	public void graphNodeTypeAdded(Object nodeType) {

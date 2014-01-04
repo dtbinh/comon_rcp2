@@ -4,8 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Paint;
 
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
@@ -14,10 +13,10 @@ public class GraphTextNode extends PText {
 
 	private boolean ignoreInvalidatePaint = false;
 
-	private GraphNode graphNode;
+	private IGraphNode graphNode;
 
 	
-	public GraphTextNode(GraphNode graphNode){
+	public GraphTextNode(IGraphNode graphNode){
 		this.graphNode = graphNode;
 	}
 

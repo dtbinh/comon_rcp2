@@ -13,11 +13,11 @@ import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.progress.ProgressListener;
 
 import ca.uvic.cs.chisel.cajun.graph.AbstractGraph;
-import ca.uvic.cs.chisel.cajun.graph.Graph;
+import ca.uvic.cs.chisel.cajun.graph.IGraph;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.util.ActivityManager;
 import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.PNode;
@@ -32,7 +32,7 @@ public class LayoutAction extends CajunAction {
 	private static final double DELTA = 0.01;
 
 	private LayoutAlgorithm layout;
-	private Graph graph;
+	private IGraph graph;
 	private boolean animate;
 	private int maxNodesToAnimate = MAX_NODES_TO_ANIMATE;
 	private boolean resizeNodes;
@@ -42,11 +42,11 @@ public class LayoutAction extends CajunAction {
 	/** list of relationship types that the layout should be applied to */
 	private List<Object> layoutRelTypes;
 	
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, Graph graph) {
+	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph) {
 		this(name, icon, layout, graph, true);
 	}
 
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, Graph graph, boolean animate) {
+	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph, boolean animate) {
 		super(name, icon);
 		this.layout = layout;
 		this.graph = graph;
@@ -81,18 +81,18 @@ public class LayoutAction extends CajunAction {
 	
 	public void runLayout() {
 		// run the layout only on the visible nodes?  Or all nodes?
-		Collection<GraphNode> nodes = graph.getModel().getVisibleNodes();
-		Collection<GraphArc> arcs = graph.getModel().getVisibleArcs();
+		Collection<IGraphNode> nodes = graph.getModel().getVisibleNodes();
+		Collection<IGraphArc> arcs = graph.getModel().getVisibleArcs();
 		DefaultGraphNode[] entities = nodes.toArray(new DefaultGraphNode[nodes.size()]);
 		
-		Collection<GraphArc> filteredArcs;
+		Collection<IGraphArc> filteredArcs;
 		if (layoutRelTypes.isEmpty()) {
 			// no arcs in the list - so assume all arcs should be used in the layout
 			filteredArcs = arcs;
 		} else {
 			// remove arcs that have been filtered
-			filteredArcs = new ArrayList<GraphArc>();
-			for (GraphArc arc : arcs) {
+			filteredArcs = new ArrayList<IGraphArc>();
+			for (IGraphArc arc : arcs) {
 				if (layoutRelTypes.contains(arc.getType())) {
 					filteredArcs.add(arc);
 				}
@@ -127,7 +127,7 @@ public class LayoutAction extends CajunAction {
 			//PActivityScheduler scheduler = canvas.getRoot().getActivityScheduler();
 			ArrayList<PActivity> activities = new ArrayList<PActivity>(nodes.size());
 			
-			for (GraphNode node : nodes) {
+			for (IGraphNode node : nodes) {
 				if(!node.isFixedLocation()) {
 					if (animate) {
 						AffineTransform transform = createTransform(node);
@@ -164,7 +164,7 @@ public class LayoutAction extends CajunAction {
 		}
 	}
 
-	protected AffineTransform createTransform(GraphNode node) {
+	protected AffineTransform createTransform(IGraphNode node) {
 		Rectangle2D bounds = node.getBounds();
 		double oldW = bounds.getWidth();
 		double oldH = bounds.getHeight();
@@ -199,7 +199,7 @@ public class LayoutAction extends CajunAction {
 	 * See ca.uvic.csr.shrimp.DisplayBean.AbstractDisplayBean#
 	 * setTransformsOfNodesWithAnimation(java.util.List, java.util.List)
 	 */
-	protected PActivity createActivity(final GraphNode node, AffineTransform transform) {
+	protected PActivity createActivity(final IGraphNode node, AffineTransform transform) {
 		Rectangle2D bounds = node.getBounds();
 		final double startX = bounds.getX();
 		final double startY = bounds.getY();

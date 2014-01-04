@@ -5,33 +5,33 @@ import javax.swing.Icon;
 import org.eclipse.zest.layouts.LayoutRelationship;
 
 import ca.uvic.cs.chisel.cajun.graph.GraphItem;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
-public interface GraphArc extends GraphItem, LayoutRelationship {
+public interface IGraphArc extends GraphItem, LayoutRelationship {
 
 	/**
 	 * Returns the source node for this arc.
 	 * @return the source node
 	 */
-	public GraphNode getSource();
+	public IGraphNode getSource();
 	
 	/**
 	 * Returns the destination node for this arc.
 	 * @return the destination node
 	 */
-	public GraphNode getDestination();
+	public IGraphNode getDestination();
 	
 	/**
 	 * Returns the style of this arc (the color, stroke etc).
 	 * @return the style
 	 */
-	public GraphArcStyle getArcStyle();
+	public IGraphArcStyle getArcStyle();
 
 	/**
 	 * Sets the style for this arc (color, stroke etc).
 	 * @param style the style to set
 	 */
-	public void setArcStyle(GraphArcStyle style);
+	public void setArcStyle(IGraphArcStyle style);
 	
 	/**
 	 * Calculates the arc path based on the locations of the source and and destination nodes.

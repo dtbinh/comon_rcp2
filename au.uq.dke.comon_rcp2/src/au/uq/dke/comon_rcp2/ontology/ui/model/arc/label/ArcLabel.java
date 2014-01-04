@@ -7,7 +7,7 @@ import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
 import au.uq.dke.comon_rcp2.ontology.ui.style.StyleManager;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
@@ -16,7 +16,7 @@ public class ArcLabel extends PText {
 	
 	private boolean ignoreInvalidatePaint = false;
 
-	public ArcLabel(GraphArc graphArc, String text) {
+	public ArcLabel(IGraphArc graphArc, String text) {
 		super();
 
 		setText(text);

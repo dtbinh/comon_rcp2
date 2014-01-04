@@ -13,8 +13,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class TreeInfoManager {
         
@@ -73,14 +73,14 @@ public class TreeInfoManager {
         @SuppressWarnings({ "rawtypes", "unchecked" })
         public void generateTreeInfo(Collection nodes){
                 
-                List<GraphNode> localNodeList = new ArrayList();
+                List<IGraphNode> localNodeList = new ArrayList();
                 localNodeList.addAll(nodes);
                 
                 //莽锟�鸥忙藛锟矫ぢ糕偓盲赂陋treeList
                 List<MutableTree> treeNodeList = new ArrayList();
                 
                 
-                for(GraphNode node: localNodeList){
+                for(IGraphNode node: localNodeList){
                         treeNodeList.add(new MutableTree(node));
                 }
                 
@@ -92,7 +92,7 @@ public class TreeInfoManager {
                                 BasicGraphNode_back iNode = (BasicGraphNode_back) treeNodeList.get(i).getUserObject();
                                 BasicGraphNode_back jNode = (BasicGraphNode_back) treeNodeList.get(j).getUserObject();
                                 
-                                for(GraphArc arc: jNode.getArcs()){
+                                for(IGraphArc arc: jNode.getArcs()){
                                 	if(!arc.getType().equals("has subclass")){
                                 		continue;
                                 	}
@@ -132,8 +132,8 @@ public class TreeInfoManager {
                         
                         branchNodes = rootList.get(0).getChildren();
                         //branchNodes.add(rootList.get(0));//only one root, the root have to have color
-                        OWLEntity entity = (OWLEntity)(((GraphNode) (rootList.get(0).getUserObject())).getUserObject());
-                        EntityTreeInfo entityTreeInfo = new EntityTreeInfo(entity, rootList.get(0), (OWLEntity)((GraphNode) rootList.get(0).getUserObject()).getUserObject(), 1, -1);
+                        OWLEntity entity = (OWLEntity)(((IGraphNode) (rootList.get(0).getUserObject())).getUserObject());
+                        EntityTreeInfo entityTreeInfo = new EntityTreeInfo(entity, rootList.get(0), (OWLEntity)((IGraphNode) rootList.get(0).getUserObject()).getUserObject(), 1, -1);
                         entityTreeInfoMap.put(entity, entityTreeInfo);
 
                 }
@@ -152,7 +152,7 @@ public class TreeInfoManager {
                
                 for(MutableTree t: treeNodeList){
                         
-                        OWLEntity entity = (OWLEntity)(((GraphNode) (t.getUserObject())).getUserObject());
+                        OWLEntity entity = (OWLEntity)(((IGraphNode) (t.getUserObject())).getUserObject());
                         int level = -1;
                         
                         level = Math.max(t.getPathToRoot().size(), level);
@@ -160,7 +160,7 @@ public class TreeInfoManager {
                         for(MutableTree branchTreeNode: branchNodes){
                                 if(t.getPathToRoot().contains(branchTreeNode)){//that means they belong to the same cluster
                                         
-                                        EntityTreeInfo entityTreeInfo = new EntityTreeInfo(entity, t, (OWLEntity)((GraphNode) branchTreeNode.getUserObject()).getUserObject(), level, -1);
+                                        EntityTreeInfo entityTreeInfo = new EntityTreeInfo(entity, t, (OWLEntity)((IGraphNode) branchTreeNode.getUserObject()).getUserObject(), level, -1);
                                         entityTreeInfoMap.put(entity, entityTreeInfo);
                                 }
                         }

@@ -2,8 +2,8 @@ package ca.uvic.cs.chisel.cajun.graph.handlers;
 
 import java.awt.event.InputEvent;
 
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.NodeCollection;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PNode;
@@ -37,12 +37,12 @@ public class SelectionHandler extends PBasicInputEventHandler {
 	@Override
     public void mousePressed(PInputEvent e) {
     	PNode node = e.getPickedNode();
-		if (node instanceof GraphNode) {
+		if (node instanceof IGraphNode) {
 			node.moveToFront();
-    		nodePressed(e, (GraphNode)node);
-    	} else if (node instanceof GraphArc) {
+    		nodePressed(e, (IGraphNode)node);
+    	} else if (node instanceof IGraphArc) {
 			node.moveToFront();
-    		arcPressed(e, (GraphArc)node);
+    		arcPressed(e, (IGraphArc)node);
     	} else if (node instanceof PCamera) {
     		cameraPressed(e, (PCamera)node);
     	}
@@ -50,7 +50,7 @@ public class SelectionHandler extends PBasicInputEventHandler {
     	super.mousePressed(e);
     }
 
-	private void arcPressed(PInputEvent e, GraphArc arc) {
+	private void arcPressed(PInputEvent e, IGraphArc arc) {
 
 	}
 
@@ -59,7 +59,7 @@ public class SelectionHandler extends PBasicInputEventHandler {
 		selectedNodes.clear();
 	}
 
-	private void nodePressed(PInputEvent e, GraphNode displayNode) {
+	private void nodePressed(PInputEvent e, IGraphNode displayNode) {
 		if (e.isControlDown()) {
 			selectedNodes.addOrRemoveNode(displayNode);
 		} else if (e.isShiftDown()) {

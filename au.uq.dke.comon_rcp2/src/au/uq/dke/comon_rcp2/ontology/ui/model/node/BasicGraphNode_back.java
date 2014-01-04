@@ -37,9 +37,9 @@ import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.GraphTextNode;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.HiddenChildrenCountIcon;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.RecordsTableIconNode;
 import au.uq.dke.comon_rcp2.ontology.ui.style.BasicGraphNodeStyle;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeStyle;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
@@ -48,7 +48,7 @@ import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-public class BasicGraphNode_back extends PNode implements GraphNode {
+public class BasicGraphNode_back extends PNode implements IGraphNode {
 
 
 	private static final long serialVersionUID = 3223950711940456476L;
@@ -69,7 +69,7 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 	private int iconWidth = 0;
 	private int iconHeight = 0;
 
-	private GraphNodeStyle style;
+	private IGraphNodeStyle style;
 
 	private boolean selected;
 	private boolean highlighted;
@@ -87,7 +87,7 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 
 	private List<ChangeListener> changeListeners;
 
-	private Collection<GraphArc> arcs;
+	private Collection<IGraphArc> arcs;
 
 	private Ellipse2D ellipse;
 	private double BOUNDS_ELLIPSE_FACTOR = 3.0; // the bound is bigger than the
@@ -122,7 +122,7 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 		this.highlighted = false;
 		this.matching = false;
 
-		this.arcs = new ArrayList<GraphArc>();
+		this.arcs = new ArrayList<IGraphArc>();
 
 		this.setPickable(true);
 		this.setChildrenPickable(true);
@@ -163,11 +163,11 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 		return userObject;
 	}
 
-	public GraphNodeStyle getNodeStyle() {
+	public IGraphNodeStyle getNodeStyle() {
 		return style;
 	}
 
-	public void setNodeStyle(GraphNodeStyle style) {
+	public void setNodeStyle(IGraphNodeStyle style) {
 		if ((style != null) && (this.style != style)) {
 			// this.style = style;
 			invalidateFullBounds();
@@ -194,7 +194,7 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 		super.setVisible(visible);
 
 		// hide or show the arcs for this node
-		for (GraphArc arc : arcs) {
+		for (IGraphArc arc : arcs) {
 			// this method handles whether or not to show the arc
 			// checks if the src and dest nodes are visible
 			arc.setVisible(visible);
@@ -202,20 +202,20 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 	}
 
 	//TODO: redirect to graph model to get result
-	public Collection<GraphArc> getArcs() {
+	public Collection<IGraphArc> getArcs() {
 		return arcs;
 	}
 
 	//TODO: redirect to graph model to get result
-	public Collection<GraphArc> getArcs(boolean incoming, boolean outgoing) {
-		Collection<GraphArc> graphArcs;
+	public Collection<IGraphArc> getArcs(boolean incoming, boolean outgoing) {
+		Collection<IGraphArc> graphArcs;
 		if (incoming && outgoing) {
 			graphArcs = getArcs();
 		} else if (!incoming && !outgoing) {
 			graphArcs = Collections.emptyList();
 		} else {
-			graphArcs = new ArrayList<GraphArc>();
-			for (GraphArc arc : getArcs()) {
+			graphArcs = new ArrayList<IGraphArc>();
+			for (IGraphArc arc : getArcs()) {
 				if (incoming && (arc.getDestination() == this)) {
 					graphArcs.add(arc);
 				} else if (outgoing && (arc.getSource() == this)) {
@@ -227,22 +227,22 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 	}
 
 	//TODO: redirect to graph model to get result
-	public void addArc(GraphArc arc) {
+	public void addArc(IGraphArc arc) {
 		if (!this.arcs.contains(arc)) {
 			this.arcs.add(arc);
 		}
 	}
 
-	public void removeArc(GraphArc arc) {
+	public void removeArc(IGraphArc arc) {
 		this.arcs.remove(arc);
 	}
 
-	public Collection<GraphNode> getConnectedNodes() {
-		ArrayList<GraphNode> connectedNodes = new ArrayList<GraphNode>();
-		for (GraphArc arc : getArcs()) {
-			GraphNode src = arc.getSource();
-			GraphNode dest = arc.getDestination();
-			GraphNode nodeToAdd = null;
+	public Collection<IGraphNode> getConnectedNodes() {
+		ArrayList<IGraphNode> connectedNodes = new ArrayList<IGraphNode>();
+		for (IGraphArc arc : getArcs()) {
+			IGraphNode src = arc.getSource();
+			IGraphNode dest = arc.getDestination();
+			IGraphNode nodeToAdd = null;
 			if (this == src) {
 				nodeToAdd = dest;
 			} else if (this == dest) {
@@ -403,12 +403,12 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 	}
 
 	private void updateArcs() {
-		for (GraphArc arc : arcs) {
+		for (IGraphArc arc : arcs) {
 			if (isSelected()) {
 				arc.setSelected(true);
 			} else {
-				GraphNode src = arc.getSource();
-				GraphNode dest = arc.getDestination();
+				IGraphNode src = arc.getSource();
+				IGraphNode dest = arc.getDestination();
 				if (src == dest) {
 					arc.setSelected(false);
 				} else if (this == src) {
@@ -428,7 +428,7 @@ public class BasicGraphNode_back extends PNode implements GraphNode {
 	}
 
 	private void updateArcLocations() {
-		for (GraphArc arc : arcs) {
+		for (IGraphArc arc : arcs) {
 			arc.updateArcPath();
 		}
 	}

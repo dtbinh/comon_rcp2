@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 
 import ca.uvic.cs.chisel.cajun.graph.DefaultGraphModel;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
 
 /**
@@ -39,7 +39,7 @@ class SampleGraphModel extends DefaultGraphModel {
 	}
 
 	private void loadSampleData() {
-		GraphNode root = addNode("Root");
+		IGraphNode root = addNode("Root");
 		
 		// testing self arcs
 //		addArc(nextArcID(), root, root);
@@ -48,7 +48,7 @@ class SampleGraphModel extends DefaultGraphModel {
 		
 		int count1 = 4;
 		for (int i = 1; i <= count1; i++) {
-			GraphNode node = addNode("Child #" + i);
+			IGraphNode node = addNode("Child #" + i);
 			addArc(root, node);
 			
 			// test multiple arcs from same src to dest nodes
@@ -60,13 +60,13 @@ class SampleGraphModel extends DefaultGraphModel {
 			
 			int count2 = (int)(Math.random()*4);
 			for (int j = 1; j < count2; j++) {
-				GraphNode node2 = addNode("Grand Child #" + j);
+				IGraphNode node2 = addNode("Grand Child #" + j);
 				addArc(node, node2);
 			}
 		}
 	}
 	
-	private GraphNode addNode(String name) {
+	private IGraphNode addNode(String name) {
 		return addNode(nextNodeID(), name, ICON, getRandomNodeType());
 	}
 
@@ -87,7 +87,7 @@ class SampleGraphModel extends DefaultGraphModel {
 		return types;
 	}
 	
-	private GraphArc addArc(GraphNode src, GraphNode dest) {
+	private IGraphArc addArc(IGraphNode src, IGraphNode dest) {
 		DefaultGraphArc arc = (DefaultGraphArc) addArc(nextArcID(), src, dest, getRandomArcType());
 		// for this sample the arc types work backworks (is_a, etc)
 		arc.setInverted(true);

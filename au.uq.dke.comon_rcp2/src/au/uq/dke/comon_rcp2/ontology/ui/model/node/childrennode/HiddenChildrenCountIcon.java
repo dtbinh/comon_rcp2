@@ -8,7 +8,7 @@ import java.util.List;
 
 import au.uq.dke.comon_rcp2.EntryPoint;
 import au.uq.dke.comon_rcp2.ontology.ui.style.StyleManager;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
@@ -16,9 +16,9 @@ public class HiddenChildrenCountIcon extends PText {
 	private static final long serialVersionUID = -871571524212274580L;
 
 	private boolean ignoreInvalidatePaint = false;
-	private GraphNode graphNode;
+	private IGraphNode graphNode;
 
-	public HiddenChildrenCountIcon(GraphNode GraphNode, String text) {
+	public HiddenChildrenCountIcon(IGraphNode GraphNode, String text) {
 		super();
 		this.graphNode = GraphNode;
 
@@ -55,12 +55,12 @@ public class HiddenChildrenCountIcon extends PText {
 //		List<GraphNode> children = EntryPoint.getGraphModel().getChildren(
 //				this.graphNode);
 
-		List<GraphNode> children = null;
+		List<IGraphNode> children = null;
 
 		boolean isExpanded = false;// if any one of the children is visible,
 									// then it is expanded
 
-		for (GraphNode child : children) {
+		for (IGraphNode child : children) {
 			if(child == null){
 				int a = 1;
 			}

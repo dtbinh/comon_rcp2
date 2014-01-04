@@ -11,24 +11,24 @@ import java.util.Set;
 import javax.swing.Icon;
 
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArc;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
-public class DefaultGraphModel implements GraphModel {
+public class DefaultGraphModel implements IGraphModel {
 
 	private Collection<GraphModelListener> listeners;
 
-	private Map<Object, GraphNode> nodes;
-	private Map<Object, GraphArc> arcs;
+	private Map<Object, IGraphNode> nodes;
+	private Map<Object, IGraphArc> arcs;
 
 	private Set<Object> nodeTypes;
 	private Set<Object> arcTypes;
 	
 	public DefaultGraphModel() {
 		this.listeners = new ArrayList<GraphModelListener>();
-		this.nodes = new HashMap<Object, GraphNode>();
-		this.arcs = new HashMap<Object, GraphArc>();
+		this.nodes = new HashMap<Object, IGraphNode>();
+		this.arcs = new HashMap<Object, IGraphArc>();
 		this.nodeTypes = new HashSet<Object>();
 		this.arcTypes = new HashSet<Object>();
 	}
@@ -71,7 +71,7 @@ public class DefaultGraphModel implements GraphModel {
 		}
 	}
 	
-	protected void fireNodeAddedEvent(GraphNode node) {
+	protected void fireNodeAddedEvent(IGraphNode node) {
 		if (listeners.size() > 0) {
 			ArrayList<GraphModelListener> clonedListeners = new ArrayList<GraphModelListener>(listeners);
 			for (GraphModelListener gml : clonedListeners) {
@@ -80,7 +80,7 @@ public class DefaultGraphModel implements GraphModel {
 		}
 	}
 
-	protected void fireNodeRemovedEvent(GraphNode node) {
+	protected void fireNodeRemovedEvent(IGraphNode node) {
 		if (listeners.size() > 0) {
 			ArrayList<GraphModelListener> clonedListeners = new ArrayList<GraphModelListener>(listeners);
 			for (GraphModelListener gml : clonedListeners) {
@@ -98,7 +98,7 @@ public class DefaultGraphModel implements GraphModel {
 		}
 	}
 	
-	protected void fireArcAddedEvent(GraphArc arc) {
+	protected void fireArcAddedEvent(IGraphArc arc) {
 		if (listeners.size() > 0) {
 			ArrayList<GraphModelListener> clonedListeners = new ArrayList<GraphModelListener>(listeners);
 			for (GraphModelListener gml : clonedListeners) {
@@ -107,7 +107,7 @@ public class DefaultGraphModel implements GraphModel {
 		}
 	}
 
-	protected void fireArcRemovedEvent(GraphArc arc) {
+	protected void fireArcRemovedEvent(IGraphArc arc) {
 		if (listeners.size() > 0) {
 			ArrayList<GraphModelListener> clonedListeners = new ArrayList<GraphModelListener>(listeners);
 			for (GraphModelListener gml : clonedListeners) {
@@ -116,13 +116,13 @@ public class DefaultGraphModel implements GraphModel {
 		}
 	}
 
-	public Collection<GraphNode> getAllNodes() {
+	public Collection<IGraphNode> getAllNodes() {
 		return nodes.values();
 	}
 	
-	public Collection<GraphNode> getVisibleNodes() {
-		ArrayList<GraphNode> visibleNodes = new ArrayList<GraphNode>();
-		for (GraphNode node : nodes.values()) {
+	public Collection<IGraphNode> getVisibleNodes() {
+		ArrayList<IGraphNode> visibleNodes = new ArrayList<IGraphNode>();
+		for (IGraphNode node : nodes.values()) {
 			if (node.isVisible()) {
 				visibleNodes.add(node);
 			}
@@ -130,28 +130,28 @@ public class DefaultGraphModel implements GraphModel {
 		return visibleNodes;
 	}
 
-	public GraphNode getNode(Object userObject) {
+	public IGraphNode getNode(Object userObject) {
 		if (userObject != null) {
 			return nodes.get(userObject);
 		}
 		return null;
 	}
 
-	public boolean containsNode(GraphNode node) {
+	public boolean containsNode(IGraphNode node) {
 		if (node != null) {
 			return nodes.containsKey(node.getUserObject());
 		}
 		return false;
 	}
 
-	public Collection<GraphNode> getConnectedNodes(Object nodeUserObject) {
+	public Collection<IGraphNode> getConnectedNodes(Object nodeUserObject) {
 		if (nodes.containsKey(nodeUserObject)) {
-			GraphNode node = nodes.get(nodeUserObject);
+			IGraphNode node = nodes.get(nodeUserObject);
 			return node.getConnectedNodes();
 		}
 		// not sure if this is necessary or a good idea?
-		if (nodeUserObject instanceof GraphNode) {
-			GraphNode node = (GraphNode) nodeUserObject;
+		if (nodeUserObject instanceof IGraphNode) {
+			IGraphNode node = (IGraphNode) nodeUserObject;
 			return node.getConnectedNodes();
 		}
 
@@ -159,15 +159,15 @@ public class DefaultGraphModel implements GraphModel {
 		return Collections.emptyList();
 	}
 
-	public Collection<GraphArc> getArcs(Object nodeUserObject) {
+	public Collection<IGraphArc> getArcs(Object nodeUserObject) {
 		if (nodes.containsKey(nodeUserObject)) {
-			GraphNode node = nodes.get(nodeUserObject);
+			IGraphNode node = nodes.get(nodeUserObject);
 			return node.getArcs();
 		}
 
 		// not sure if this is necessary or a good idea
-		if (nodeUserObject instanceof GraphNode) {
-			GraphNode node = (GraphNode) nodeUserObject;
+		if (nodeUserObject instanceof IGraphNode) {
+			IGraphNode node = (IGraphNode) nodeUserObject;
 			return node.getArcs();
 		}
 
@@ -181,13 +181,13 @@ public class DefaultGraphModel implements GraphModel {
 	
 	// ARCS
 
-	public Collection<GraphArc> getAllArcs() {
+	public Collection<IGraphArc> getAllArcs() {
 		return arcs.values();
 	}
 
-	public Collection<GraphArc> getVisibleArcs() {
-		ArrayList<GraphArc> visibleArcs = new ArrayList<GraphArc>();
-		for (GraphArc arc : arcs.values()) {
+	public Collection<IGraphArc> getVisibleArcs() {
+		ArrayList<IGraphArc> visibleArcs = new ArrayList<IGraphArc>();
+		for (IGraphArc arc : arcs.values()) {
 			if (arc.isVisible()) {
 				visibleArcs.add(arc);
 			}
@@ -195,14 +195,14 @@ public class DefaultGraphModel implements GraphModel {
 		return visibleArcs;
 	}
 	
-	public GraphArc getArc(Object userObject) {
+	public IGraphArc getArc(Object userObject) {
 		if (userObject != null) {
 			return arcs.get(userObject);
 		}
 		return null;
 	}
 
-	public boolean containsArc(GraphArc arc) {
+	public boolean containsArc(IGraphArc arc) {
 		if (arc != null) {
 			return arcs.containsKey(arc.getUserObject());
 		}
@@ -213,30 +213,30 @@ public class DefaultGraphModel implements GraphModel {
 		return GraphItem.UNKNOWN_TYPE;
 	}
 
-	public GraphNode getSourceNode(Object arcUserObject) {
+	public IGraphNode getSourceNode(Object arcUserObject) {
 		if (arcs.containsKey(arcUserObject)) {
-			GraphArc arc = arcs.get(arcUserObject);
+			IGraphArc arc = arcs.get(arcUserObject);
 			return arc.getSource();
 		}
 
 		// not sure if this is necessary or a good idea
-		if (arcUserObject instanceof GraphArc) {
-			GraphArc arc = (GraphArc) arcUserObject;
+		if (arcUserObject instanceof IGraphArc) {
+			IGraphArc arc = (IGraphArc) arcUserObject;
 			return arc.getSource();
 		}
 
 		return null;
 	}
 
-	public GraphNode getDestinationNode(Object arcUserObject) {
+	public IGraphNode getDestinationNode(Object arcUserObject) {
 		if (arcs.containsKey(arcUserObject)) {
-			GraphArc arc = arcs.get(arcUserObject);
+			IGraphArc arc = arcs.get(arcUserObject);
 			return arc.getDestination();
 		}
 
 		// not sure if this is necessary or a good idea
-		if (arcUserObject instanceof GraphArc) {
-			GraphArc arc = (GraphArc) arcUserObject;
+		if (arcUserObject instanceof IGraphArc) {
+			IGraphArc arc = (IGraphArc) arcUserObject;
 			return arc.getDestination();
 		}
 
@@ -249,7 +249,7 @@ public class DefaultGraphModel implements GraphModel {
 
 	// Add/Remove methods
 
-	protected void addNodeInternal(GraphNode node) {
+	protected void addNodeInternal(IGraphNode node) {
 		if ((node != null) && !nodes.containsKey(node.getUserObject())) {
 			// this should be the ONLY place where nodes are added to the map
 			nodes.put(node.getUserObject(), node);
@@ -262,7 +262,7 @@ public class DefaultGraphModel implements GraphModel {
 	}
 
 
-	public GraphNode addNode(Object userObject) {
+	public IGraphNode addNode(Object userObject) {
 		if (userObject == null) {
 			throw new NullPointerException("All graph nodes must have a user object.");
 		}
@@ -273,12 +273,12 @@ public class DefaultGraphModel implements GraphModel {
 		return nodes.get(userObject);
 	}
 
-	protected void removeNodeInternal(GraphNode node) {
+	protected void removeNodeInternal(IGraphNode node) {
 		if (nodes.containsKey(node.getUserObject())) {
 			// remove the arcs for this node first
-			GraphArc[] arcs = node.getArcs().toArray(new GraphArc[node.getArcs().size()]);
+			IGraphArc[] arcs = node.getArcs().toArray(new IGraphArc[node.getArcs().size()]);
 
-			for (GraphArc arc : arcs) {
+			for (IGraphArc arc : arcs) {
 				removeArc(arc.getUserObject());
 			}
 
@@ -300,7 +300,7 @@ public class DefaultGraphModel implements GraphModel {
 	 */
 	public void recalculateNodeTypes() {
 		nodeTypes.clear();
-		for (GraphNode node : nodes.values()) {
+		for (IGraphNode node : nodes.values()) {
 			Object nodeType = node.getType();
 			if (!nodeTypes.contains(nodeType)) {
 				nodeTypes.add(nodeType);
@@ -315,7 +315,7 @@ public class DefaultGraphModel implements GraphModel {
 	 */
 	public void recalculateArcTypes() {
 		arcTypes.clear();
-		for (GraphArc arc: arcs.values()) {
+		for (IGraphArc arc: arcs.values()) {
 			Object arcType = arc.getType();
 			if (!arcTypes.contains(arcType)) {
 				arcTypes.add(arcType);
@@ -325,7 +325,7 @@ public class DefaultGraphModel implements GraphModel {
 	}
 	
 	public void recalculateArcStyles() {
-		for (GraphArc arc: arcs.values()) {
+		for (IGraphArc arc: arcs.values()) {
 			arc.getArcStyle().setTypes(arcTypes);
 		}
 	}
@@ -345,7 +345,7 @@ public class DefaultGraphModel implements GraphModel {
 		fireArcAddedEvent(arc);
 	}
 	
-	public GraphArc addArc(Object userObject, GraphNode src, GraphNode dest) {
+	public IGraphArc addArc(Object userObject, IGraphNode src, IGraphNode dest) {
 		if (userObject == null) {
 			throw new NullPointerException("All graph arcs must have a user object.");
 		}
@@ -359,7 +359,7 @@ public class DefaultGraphModel implements GraphModel {
 		return arcs.get(userObject);
 	}
 
-	protected void removeArcInternal(GraphArc arc) {
+	protected void removeArcInternal(IGraphArc arc) {
 		if ((arc != null) && arcs.containsKey(arc.getUserObject())) {
 			// remove this arc from the source and destination nodes
 			arc.getSource().removeArc(arc);
@@ -380,14 +380,14 @@ public class DefaultGraphModel implements GraphModel {
 	 * Arranges all arcs going between the source and destination nodes so that they do not overlap.
 	 * Sets the curve factor on each arc.
 	 * 
-	 * @see GraphArc#setCurveFactor(int)
+	 * @see IGraphArc#setCurveFactor(int)
 	 * @param src the source node
 	 * @param dest the destination node
 	 */
-	public void arrangeArcs(GraphNode src, GraphNode dest) {
-		ArrayList<GraphArc> srcToDestArcs = new ArrayList<GraphArc>();
-		ArrayList<GraphArc> destToSrcArcs = new ArrayList<GraphArc>();
-		for (GraphArc arc : src.getArcs()) {
+	public void arrangeArcs(IGraphNode src, IGraphNode dest) {
+		ArrayList<IGraphArc> srcToDestArcs = new ArrayList<IGraphArc>();
+		ArrayList<IGraphArc> destToSrcArcs = new ArrayList<IGraphArc>();
+		for (IGraphArc arc : src.getArcs()) {
 			if ((src == arc.getSource()) && (dest == arc.getDestination())) {
 				srcToDestArcs.add(arc);
 			} else if ((src == arc.getDestination()) && ((dest == arc.getSource()))) {
@@ -403,13 +403,13 @@ public class DefaultGraphModel implements GraphModel {
 		}
 
 		int curveFactor = startingCurve;
-		for (GraphArc arc : srcToDestArcs) {
+		for (IGraphArc arc : srcToDestArcs) {
 			arc.setCurveFactor(curveFactor);
 			curveFactor++;
 		}
 
 		curveFactor = startingCurve;
-		for (GraphArc arc : destToSrcArcs) {
+		for (IGraphArc arc : destToSrcArcs) {
 			arc.setCurveFactor(curveFactor);
 			curveFactor++;
 		}

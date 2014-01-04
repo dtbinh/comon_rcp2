@@ -8,14 +8,14 @@ import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 
 import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
-import ca.uvic.cs.chisel.cajun.graph.arc.GraphArcStyle;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNode;
+import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeStyle;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.event.PInputEventListener;
 
-public interface Graph {
+public interface IGraph {
 
 	// Property change names
 	public static final String GRAPH_MODEL_PROPERTY = "model";
@@ -30,14 +30,14 @@ public interface Graph {
 	 * this listener to be kept attached to current graph model,
 	 * even when the graph has a new model set.
 	 * @param gml the listener
-	 * @see GraphModel#addGraphModelListener(GraphModelListener)
+	 * @see IGraphModel#addGraphModelListener(GraphModelListener)
 	 */
 	public void addGraphModelListener(GraphModelListener gml);
 	
 	/**
 	 * Removes a graph model listener.
 	 * @param gml the listener
-	 * @see GraphModel#removeGraphModelListener(GraphModelListener)
+	 * @see IGraphModel#removeGraphModelListener(GraphModelListener)
 	 */
 	public void removeGraphModelListener(GraphModelListener gml);
 	
@@ -59,16 +59,16 @@ public interface Graph {
 	public JPopupMenu getCanvasContextMenu();
 	
 	/**
-	 * @return the current {@link GraphModel}, won't be null
+	 * @return the current {@link IGraphModel}, won't be null
 	 */
-	public GraphModel getModel();
+	public IGraphModel getModel();
 	
 	/**
-	 * Sets the {@link GraphModel} and fires a PropertyChangeEvent using the
-	 * {@link Graph#GRAPH_MODEL_PROPERTY} property name.
+	 * Sets the {@link IGraphModel} and fires a PropertyChangeEvent using the
+	 * {@link IGraph#GRAPH_MODEL_PROPERTY} property name.
 	 * @param model
 	 */
-	public void setModel(GraphModel model);
+	public void setModel(IGraphModel model);
 	
 	public void addNodeSelectionListener(GraphNodeCollectionListener listener);
 	public void removeNodeSelectionListener(GraphNodeCollectionListener listener);
@@ -76,26 +76,26 @@ public interface Graph {
 	/**
 	 * @return the collection of selected nodes
 	 */
-	public Collection<GraphNode> getSelectedNodes();
+	public Collection<IGraphNode> getSelectedNodes();
 	
 	/**
 	 * Sets the selected nodes in the graph.  These nodes will most likely
 	 * be rendered differently because they are selected.
 	 * @param nodes the selected nodes
 	 */
-	public void setSelectedNodes(Collection<GraphNode> nodes);
+	public void setSelectedNodes(Collection<IGraphNode> nodes);
 	
 	/**
 	 * @return the collection of matching nodes (from the last search result)
 	 */
-	public Collection<GraphNode> getMatchingNodes();
+	public Collection<IGraphNode> getMatchingNodes();
 	
 	/**
 	 * Sets the collection of matching nodes from a search result.
 	 * These nodes will probably be rendered differently as a result.
 	 * @param nodes the matching nodes.
 	 */
-	public void setMatchingNodes(Collection<GraphNode> nodes);
+	public void setMatchingNodes(Collection<IGraphNode> nodes);
 	
 	public void addGraphInputListener(PInputEventListener listener);
 	public void removeGraphInputListener(PInputEventListener listener);
@@ -108,13 +108,13 @@ public interface Graph {
 	 * Sets the node style for all nodes in the graph.
 	 * @param style the style to use
 	 */
-	public void setGraphNodeStyle(GraphNodeStyle style);
+	public void setGraphNodeStyle(IGraphNodeStyle style);
 	
 	/**
 	 * Sets the arc style for all arcs in the graph.
 	 * @param style the style to use
 	 */
-	public void setGraphArcStyle(GraphArcStyle style);
+	public void setGraphArcStyle(IGraphArcStyle style);
 	
 	/**
 	 * Adds a layout to the graph.
