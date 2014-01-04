@@ -52,8 +52,10 @@ public class HiddenChildrenCountIcon extends PText {
 
 		Graphics2D g2 = paintContext.getGraphics();
 
-		List<GraphNode> children = EntryPoint.getGraphModel().getChildren(
-				this.graphNode);
+//		List<GraphNode> children = EntryPoint.getGraphModel().getChildren(
+//				this.graphNode);
+
+		List<GraphNode> children = null;
 
 		boolean isExpanded = false;// if any one of the children is visible,
 									// then it is expanded

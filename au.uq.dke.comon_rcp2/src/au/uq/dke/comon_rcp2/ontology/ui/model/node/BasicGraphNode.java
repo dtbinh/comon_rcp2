@@ -29,6 +29,8 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 
+import au.uq.dke.comon_rcp2.common.utils.StringUtil;
+import au.uq.dke.comon_rcp2.constant.UIConstants;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.BasicIconNode;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.DashboardIconNode;
 import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.GraphTextNode;
@@ -51,15 +53,11 @@ public class BasicGraphNode extends PNode implements GraphNode {
 
 	private static final long serialVersionUID = 3223950711940456476L;
 
-	protected static final int MAX_TEXT_CHARS = 10;
-	protected static final int MAX_TOOLTIP_CHARS_IN_A_LINE = 50;
-	protected static final int MAX_LINES = 5;
 
 	private BasicIconNode tableIconNode;
 	private BasicIconNode dashboardIconNode;
 
 	private Object userObject;
-	private String fullText;
 	private Object type;
 	private String tooltip;
 
@@ -109,20 +107,10 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		return ellipse;
 	}
 
+
+
+
 	public BasicGraphNode(Object userObject) {
-		this(userObject, String.valueOf(userObject));
-	}
-
-	public BasicGraphNode(Object userObject, String text) {
-		this(userObject, text, null);
-	}
-
-	public BasicGraphNode(Object userObject, String text, Icon icon) {
-		this(userObject, text, icon, null);
-	}
-
-	public BasicGraphNode(Object userObject, String text, Icon icon,
-			Object type) {
 		super();
 
 		this.userObject = userObject;
@@ -139,7 +127,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		this.setPickable(true);
 		this.setChildrenPickable(true);
 
-		textNode = new GraphTextNode();
+		textNode = new GraphTextNode(this);
 		textNode.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
 		// make this node match the text size
 		textNode.setConstrainWidthToTextWidth(true);
@@ -154,11 +142,10 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		childrenCountIcon.setPickable(false);
 
 		addChild(textNode);
-		addChild(childrenCountIcon);
+		//addChild(childrenCountIcon);
 
-		setText(text);
+		setText("hello");
 		setType(type);
-
 
 		initBounds();
 
@@ -188,10 +175,12 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		}
 	}
 
+	@Deprecated
 	public Object getType() {
 		return type;
 	}
 
+	@Deprecated
 	public void setType(Object type) {
 		this.type = (type == null ? UNKNOWN_TYPE : type);
 	}
@@ -212,10 +201,12 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		}
 	}
 
+	//TODO: redirect to graph model to get result
 	public Collection<GraphArc> getArcs() {
 		return arcs;
 	}
 
+	//TODO: redirect to graph model to get result
 	public Collection<GraphArc> getArcs(boolean incoming, boolean outgoing) {
 		Collection<GraphArc> graphArcs;
 		if (incoming && outgoing) {
@@ -235,6 +226,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		return graphArcs;
 	}
 
+	//TODO: redirect to graph model to get result
 	public void addArc(GraphArc arc) {
 		if (!this.arcs.contains(arc)) {
 			this.arcs.add(arc);
@@ -272,7 +264,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 	}
 
 	public String getText() {
-		return fullText;
+		return textNode.getText();
 	}
 
 
@@ -285,12 +277,10 @@ public class BasicGraphNode extends PNode implements GraphNode {
 		if (s.contains("#")) {
 			s = s.substring(s.lastIndexOf('#') + 1);
 		}
-		this.fullText = s;
 		// TODO let user choose between eliding the label and splitting into
 		// lines?
 
-		textNode.setText(splitTextIntoLines(s, MAX_LINES, MAX_TEXT_CHARS));
-		// updateBounds();
+		textNode.setText(StringUtil.splitTextIntoLines(s, UIConstants.MAX_LINES, UIConstants.MAX_TEXT_CHARS));
 	}
 
 	/**
@@ -302,69 +292,12 @@ public class BasicGraphNode extends PNode implements GraphNode {
 	 * @return the elided string, or the original if text isn't longer than the
 	 *         max allowed chars
 	 */
-	protected String elideText(String text, int maxCharsPerLine) {
-		if (text.length() > maxCharsPerLine) {
-			return new String(text.substring(0, maxCharsPerLine).trim() + "...");
-		}
-		return text;
-	}
 
 	/**
 	 * Splits the text into lines. Attempts to split at word breaks if possible.
 	 * Also puts a cap on the max number of lines.
 	 */
-	protected String splitTextIntoLines(String text, int maxLines,
-			int maxCharsPerLine) {
-		text = text.replace('_', ' ').trim();
-		StringBuffer buffer = new StringBuffer(text.length() + 10);
-		if (text.length() > maxCharsPerLine) {
-			int lines = 0;
-			while ((text.length() > 0) && (lines < maxLines)) {
-				// base case #1 - text is short
-				if (text.length() < maxCharsPerLine) {
-					buffer.append(text);
-					break;
-				}
-				// base case #2 - added max lines
-				if ((lines + 1) == maxLines) {
-					// elide the remaining text (s) instead of just the current
-					// line
-					buffer.append(elideText(text, maxCharsPerLine));
-					break;
-				}
 
-				// find a space and break on it
-				int end = findWhiteSpace(text, maxCharsPerLine);
-				if (end == -1) {
-					end = Math.min(text.length(), maxCharsPerLine);
-				}
-				String line = text.substring(0, end).trim();
-				if (line.length() == 0) {
-					break;
-				}
-
-				buffer.append(line);
-				buffer.append('\n');
-				lines++;
-				text = text.substring(end).trim();
-			}
-			return buffer.toString().trim();
-		}
-		return text;
-	}
-
-	private int findWhiteSpace(String s, int end) {
-		int ws = -1;
-		// look 2 characters past the end for a space character
-		// and work backwards
-		for (int i = Math.min(s.length() - 1, end + 2); i >= 0; i--) {
-			if (Character.isWhitespace(s.charAt(i))) {
-				ws = i;
-				break;
-			}
-		}
-		return ws;
-	}
 
 	@Override
 	public String toString() {
@@ -660,7 +593,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 	public void populateLayoutConstraint(LayoutConstraint constraint) {
 		if (constraint instanceof LabelLayoutConstraint) {
 			LabelLayoutConstraint labelConstraint = (LabelLayoutConstraint) constraint;
-			labelConstraint.label = fullText;
+			labelConstraint.label = getText();
 			labelConstraint.pointSize = 18;
 		} else if (constraint instanceof BasicEntityConstraint) {
 			BasicEntityConstraint basicEntityConstraint = (BasicEntityConstraint) constraint;
@@ -675,7 +608,7 @@ public class BasicGraphNode extends PNode implements GraphNode {
 	public int compareTo(Object o) {
 		if (o instanceof BasicGraphNode) {
 			BasicGraphNode node = (BasicGraphNode) o;
-			return this.fullText.compareToIgnoreCase(node.fullText);
+			return this.getText().compareToIgnoreCase(node.getText());
 		}
 		return 0;
 	}
