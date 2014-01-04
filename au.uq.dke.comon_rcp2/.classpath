@@ -37,5 +37,52 @@
 	<classpathentry kind="lib" path="thirdparties/protege-owlapi-extensions.jar"/>
 	<classpathentry kind="lib" path="thirdparties/uk.ac.manchester.cs.owl.factplusplus.jar"/>
 	<classpathentry kind="lib" path="thirdparties/org.apache.commons.io_2.0.1.v201105210651.jar"/>
+	<classpathentry kind="lib" path="thirdparties/ant-junit-1.6.5.jar"/>
+	<classpathentry kind="lib" path="thirdparties/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="thirdparties/aopalliance-1.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/beansbinding-1.2.1.jar"/>
+	<classpathentry kind="lib" path="thirdparties/ca.uvic.cs.chisel.cajun.jar"/>
+	<classpathentry kind="lib" path="thirdparties/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="thirdparties/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="thirdparties/dao-1.2.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/dao-hibernate-1.2.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="thirdparties/h2-1.3.170.jar"/>
+	<classpathentry kind="lib" path="thirdparties/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/hibernate-commons-annotations-4.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="thirdparties/hibernate-core-4.2.0.CR1.jar"/>
+	<classpathentry kind="lib" path="thirdparties/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="thirdparties/javassist-3.15.0-GA.jar"/>
+	<classpathentry kind="lib" path="thirdparties/jboss-logging-3.1.0.GA.jar"/>
+	<classpathentry kind="lib" path="thirdparties/jboss-transaction-api_1.1_spec-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="thirdparties/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="thirdparties/layouts-1.0.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="thirdparties/looks-2.2.2.jar"/>
+	<classpathentry kind="lib" path="thirdparties/metawidget-all-3.6.jar"/>
+	<classpathentry kind="lib" path="thirdparties/miglayout-core-4.2.jar"/>
+	<classpathentry kind="lib" path="thirdparties/miglayout-swing-4.2.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-api-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-apibinding-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-contract-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-distribution-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-impl-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-parsers-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/owlapi-tools-3.4.3.jar"/>
+	<classpathentry kind="lib" path="thirdparties/search-1.2.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/search-hibernate-1.2.0.jar"/>
+	<classpathentry kind="lib" path="thirdparties/slf4j-api-1.7.2.jar"/>
+	<classpathentry kind="lib" path="thirdparties/slf4j-log4j12-1.7.2.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-aop-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-beans-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-context-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-core-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-expression-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-jdbc-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-orm-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-tx-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-web-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/spring-webmvc-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="thirdparties/mysql-connector-java-5.1.28-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
