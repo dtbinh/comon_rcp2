@@ -1,4 +1,4 @@
-package au.uq.dke.comon_rcp2;
+package au.uq.dke.comon_rcp2.application;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

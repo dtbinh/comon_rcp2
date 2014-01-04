@@ -7,7 +7,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="au.uq.dke.comon_rcp2.Application">
+               class="au.uq.dke.comon_rcp2.application.Application">
          </run>
       </application>
    </extension>
@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="Perspective"
-            class="au.uq.dke.comon_rcp2.Perspective"
+            class="au.uq.dke.comon_rcp2.application.Perspective"
             id="au.uq.dke.comon_rcp2.perspective">
       </perspective>
    </extension>
@@ -23,7 +23,7 @@
          point="org.eclipse.ui.views">
       <view
             name="View"
-            class="au.uq.dke.comon_rcp2.View"
+            class="au.uq.dke.comon_rcp2.application.View"
             id="au.uq.dke.comon_rcp2.view">
       </view>
    </extension>
