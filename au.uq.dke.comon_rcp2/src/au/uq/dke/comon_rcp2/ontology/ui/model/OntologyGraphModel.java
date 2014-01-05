@@ -10,7 +10,7 @@ import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 
-public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
+public class OntologyGraphModel  extends DefaultGraphModel implements IGraphModel{
 
 	@Override
 	public IGraphArc addArc(Object userObject, IGraphNode src, IGraphNode dest) {
@@ -129,6 +129,13 @@ public class ComonGraphModel  extends DefaultGraphModel implements IGraphModel{
 	public boolean containsArc(Object userObject) {
 		IGraphArc graphArc = new BasicGraphArc(userObject, null, null);
 		return super.containsArc(graphArc);
+	}
+
+
+	@Override
+	public Collection<IGraphNode> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

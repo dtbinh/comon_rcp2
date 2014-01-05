@@ -19,7 +19,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.ComonGraphModel;
+import au.uq.dke.comon_rcp2.ontology.ui.model.OntologyGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.model.IGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.view.Graph;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
@@ -45,12 +45,12 @@ public class OntologyGraphView extends ViewPart {
 	    
 	    String rel = "rel";
 	    
-	    IGraphModel graphModel = new ComonGraphModel();
+	    IGraphModel graphModel = new OntologyGraphModel();
 	    IGraphNode srcNode = graphModel.addNode(srcObject);
 	    IGraphNode dstNode = graphModel.addNode(dstObject);
 	    graphModel.addArc(rel, srcNode, dstNode);
 	    
-	    Graph graph = new Graph((ComonGraphModel)graphModel);
+	    Graph graph = new Graph((OntologyGraphModel)graphModel);
 	    JPanel graphPanel = new JPanel();
 	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
 	   // graphPanel.add(new JButton("btn1"));

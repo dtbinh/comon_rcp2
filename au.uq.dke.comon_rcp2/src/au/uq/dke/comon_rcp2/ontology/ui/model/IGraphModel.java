@@ -35,6 +35,8 @@ public interface IGraphModel {
 
 	public IGraphNode getSourceNode(Object arcUserObject);
 	public IGraphNode getDestinationNode(Object arcUserObject);
+	
+	public Collection<IGraphNode> getChildren(); 
 
 	//aggregate methods
 	public Collection<IGraphNode> getAllNodes();

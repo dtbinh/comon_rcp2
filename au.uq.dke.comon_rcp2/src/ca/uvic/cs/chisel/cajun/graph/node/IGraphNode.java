@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.eclipse.zest.layouts.LayoutEntity;
 
+import au.uq.dke.comon_rcp2.application.views.navigator.model.INavigatorNodeBean;
 import ca.uvic.cs.chisel.cajun.graph.GraphItem;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 
