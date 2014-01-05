@@ -6,7 +6,6 @@ import java.awt.Paint;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
 
-import au.uq.dke.comon_rcp2.EntryPoint;
 import au.uq.dke.comon_rcp2.ontology.ui.style.StyleManager;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PText;

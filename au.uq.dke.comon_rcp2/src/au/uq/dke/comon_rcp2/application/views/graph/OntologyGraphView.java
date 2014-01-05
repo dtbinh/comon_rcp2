@@ -1,6 +1,10 @@
-package au.uq.dke.comon_rcp2.application.views;
+package au.uq.dke.comon_rcp2.application.views.graph;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -19,8 +23,9 @@ import au.uq.dke.comon_rcp2.ontology.ui.model.ComonGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.model.IGraphModel;
 import au.uq.dke.comon_rcp2.ontology.ui.view.Graph;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+import edu.umd.cs.piccolox.swing.PScrollPane;
 
-public class OntologyView extends ViewPart {
+public class OntologyGraphView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
 
 	private TableViewer viewer;
@@ -46,7 +51,12 @@ public class OntologyView extends ViewPart {
 	    graphModel.addArc(rel, srcNode, dstNode);
 	    
 	    Graph graph = new Graph((ComonGraphModel)graphModel);
-	    frame.add(graph);
+	    JPanel graphPanel = new JPanel();
+	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
+	   // graphPanel.add(new JButton("btn1"));
+	    graphPanel.setVisible(true);
+	    frame.add(graphPanel);
+	    //frame.add(graph);
 	    graph.performLayout();
 
 	}

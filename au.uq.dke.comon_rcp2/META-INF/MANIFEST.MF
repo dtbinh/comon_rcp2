@@ -5,7 +5,8 @@ Bundle-SymbolicName: au.uq.dke.comon_rcp2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: au.uq.dke.comon_rcp2.application.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.eclipse.ui.navigator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: thirdparties/ca.uvic.cs.chisel.cajun.jar,
