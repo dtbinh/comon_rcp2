@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="test.navigator2.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="test.navigator2.Perspective"
+            id="test.navigator2.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="test.navigator2.ViewPart2"
+            id="test.navigator2.view2"
+            name="navigator"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="*">
+         <view
+               id="test.navigator2.view2"
+               minimized="false"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            contentProvider="TestContentProvider"
+            id="test.navigator2.navigatorContent1"
+            labelProvider="TestLabelProvider"
+            name="name">
+         <triggerPoints>
+            <instanceof
+                  value="NavigatorRoot">
+            </instanceof>
+         </triggerPoints>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewer
+            viewerId="test.navigator2.view2">
+      </viewer>
+      <viewerContentBinding
+            viewerId="test.navigator2.view2">
+         <includes>
+            <contentExtension
+                  isRoot="true"
+                  pattern="test.navigator2.navigatorContent1">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+
+</plugin>
