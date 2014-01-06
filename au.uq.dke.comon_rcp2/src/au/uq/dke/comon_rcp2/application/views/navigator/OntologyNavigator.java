@@ -3,7 +3,7 @@ package au.uq.dke.comon_rcp2.application.views.navigator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.navigator.CommonNavigator;
 
-import au.uq.dke.comon_rcp2.application.views.navigator.filters.TestViewerFilter;
+import au.uq.dke.comon_rcp2.application.views.filters.TestViewerFilter;
 import au.uq.dke.comon_rcp2.application.views.navigator.model.NavigatorRoot;
 
 

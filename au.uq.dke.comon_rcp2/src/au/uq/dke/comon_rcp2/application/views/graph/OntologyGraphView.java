@@ -1,9 +1,6 @@
 package au.uq.dke.comon_rcp2.application.views.graph;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
-
-import javax.swing.JPanel;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -17,15 +14,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-
-import au.uq.dke.comon_rcp2.ontology.graph.model.IOntologyGraphModel;
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
-import au.uq.dke.comon_rcp2.ontology.graph.view.Graph;
-import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
-import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
-import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
-import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
-import edu.umd.cs.piccolox.swing.PScrollPane;
 
 public class OntologyGraphView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";

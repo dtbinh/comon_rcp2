@@ -498,7 +498,6 @@ public abstract class AbstractGraph extends PCanvas implements IGraph {
 
 	public void performLayout() {
 		if (getLastLayout() != null) {
-			filterManager.applyFilters(model);
 			getLastLayout().runLayout();
 		}
 	}
