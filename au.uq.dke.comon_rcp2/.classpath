@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="au/uq/dke/comon_rcp2/ontology/ui/model/GraphModelBak.java|au/uq/dke/comon_rcp2/ontology/ui/view/TopView.java|au/uq/dke/comon_rcp2/ontology/ui/model/node/BasicGraphNode_back.java|ca/uvic/cs/chisel/cajun/SampleGraphModel.java|au/uq/dke/comon_rcp2/EntryPoint.java|au/uq/dke/comon_rcp2/EntryPointTest.java" kind="src" path="src"/>
+	<classpathentry excluding="au/uq/dke/comon_rcp2/ontology/ui/model/GraphModelBak.java|au/uq/dke/comon_rcp2/ontology/ui/view/TopView.java|au/uq/dke/comon_rcp2/ontology/ui/model/node/BasicGraphNode_back.java|ca/uvic/cs/chisel/cajun/SampleGraphModel.java|au/uq/dke/comon_rcp2/EntryPoint.java|au/uq/dke/comon_rcp2/EntryPointTest.java|ca/uvic/cs/chisel/cajun/graph/handlers/ShowDashboardHandler.java|ca/uvic/cs/chisel/cajun/graph/handlers/ShowRecordsTableHandler.java|ca/uvic/cs/chisel/cajun/graph/handlers/ToolTipListener.java" kind="src" path="src"/>
 	<classpathentry kind="lib" path="thirdparties/draw2d-3.2.100-v20070529.jar"/>
 	<classpathentry kind="lib" path="thirdparties/junit.jar"/>
 	<classpathentry kind="lib" path="thirdparties/layouts.jar"/>
