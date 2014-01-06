@@ -35,15 +35,16 @@ public class ZoomHandler extends PBasicInputEventHandler {
 	
 	@Override
 	public void mouseWheelRotated(PInputEvent event) {
-		if (event.getWheelRotation() < 0) {
-			// zoom in
-			zoomIn();
-			stopZoom();
-		} else if (event.getWheelRotation() > 0) {
-			// zoom out
-			zoomOut();
-			stopZoom();
-		}
+//		if (event.getWheelRotation() < 0) {
+//			// zoom in
+//			zoomIn();
+//			stopZoom();
+//		} else if (event.getWheelRotation() > 0) {
+//			// zoom out
+//			zoomOut();
+//			stopZoom();
+//		}
+		super.mouseWheelRotated(event);
 	}
 
 	@Override
