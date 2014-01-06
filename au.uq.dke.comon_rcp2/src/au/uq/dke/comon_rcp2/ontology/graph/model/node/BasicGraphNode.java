@@ -6,7 +6,7 @@ import au.uq.dke.comon_rcp2.application.views.navigator.model.INavigatorNodeBean
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
 
-public class BasicGraphNode extends DefaultGraphNode implements INavigatorNodeBean{
+public class BasicGraphNode extends DefaultGraphNode{
 	private INodeUserObject userObject = null;
 	
 	public INodeUserObject getUserObject() {
@@ -31,28 +31,5 @@ public class BasicGraphNode extends DefaultGraphNode implements INavigatorNodeBe
 		this.treeNode = new MutableTree(userObject);
 	}
 	
-
-	@Override
-	public Object[] getElements(Object inputElement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object[] getChildren(Object parentElement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasChildren(Object element) {
-		return userObject.isHasChildren();
-	}
 
 }

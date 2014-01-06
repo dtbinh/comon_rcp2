@@ -8,14 +8,14 @@ import org.eclipse.jface.viewers.Viewer;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
-import au.uq.dke.comon_rcp2.ontology.Constants;
+import au.uq.dke.comon_rcp2.ontology.OntologyConstants;
 import au.uq.dke.comon_rcp2.ontology.graph.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.BasicGraphNode;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
-import au.uq.dke.comon_rcp2.ontology.model.RelationType;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.IOntologyModelService;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.OntologyModelServiceMockImpl;
 import ca.uvic.cs.chisel.cajun.graph.DefaultGraphModel;
@@ -24,19 +24,48 @@ import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class OntologyGraphModelImpl extends DefaultGraphModel implements
-		IOntologyGraphModel, ITreeContentProvider {
+		IOntologyGraphModel{
+	
+	private static OntologyGraphModelImpl instance = null;
 
-	private MutableTree root = null;
+	private MutableTree rootTreeNode = null;
+	
+	private BasicGraphNode rootGraphNode = null;
+
 
 	private static IOntologyModelService ontologyModelService = OntologyModelServiceMockImpl
 			.getInstance();
 
-	private static Collection<OntologyClass> ontologyClasses = ontologyModelService
-			.getAllOntologyClasses();
 	private static Collection<OntologyRelation> ontologyRelations = ontologyModelService
 			.getAllOntologyRelations();
-	private static Collection<RelationType> relationTypes = ontologyModelService
-			.getAllRelationTypes();
+
+	private OntologyGraphModelImpl(){
+		super();
+		populateData();
+	}
+	
+	public static OntologyGraphModelImpl getInstance(){
+		if(instance == null){
+			instance = new OntologyGraphModelImpl();
+		}
+		
+		return instance;
+	}
+	
+	private void populateData() {
+	    OntologyClass srcObject = new OntologyClass("src");
+	    OntologyClass dstObject = new OntologyClass("dst");
+	    OntologyRelationType relType = new OntologyRelationType("has subclass");
+	    
+	    OntologyRelation rel = new OntologyRelation (srcObject, dstObject, relType);
+	    
+	    IGraphNode srcNode = this.addNode(srcObject);
+	    IGraphNode dstNode = this.addNode(dstObject);
+	    this.addArc(rel, srcNode, dstNode);
+	    this.generateTreeInfo();
+
+		
+	}
 
 	public MutableTree generateTreeInfo() {
 		for (IGraphNode graphNode : this.getAllNodes()) {
@@ -45,27 +74,29 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 				BasicGraphNode basicGraphNode = (BasicGraphNode) graphNode;
 				MutableTree treeParent = (MutableTree) basicGraphNode
 						.getTreeNode();
-				Collection<OntologyClass> ontologyClassChildren = this
-						.getOntologyClassChildren((OntologyClass) basicGraphNode
-								.getUserObject());
-
-				for (OntologyClass ontologyClassChild : ontologyClassChildren) {
-					BasicGraphNode basicGraphNodeChild = (BasicGraphNode) this
-							.getNode(ontologyClassChild);
-					MutableTree treeChild = (MutableTree) basicGraphNodeChild
-							.getTreeNode();
-
-					// add relationship
-					treeParent.addChild(treeChild);
-
+				
+				Collection<IGraphArc> outgoingGraphArcs = basicGraphNode.getArcs(false, true);
+				for(IGraphArc graphArc : outgoingGraphArcs){
+					OntologyRelation relation = (OntologyRelation) graphArc.getUserObject();
+					if(relation.getRelationType().getType().equalsIgnoreCase(OntologyConstants.SUB_CLASS_RELTYPE)){
+						BasicGraphNode destinationGraphNode = (BasicGraphNode) graphArc.getDestination();
+						Tree destinationTreeNode =  destinationGraphNode.getTreeNode();
+						
+						treeParent.addChild((MutableTree) destinationTreeNode);
+					}
 				}
+				
+
 			}
 
 		}
-		return (MutableTree) ((MutableTree) this.getAllNodes().toArray()[0])
-				.getRoot();
+		
+		this.rootTreeNode = (MutableTree) ((BasicGraphNode)this.getAllNodes().toArray()[0]).getTreeNode().getRoot();
+		this.rootGraphNode = (BasicGraphNode) this.getNode(rootTreeNode.getUserObject());
+		return rootTreeNode;
 	}
 
+	
 	private Collection<OntologyClass> getOntologyClassChildren(
 			OntologyClass parentOntologyClass) {
 
@@ -73,7 +104,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		for (OntologyRelation ontologyRelation : ontologyRelations) {
 			if (ontologyRelation.getSrcClass() == parentOntologyClass
 					&& ontologyRelation.getRelationType().getType()
-							.equalsIgnoreCase(Constants.SUB_CLASS_RELTYPE)) {
+							.equalsIgnoreCase(OntologyConstants.SUB_CLASS_RELTYPE)) {
 				
 				children.add(ontologyRelation.getDstClass());
 
@@ -207,54 +238,13 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		return null;
 	}
 
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-
+	public MutableTree getRootTreeNode() {
+		return rootTreeNode;
 	}
 
-	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		// TODO Auto-generated method stub
-
+	public BasicGraphNode getRootGraphNode() {
+		return rootGraphNode;
 	}
 
-	@Override
-	public Object[] getElements(Object inputElement) {
-		
-		return new Object[] {this.getNode(root.getUserObject())};
-	}
-
-	@Override
-	public Object[] getChildren(Object parentElement) {
-		if(parentElement instanceof BasicGraphNode){
-			BasicGraphNode parentBasicGraphNode = (BasicGraphNode) parentElement;
-			Collection<BasicGraphNode> childrenTreeNode = parentBasicGraphNode.getTreeNode().getChildren();
-			Collection<BasicGraphNode> childrenBasicGraphNode = new ArrayList();
-			for(BasicGraphNode childTreeNode : childrenTreeNode){
-				BasicGraphNode childBasicGraphNode = (BasicGraphNode) this.getNode(childTreeNode.getUserObject());
-				childrenBasicGraphNode.add(childBasicGraphNode);
-			}
-			
-			return childrenBasicGraphNode.toArray();
-		}
-		return null;
-	}
-
-	@Override
-	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasChildren(Object parentElement) {
-		if(parentElement instanceof BasicGraphNode){
-			BasicGraphNode parentBasicGraphNode = (BasicGraphNode) parentElement;
-			return !parentBasicGraphNode.getTreeNode().isLeaf();
-		}
-		
-		return false;
-	}
 
 }

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
-import au.uq.dke.comon_rcp2.ontology.model.RelationType;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
 
 public class OntologyModelServiceMockImpl implements IOntologyModelService{
 	
@@ -33,7 +33,7 @@ public class OntologyModelServiceMockImpl implements IOntologyModelService{
 	}
 
 	@Override
-	public Collection<RelationType> getAllRelationTypes() {
+	public Collection<OntologyRelationType> getAllRelationTypes() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -4,6 +4,13 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+import au.uq.dke.comon_rcp2.ontology.graph.model.IOntologyGraphModel;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+
 /**
  * The activator class controls the plug-in life cycle
  */
@@ -28,6 +35,8 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		
+
 	}
 
 	/*

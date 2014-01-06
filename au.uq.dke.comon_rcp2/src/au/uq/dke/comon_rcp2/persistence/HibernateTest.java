@@ -7,7 +7,7 @@ import org.hibernate.SessionFactory;
 
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
-import au.uq.dke.comon_rcp2.ontology.model.RelationType;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
  
 public class HibernateTest {
  
@@ -24,7 +24,7 @@ public class HibernateTest {
          
         OntologyClass cls2 = new OntologyClass("class2");
         
-        RelationType type1 = new RelationType("has");
+        OntologyRelationType type1 = new OntologyRelationType("has");
         
         OntologyRelation relation1 = new OntologyRelation(cls1, cls2, type1);
         

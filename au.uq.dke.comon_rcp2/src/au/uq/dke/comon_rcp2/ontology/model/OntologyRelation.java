@@ -21,7 +21,7 @@ public class OntologyRelation extends OntologyItem implements IArcUserObject{
 		
 	}
 	
-	public OntologyRelation(OntologyClass srcClass, OntologyClass dstClass, RelationType relationType){
+	public OntologyRelation(OntologyClass srcClass, OntologyClass dstClass, OntologyRelationType relationType){
 		this.srcClass = srcClass;
 		this.dstClass = dstClass;
 		this.relationType = relationType;
@@ -47,11 +47,11 @@ public class OntologyRelation extends OntologyItem implements IArcUserObject{
 	}
 
 	@OneToOne
-	public RelationType getRelationType() {
+	public OntologyRelationType getRelationType() {
 		return relationType;
 	}
 
-	public void setRelationType(RelationType relationType) {
+	public void setRelationType(OntologyRelationType relationType) {
 		this.relationType = relationType;
 	}
 
@@ -59,6 +59,6 @@ public class OntologyRelation extends OntologyItem implements IArcUserObject{
 	
 	OntologyClass dstClass;
 	
-	RelationType relationType;
+	OntologyRelationType relationType;
 
 }

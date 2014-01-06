@@ -1,12 +1,9 @@
 package ca.uvic.cs.chisel.cajun.graph.node;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.Ellipse2D;
@@ -30,6 +27,7 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
 import au.uq.dke.comon_rcp2.common.utils.StringUtil;
 import au.uq.dke.comon_rcp2.constant.UIConstants;
+import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.BasicIconNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.GraphTextNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.HiddenChildrenCountIcon;
@@ -39,7 +37,6 @@ import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PImage;
-import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
@@ -144,7 +141,6 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		addChild(textNode);
 		//addChild(childrenCountIcon);
 
-		setText("hello");
 		setType(type);
 
 		initBounds();
@@ -264,7 +260,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	}
 
 	public String getText() {
-		return textNode.getText();
+		return ((INodeUserObject)userObject).getText();
 	}
 
 

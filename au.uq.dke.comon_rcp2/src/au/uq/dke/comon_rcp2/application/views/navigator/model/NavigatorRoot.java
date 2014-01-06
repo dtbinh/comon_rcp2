@@ -5,19 +5,21 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.PlatformObject;
 
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+
 public class NavigatorRoot extends PlatformObject {
 	
 	
 	
 	public Collection getOntologyRoots(){
-		Collection parentCollection = new ArrayList();
-		int n = 3;
-		while(n-- > 0){
-			MockNodeBean pb = new MockNodeBean("parent " + n);
-			parentCollection.add(pb);
-		}
 		
-		return parentCollection;
+		OntologyGraphModelImpl ontologyGraphModel = OntologyGraphModelImpl.getInstance();
+		
+		
+		Collection roots = new ArrayList();
+		roots.add(ontologyGraphModel.getRootGraphNode());
+		
+		return roots;
 	}
 
 }

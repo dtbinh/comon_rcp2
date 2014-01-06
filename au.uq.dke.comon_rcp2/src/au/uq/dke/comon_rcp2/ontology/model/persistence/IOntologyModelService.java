@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
-import au.uq.dke.comon_rcp2.ontology.model.RelationType;
+import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
 
 public interface IOntologyModelService {
 
@@ -12,5 +12,5 @@ public interface IOntologyModelService {
 	
 	public Collection<OntologyRelation> getAllOntologyRelations();
 	
-	public Collection<RelationType> getAllRelationTypes();
+	public Collection<OntologyRelationType> getAllRelationTypes();
 }

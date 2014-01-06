@@ -8,11 +8,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.Icon;
-
+import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.BasicGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
-import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class DefaultGraphModel implements IGraphModel {
@@ -267,7 +266,7 @@ public class DefaultGraphModel implements IGraphModel {
 			throw new NullPointerException("All graph nodes must have a user object.");
 		}
 		if (!nodes.containsKey(userObject)) {
-			DefaultGraphNode node = new DefaultGraphNode(userObject);
+			BasicGraphNode node = new BasicGraphNode((INodeUserObject) userObject);
 			addNodeInternal(node);
 		}
 		return nodes.get(userObject);

@@ -3,15 +3,15 @@ package au.uq.dke.comon_rcp2.ontology.model;
 import javax.persistence.Entity;
 
 @Entity
-public class RelationType extends OntologyItem {
+public class OntologyRelationType extends OntologyItem {
 
 	public String type;
 
-	public RelationType(){
+	public OntologyRelationType(){
 		
 	}
 	
-	public RelationType(String type){
+	public OntologyRelationType(String type){
 		this.type = type;
 	}
 
