@@ -19,6 +19,7 @@ public class OntologyNavigator extends CommonNavigator {
 		
 		TestViewerFilter testViewerFilter = new TestViewerFilter();
 		super.getCommonViewer().addFilter(testViewerFilter);
+		super.getCommonViewer().getFilters();
 	}
 
 	public OntologyNavigator() {

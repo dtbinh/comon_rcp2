@@ -1,6 +1,9 @@
 package au.uq.dke.comon_rcp2.application.views.graph;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
+
+import javax.swing.JPanel;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -14,6 +17,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
+
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import edu.umd.cs.piccolox.swing.PScrollPane;
 
 public class OntologyGraphView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
@@ -31,14 +37,14 @@ public class OntologyGraphView extends ViewPart {
 	    //JButton jbt1 = new JButton();
 	    
 	    
-//	    Graph graph = new Graph((OntologyGraphModelImpl)graphModel);
-//	    JPanel graphPanel = new JPanel();
-//	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
-//	   // graphPanel.add(new JButton("btn1"));
-//	    graphPanel.setVisible(true);
-//	    frame.add(graphPanel);
-//	    //frame.add(graph);
-//	    graph.performLayout();
+	    OntologyGraph graph = OntologyGraph.getInstance();
+	    JPanel graphPanel = new JPanel();
+	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
+	   // graphPanel.add(new JButton("btn1"));
+	    graphPanel.setVisible(true);
+	    //frame.add(graphPanel);
+	    frame.add(graph);
+	    graph.performLayout();
 
 	}
 

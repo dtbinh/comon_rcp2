@@ -234,8 +234,15 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	@Override
 	public Collection<IGraphNode> getChildren(
 			INodeUserObject parentNodeUserObject) {
-		// TODO search relation table and get all the qualified
-		return null;
+		
+		BasicGraphNode graphNode = (BasicGraphNode) this.getNode(parentNodeUserObject);
+		Collection<Tree> childrenTreeNode = graphNode.getTreeNode().getChildren();
+		Collection<IGraphNode> childrenGraphNode = new ArrayList<IGraphNode>();
+		for(Tree childTreeNode : childrenTreeNode){
+			IGraphNode childGraphNode = this.getNode(childTreeNode.getUserObject());
+			childrenGraphNode.add(childGraphNode);
+		}
+		return childrenGraphNode;
 	}
 
 	public MutableTree getRootTreeNode() {

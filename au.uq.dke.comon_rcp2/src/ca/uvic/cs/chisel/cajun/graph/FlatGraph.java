@@ -6,6 +6,7 @@ import ca.uvic.cs.chisel.cajun.graph.handlers.CameraKeyPanHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.FocusOnExtentsHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.HighlightHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.NodeDragHandler;
+import ca.uvic.cs.chisel.cajun.graph.handlers.NodeExpandCollapseHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.SelectionHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandler;
 import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
@@ -55,6 +56,8 @@ public class FlatGraph extends AbstractGraph {
         
         // ensures that all nodes are displayed on the canvas
         camera.addInputEventListener(new FocusOnExtentsHandler(animationHandler));
+
+        camera.addInputEventListener(new NodeExpandCollapseHandler());
 	}
 
 	public AnimationHandler getAnimationHandler() {

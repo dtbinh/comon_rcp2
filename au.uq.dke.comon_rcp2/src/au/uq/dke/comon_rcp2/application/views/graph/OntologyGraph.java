@@ -12,25 +12,42 @@ import ca.uvic.cs.chisel.cajun.graph.FlatGraph;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
-public class Graph extends FlatGraph {
+public class OntologyGraph extends FlatGraph {
 
-	@Override
-	public void performLayout() {
+	private static OntologyGraph instance;
+
+	public static OntologyGraph getInstance() {
+		if (instance == null) {
+			instance = new OntologyGraph();
+		}
+
+		return instance;
+	}
+
+	public void performLayoutWithFilter() {
 		this.applyFilters();
 		super.performLayout();
 	}
 
+	public void performLayoutWithoutFilter() {
+		super.performLayout();
+	}
+
+	@Deprecated
 	@Override
 	public void performLayout(LayoutAction layout) {
-		this.applyFilters();
-		super.performLayout(layout);
+	}
+
+	@Deprecated
+	@Override
+	public void performLayout() {
 	}
 
 	OntologyGraphModelImpl graphModel = OntologyGraphModelImpl.getInstance();
 
 	private Collection<ViewerFilter> viewerFilters = new ArrayList<ViewerFilter>();
 
-	public Graph() {
+	private OntologyGraph() {
 		super();
 		super.setModel(graphModel);
 	}
@@ -48,36 +65,40 @@ public class Graph extends FlatGraph {
 
 	public void applyFilters() {
 		for (IGraphNode graphNode : graphModel.getAllNodes()) {
-			boolean isVisible = true;
+			boolean shouldFilterOut = false;
 
 			for (ViewerFilter viewerFilter : viewerFilters) {
-				isVisible = viewerFilter.select(null, null, graphNode);
-				if (isVisible == false) {// we should hide it if any filter says
-											// to hide it
+				shouldFilterOut = viewerFilter.select(null, null, graphNode);
+				if (shouldFilterOut == true) {// we should hide it if any filter
+												// says
+												// to hide it
 					break;
 				}
 			}
 
 			boolean oldVisibility = graphNode.isVisible();
-			if (oldVisibility != isVisible) {
-				graphNode.setVisible(isVisible);
+
+			if (oldVisibility != shouldFilterOut) {
+				graphNode.setVisible(false);
 			}
 		}
 
 		for (IGraphArc graphArc : graphModel.getAllArcs()) {
-			boolean isVisible = true;
+			boolean shouldFilterOut = false;
 
 			for (ViewerFilter viewerFilter : viewerFilters) {
-				isVisible = viewerFilter.select(null, null, graphArc);
-				if (isVisible == false) {// we should hide it if any filter says
-											// to hide it
+				shouldFilterOut = viewerFilter.select(null, null, graphArc);
+				if (shouldFilterOut == true) {// we should hide it if any filter
+												// says
+												// to hide it
 					break;
 				}
 			}
 
 			boolean oldVisibility = graphArc.isVisible();
-			if (oldVisibility != isVisible) {
-				graphArc.setVisible(isVisible);
+
+			if (oldVisibility != shouldFilterOut) {
+				graphArc.setVisible(false);
 			}
 		}
 	}
