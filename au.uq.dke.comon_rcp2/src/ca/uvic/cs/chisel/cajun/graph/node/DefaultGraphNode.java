@@ -30,10 +30,10 @@ import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
 import au.uq.dke.comon_rcp2.common.utils.StringUtil;
 import au.uq.dke.comon_rcp2.constant.UIConstants;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.BasicIconNode;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.GraphTextNode;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.childrennode.HiddenChildrenCountIcon;
-import au.uq.dke.comon_rcp2.ontology.ui.style.BasicGraphNodeStyle;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.BasicIconNode;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.GraphTextNode;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.HiddenChildrenCountIcon;
+import au.uq.dke.comon_rcp2.ontology.graph.style.BasicGraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.PLayer;

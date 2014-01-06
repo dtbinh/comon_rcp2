@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.BasicGraphNode_back;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 

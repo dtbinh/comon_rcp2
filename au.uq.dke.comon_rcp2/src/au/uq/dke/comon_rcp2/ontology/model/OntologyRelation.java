@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.facade.IArcUserObject;
+import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
 
 @Entity
 public class OntologyRelation extends OntologyItem implements IArcUserObject{

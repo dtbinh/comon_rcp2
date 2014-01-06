@@ -20,7 +20,7 @@ import org.eclipse.zest.layouts.LayoutEntity;
 import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
 import au.uq.dke.comon_rcp2.constant.UIConstants;
-import au.uq.dke.comon_rcp2.ontology.ui.model.arc.label.ArcLabel;
+import au.uq.dke.comon_rcp2.ontology.graph.model.arc.label.ArcLabel;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PImage;

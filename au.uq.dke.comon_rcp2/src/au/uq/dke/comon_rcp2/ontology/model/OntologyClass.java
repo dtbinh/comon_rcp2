@@ -1,10 +1,12 @@
 package au.uq.dke.comon_rcp2.ontology.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.facade.INodeUserObject;
+import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 
 @Entity
 public class OntologyClass extends OntologyItem implements INodeUserObject{
@@ -20,6 +22,8 @@ public class OntologyClass extends OntologyItem implements INodeUserObject{
 	public OntologyClass branchNode = null;
 	
 	public int level;
+	
+	public Set <OntologyClass> children = null;
 	
 	
 	
@@ -70,7 +74,7 @@ public class OntologyClass extends OntologyItem implements INodeUserObject{
 		this.hasChildren = hasChildren;
 	}
 
-	@ManyToOne
+	@Transient
 	public OntologyClass getBranchNode() {
 		return branchNode;
 	}
@@ -85,6 +89,15 @@ public class OntologyClass extends OntologyItem implements INodeUserObject{
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	@Transient
+	public Set<OntologyClass> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<OntologyClass> children) {
+		this.children = children;
 	}
 
 }

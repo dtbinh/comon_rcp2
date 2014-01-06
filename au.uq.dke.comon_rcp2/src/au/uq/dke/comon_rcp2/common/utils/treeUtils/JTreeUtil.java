@@ -6,7 +6,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-import au.uq.dke.comon_rcp2.ontology.ui.model.node.BasicGraphNode_back;
+import au.uq.dke.comon_rcp2.ontology.graph.model.node.BasicGraphNode_back;
 
 
 public class JTreeUtil {
