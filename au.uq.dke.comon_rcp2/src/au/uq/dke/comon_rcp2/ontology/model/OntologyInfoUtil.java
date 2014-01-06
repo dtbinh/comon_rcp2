@@ -4,8 +4,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
+import uk.ac.manchester.cs.bhig.util.MutableTree;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.IOntologyModelService;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.OntologyModelServiceMockImpl;
 
@@ -27,7 +26,7 @@ public class OntologyInfoUtil {
 
 	private static Collection<OntologyClass> roots = null;
 
-	private static Collection<DefaultMutableTreeNode> trees = null;
+	private static Collection<MutableTree> trees = null;
 
 	public static void parseOntology() {
 
@@ -35,17 +34,17 @@ public class OntologyInfoUtil {
 		roots = getRoots();
 
 		for (OntologyClass root : roots) {
-			DefaultMutableTreeNode tree = generateMutableTree(root);
+			MutableTree tree = generateMutableTree(root);
 			trees.add(tree);
 		}
 
 		// set values in ontologyClass
 
-		for (DefaultMutableTreeNode tree : trees) {
+		for (MutableTree tree : trees) {
 			for (@SuppressWarnings("unchecked")
-			Enumeration<DefaultMutableTreeNode> e = tree
+			Enumeration<MutableTree> e = tree
 					.breadthFirstEnumeration(); e.hasMoreElements();) {
-				DefaultMutableTreeNode node = e.nextElement();
+				MutableTree node = e.nextElement();
 				OntologyClass ontologyClass = (OntologyClass) node
 						.getUserObject();
 
@@ -63,9 +62,9 @@ public class OntologyInfoUtil {
 		return null;
 	}
 
-	private static DefaultMutableTreeNode generateMutableTree(OntologyClass root) {
+	private static MutableTree generateMutableTree(OntologyClass root) {
 
-		DefaultMutableTreeNode rootTreeNode = new DefaultMutableTreeNode(root);
+		MutableTree rootTreeNode = new MutableTree(root);
 
 		generateMutableTreeRecursively(rootTreeNode);
 
@@ -74,11 +73,11 @@ public class OntologyInfoUtil {
 	}
 
 	private static void generateMutableTreeRecursively(
-			DefaultMutableTreeNode rootTreeNode) {
+			MutableTree rootTreeNode) {
 		Collection<OntologyClass> children = getChildren((OntologyClass) rootTreeNode
 				.getUserObject());
 		for (OntologyClass child : children) {
-			DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
+			MutableTree childNode = new MutableTree(child);
 			rootTreeNode.add(childNode);
 			generateMutableTreeRecursively(childNode);
 		}
