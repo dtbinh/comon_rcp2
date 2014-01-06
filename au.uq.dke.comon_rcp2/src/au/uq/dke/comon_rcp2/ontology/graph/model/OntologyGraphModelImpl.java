@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
+import uk.ac.manchester.cs.bhig.util.Tree;
 import au.uq.dke.comon_rcp2.ontology.Constants;
 import au.uq.dke.comon_rcp2.ontology.graph.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
@@ -45,7 +46,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 				MutableTree treeParent = (MutableTree) basicGraphNode
 						.getTreeNode();
 				Collection<OntologyClass> ontologyClassChildren = this
-						.getChildren((OntologyClass) basicGraphNode
+						.getOntologyClassChildren((OntologyClass) basicGraphNode
 								.getUserObject());
 
 				for (OntologyClass ontologyClassChild : ontologyClassChildren) {
@@ -65,7 +66,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 				.getRoot();
 	}
 
-	private Collection<OntologyClass> getChildren(
+	private Collection<OntologyClass> getOntologyClassChildren(
 			OntologyClass parentOntologyClass) {
 
 		Collection<OntologyClass> children = new ArrayList<OntologyClass>();
@@ -220,13 +221,23 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Object[] {this.getNode(root.getUserObject())};
 	}
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		// TODO Auto-generated method stub
+		if(parentElement instanceof BasicGraphNode){
+			BasicGraphNode parentBasicGraphNode = (BasicGraphNode) parentElement;
+			Collection<BasicGraphNode> childrenTreeNode = parentBasicGraphNode.getTreeNode().getChildren();
+			Collection<BasicGraphNode> childrenBasicGraphNode = new ArrayList();
+			for(BasicGraphNode childTreeNode : childrenTreeNode){
+				BasicGraphNode childBasicGraphNode = (BasicGraphNode) this.getNode(childTreeNode.getUserObject());
+				childrenBasicGraphNode.add(childBasicGraphNode);
+			}
+			
+			return childrenBasicGraphNode.toArray();
+		}
 		return null;
 	}
 
@@ -237,8 +248,12 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	}
 
 	@Override
-	public boolean hasChildren(Object element) {
-		// TODO Auto-generated method stub
+	public boolean hasChildren(Object parentElement) {
+		if(parentElement instanceof BasicGraphNode){
+			BasicGraphNode parentBasicGraphNode = (BasicGraphNode) parentElement;
+			return !parentBasicGraphNode.getTreeNode().isLeaf();
+		}
+		
 		return false;
 	}
 
