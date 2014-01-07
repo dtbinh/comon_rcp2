@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.metawidget.util.ClassUtils;
 
+import de.vogella.jface.tableviewer.edit.GenericEditingSupport;
 import de.vogella.jface.tableviewer.filter.GenericFilter;
 import de.vogella.jface.tableviewer.filter.PersonFilter;
 import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
@@ -150,7 +151,7 @@ public class RefactoredView {
 			TableViewerColumn col = createTableViewerColumn(
 					declaredFields[i].getName(), 100, i);
 			col.setLabelProvider(new MyCellLabelProvider(i));
-			// col.setEditingSupport(new FirstNameEditingSupport(viewer));
+			col.setEditingSupport(new GenericEditingSupport(viewer, declaredFields[i]));
 
 		}
 
