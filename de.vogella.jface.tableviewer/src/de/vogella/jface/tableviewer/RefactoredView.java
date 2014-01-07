@@ -24,6 +24,8 @@ import org.eclipse.swt.widgets.Text;
 import org.metawidget.util.ClassUtils;
 
 import de.vogella.jface.tableviewer.model.ModelProvider;
+import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
+import de.vogella.jface.tableviewer.sorter.MyViewerComparator;
 
 public class RefactoredView {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
@@ -34,6 +36,7 @@ public class RefactoredView {
 	
 	private int i;
 	
+	private GenericViewerComparator comparator;
 	
 	public  RefactoredView(Class beanType){
 		this.beanType = beanType;
@@ -51,6 +54,8 @@ public class RefactoredView {
 		        | GridData.HORIZONTAL_ALIGN_FILL));
 		    createViewer(parent);
 		    // Set the sorter for the table
+		    comparator = new GenericViewerComparator();
+		    viewer.setComparator(comparator);
 
 		    // New to support the search
 		    searchText.addKeyListener(new KeyAdapter() {
@@ -74,8 +79,6 @@ public class RefactoredView {
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
 		//TODO: fix this
-		
-
 		List<Object> beanList = new ArrayList();
 
 		for(int i = 0 ; i < 3; i ++ ){
@@ -151,8 +154,12 @@ public class RefactoredView {
 		SelectionAdapter selectionAdapter = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				comparator.setColumn(colNumber);
+				int dir = comparator.getDirection();
+				viewer.getTable().setSortDirection(dir);
 				viewer.getTable().setSortColumn(column);
 				viewer.refresh();
+
 			}
 		};
 		column.addSelectionListener(selectionAdapter);
