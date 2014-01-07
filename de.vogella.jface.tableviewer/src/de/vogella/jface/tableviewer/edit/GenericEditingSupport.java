@@ -3,9 +3,11 @@ package de.vogella.jface.tableviewer.edit;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.ui.PlatformUI;
 import org.metawidget.util.ClassUtils;
 
 import de.vogella.jface.tableviewer.model.Person;
@@ -26,9 +28,12 @@ public class GenericEditingSupport extends EditingSupport {
         this.editor = new TextCellEditor(viewer.getTable());
     }
     //TODO: add other types
-    else {
+    else if(Object.class.isAssignableFrom(type)){
     	
-    	this.editor = new TextCellEditor(viewer.getTable());
+    	this.editor = new BasicDialogCellEditor(viewer.getTable());
+    }else{
+        this.editor = new TextCellEditor(viewer.getTable());
+  	
     }
     
     
