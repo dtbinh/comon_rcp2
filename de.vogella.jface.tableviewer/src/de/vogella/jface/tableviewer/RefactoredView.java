@@ -106,6 +106,24 @@ public class RefactoredView {
 		return viewer;
 	}
 
+	class MyCellLabelProvider extends CellLabelProvider{
+		private int columnNumber;
+			
+		public int getColumnNumber() {
+			return columnNumber;
+		}
+		public MyCellLabelProvider(int columnNumber){
+			this.columnNumber = columnNumber;
+		}
+		@Override
+		public void update(ViewerCell cell) {
+			Object fieldValue = ClassUtils.getProperty(cell.getElement(), declaredFields[this.getColumnNumber()].getName());
+			cell.setText(fieldValue.toString());
+		}
+		
+		
+		
+	}
 	// This will create the columns for the table
 	private void createColumns(final Composite parent, final TableViewer viewer) {
 		
@@ -113,13 +131,7 @@ public class RefactoredView {
 		for(i = 0 ; i < declaredFields.length; i ++){
 			
 			TableViewerColumn col = createTableViewerColumn(declaredFields[i].getName(), 100, i);
-			col.setLabelProvider(new CellLabelProvider() {
-				@Override
-				public void update(ViewerCell cell) {
-					Object fieldValue = ClassUtils.getProperty(cell.getElement(), declaredFields[i].getName());
-					cell.setText(fieldValue.toString());
-				}
-			});
+			col.setLabelProvider(new MyCellLabelProvider(i));
 			//col.setEditingSupport(new FirstNameEditingSupport(viewer));
 			
 		}
