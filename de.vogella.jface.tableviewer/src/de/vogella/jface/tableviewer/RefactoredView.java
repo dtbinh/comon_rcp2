@@ -23,47 +23,49 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.metawidget.util.ClassUtils;
 
-import de.vogella.jface.tableviewer.model.ModelProvider;
 import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
-import de.vogella.jface.tableviewer.sorter.MyViewerComparator;
 
 public class RefactoredView {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
 	private TableViewer viewer;
-	
+
 	private Class beanType;
 	private Field[] declaredFields;
-	
+
+	public Field[] getDeclaredFields() {
+		return declaredFields;
+	}
+
 	private int i;
-	
+
 	private GenericViewerComparator comparator;
-	
-	public  RefactoredView(Class beanType){
+
+	public RefactoredView(Class beanType) {
 		this.beanType = beanType;
 		declaredFields = this.beanType.getDeclaredFields();
 
 	}
 
 	public void createPartControl(Composite parent) {
-		   GridLayout layout = new GridLayout(2, false);
-		    parent.setLayout(layout);
-		    Label searchLabel = new Label(parent, SWT.NONE);
-		    searchLabel.setText("Search: ");
-		    final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
-		    searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
-		        | GridData.HORIZONTAL_ALIGN_FILL));
-		    createViewer(parent);
-		    // Set the sorter for the table
-		    comparator = new GenericViewerComparator();
-		    viewer.setComparator(comparator);
+		GridLayout layout = new GridLayout(2, false);
+		parent.setLayout(layout);
+		Label searchLabel = new Label(parent, SWT.NONE);
+		searchLabel.setText("Search: ");
+		final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
+		searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
+				| GridData.HORIZONTAL_ALIGN_FILL));
+		createViewer(parent);
+		// Set the sorter for the table
+		comparator = new GenericViewerComparator(this);
+		viewer.setComparator(comparator);
 
-		    // New to support the search
-		    searchText.addKeyListener(new KeyAdapter() {
-		      public void keyReleased(KeyEvent ke) {
-		        viewer.refresh();
-		      }
+		// New to support the search
+		searchText.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent ke) {
+				viewer.refresh();
+			}
 
-		    });
+		});
 
 	}
 
@@ -78,10 +80,11 @@ public class RefactoredView {
 		viewer.setContentProvider(new ArrayContentProvider());
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
-		//TODO: fix this
+
+		// TODO: fix this
 		List<Object> beanList = new ArrayList();
 
-		for(int i = 0 ; i < 3; i ++ ){
+		for (int i = 0; i < 3; i++) {
 			Object bean = null;
 			try {
 				bean = this.beanType.newInstance();
@@ -91,7 +94,7 @@ public class RefactoredView {
 			}
 			beanList.add(bean);
 		}
-		
+
 		viewer.setInput(beanList);
 		// make the selection available to other views
 
@@ -109,36 +112,41 @@ public class RefactoredView {
 		return viewer;
 	}
 
-	class MyCellLabelProvider extends CellLabelProvider{
+	class MyCellLabelProvider extends CellLabelProvider {
 		private int columnNumber;
-			
+
 		public int getColumnNumber() {
 			return columnNumber;
 		}
-		public MyCellLabelProvider(int columnNumber){
+
+		public MyCellLabelProvider(int columnNumber) {
 			this.columnNumber = columnNumber;
 		}
+
 		@Override
 		public void update(ViewerCell cell) {
-			Object fieldValue = ClassUtils.getProperty(cell.getElement(), declaredFields[this.getColumnNumber()].getName());
-			cell.setText(fieldValue.toString());
+			try {
+				Object fieldValue = ClassUtils.getProperty(cell.getElement(),
+						declaredFields[this.getColumnNumber()].getName());
+				cell.setText(fieldValue.toString());
+			} catch (RuntimeException e) {
+				// TODO exception
+			}
 		}
-		
-		
-		
+
 	}
+
 	// This will create the columns for the table
 	private void createColumns(final Composite parent, final TableViewer viewer) {
-		
-		
-		for(i = 0 ; i < declaredFields.length; i ++){
-			
-			TableViewerColumn col = createTableViewerColumn(declaredFields[i].getName(), 100, i);
+
+		for (i = 0; i < declaredFields.length; i++) {
+
+			TableViewerColumn col = createTableViewerColumn(
+					declaredFields[i].getName(), 100, i);
 			col.setLabelProvider(new MyCellLabelProvider(i));
-			//col.setEditingSupport(new FirstNameEditingSupport(viewer));
-			
+			// col.setEditingSupport(new FirstNameEditingSupport(viewer));
+
 		}
-		
 
 	}
 
@@ -165,7 +173,6 @@ public class RefactoredView {
 		column.addSelectionListener(selectionAdapter);
 		return viewerColumn;
 	}
-
 
 	/**
 	 * Passing the focus request to the viewer's control.

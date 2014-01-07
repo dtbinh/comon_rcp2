@@ -17,7 +17,7 @@ public class MyViewerComparator extends ViewerComparator {
   }
 
   public int getDirection() {
-    return direction == 1 ? SWT.DOWN : SWT.UP;
+    return direction == DESCENDING ? SWT.DOWN : SWT.UP;
   }
 
   public void setColumn(int column) {
