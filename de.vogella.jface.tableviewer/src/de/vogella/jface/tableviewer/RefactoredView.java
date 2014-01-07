@@ -1,8 +1,11 @@
 package de.vogella.jface.tableviewer;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellLabelProvider;
-import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -11,7 +14,6 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -19,32 +21,25 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.part.ViewPart;
+import org.metawidget.util.ClassUtils;
 
-import de.vogella.jface.tableviewer.edit.FirstNameEditingSupport;
-import de.vogella.jface.tableviewer.edit.GenderEditingSupport;
-import de.vogella.jface.tableviewer.edit.LastNameEditingSupport;
-import de.vogella.jface.tableviewer.edit.MarriedEditingSupport;
-import de.vogella.jface.tableviewer.filter.PersonFilter;
 import de.vogella.jface.tableviewer.model.ModelProvider;
-import de.vogella.jface.tableviewer.model.Person;
-import de.vogella.jface.tableviewer.sorter.MyViewerComparator;
 
-public class RefactoredView extends ViewPart {
-	private PersonFilter filter;
-	
+public class RefactoredView {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
-	private MyViewerComparator comparator;
-
 	private TableViewer viewer;
-	// We use icons
-	// private static final Image CHECKED =
-	// Activator.getImageDescriptor("icons/checked.gif").createImage();
-	// private static final Image UNCHECKED =
-	// Activator.getImageDescriptor("icons/unchecked.gif").createImage();
+	
+	private Class beanType;
+	private Field[] declaredFields;
+	
+	private int i;
+	
+	
+	public  RefactoredView(Class beanType){
+		this.beanType = beanType;
+		declaredFields = this.beanType.getDeclaredFields();
 
-	private static final Image CHECKED = null;
-	private static final Image UNCHECKED = null;
+	}
 
 	public void createPartControl(Composite parent) {
 		   GridLayout layout = new GridLayout(2, false);
@@ -56,19 +51,14 @@ public class RefactoredView extends ViewPart {
 		        | GridData.HORIZONTAL_ALIGN_FILL));
 		    createViewer(parent);
 		    // Set the sorter for the table
-		    comparator = new MyViewerComparator();
-		    viewer.setComparator(comparator);
 
 		    // New to support the search
 		    searchText.addKeyListener(new KeyAdapter() {
 		      public void keyReleased(KeyEvent ke) {
-		        filter.setSearchText(searchText.getText());
 		        viewer.refresh();
 		      }
 
 		    });
-		    filter = new PersonFilter();
-		    viewer.addFilter(filter);
 
 	}
 
@@ -83,9 +73,24 @@ public class RefactoredView extends ViewPart {
 		viewer.setContentProvider(new ArrayContentProvider());
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
-		viewer.setInput(ModelProvider.INSTANCE.getPersons());
+		//TODO: fix this
+		
+
+		List<Object> beanList = new ArrayList();
+
+		for(int i = 0 ; i < 3; i ++ ){
+			Object bean = null;
+			try {
+				bean = this.beanType.newInstance();
+			} catch (InstantiationException | IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			beanList.add(bean);
+		}
+		
+		viewer.setInput(beanList);
 		// make the selection available to other views
-		getSite().setSelectionProvider(viewer);
 
 		// Layout the viewer
 		GridData gridData = new GridData();
@@ -103,58 +108,22 @@ public class RefactoredView extends ViewPart {
 
 	// This will create the columns for the table
 	private void createColumns(final Composite parent, final TableViewer viewer) {
-		String[] titles = { "First name", "Last name", "Gender", "Married" };
-		int[] bounds = { 100, 100, 100, 100 };
-
-		// First column is for the first name
-		TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
-		col.setLabelProvider(new CellLabelProvider() {
-			@Override
-			public void update(ViewerCell cell) {
-				cell.setText(((Person) cell.getElement()).getFirstName());
-			}
-		});
-		col.setEditingSupport(new FirstNameEditingSupport(viewer));
-
-		// Second column is for the last name
-		col = createTableViewerColumn(titles[1], bounds[1], 1);
-		col.setLabelProvider(new CellLabelProvider() {
-			@Override
-			public void update(ViewerCell cell) {
-				cell.setText(((Person) cell.getElement()).getLastName());
-			}
-		});
-		col.setEditingSupport(new LastNameEditingSupport(viewer));
-
-		// now the gender
-		col = createTableViewerColumn(titles[2], bounds[2], 2);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				Person p = (Person) element;
-				return p.getGender();
-			}
-		});
-		col.setEditingSupport(new GenderEditingSupport(viewer));
-
-		// now the status married
-		col = createTableViewerColumn(titles[3], bounds[3], 3);
-		col.setLabelProvider(new ColumnLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				return null;
-			}
-
-			@Override
-			public Image getImage(Object element) {
-				if (((Person) element).isMarried()) {
-					return CHECKED;
-				} else {
-					return UNCHECKED;
+		
+		
+		for(i = 0 ; i < declaredFields.length; i ++){
+			
+			TableViewerColumn col = createTableViewerColumn(declaredFields[i].getName(), 100, i);
+			col.setLabelProvider(new CellLabelProvider() {
+				@Override
+				public void update(ViewerCell cell) {
+					Object fieldValue = ClassUtils.getProperty(cell.getElement(), declaredFields[i].getName());
+					cell.setText(fieldValue.toString());
 				}
-			}
-		});
-		col.setEditingSupport(new MarriedEditingSupport(viewer));
+			});
+			//col.setEditingSupport(new FirstNameEditingSupport(viewer));
+			
+		}
+		
 
 	}
 
@@ -170,9 +139,6 @@ public class RefactoredView extends ViewPart {
 		SelectionAdapter selectionAdapter = new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				comparator.setColumn(colNumber);
-				int dir = comparator.getDirection();
-				viewer.getTable().setSortDirection(dir);
 				viewer.getTable().setSortColumn(column);
 				viewer.refresh();
 			}
