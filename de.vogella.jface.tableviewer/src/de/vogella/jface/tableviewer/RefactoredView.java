@@ -23,11 +23,14 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.metawidget.util.ClassUtils;
 
+import de.vogella.jface.tableviewer.filter.GenericFilter;
+import de.vogella.jface.tableviewer.filter.PersonFilter;
 import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
 
 public class RefactoredView {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
 	private TableViewer viewer;
+	private GenericFilter filter;
 
 	private Class beanType;
 	private Field[] declaredFields;
@@ -59,13 +62,16 @@ public class RefactoredView {
 		comparator = new GenericViewerComparator(this);
 		viewer.setComparator(comparator);
 
-		// New to support the search
-		searchText.addKeyListener(new KeyAdapter() {
-			public void keyReleased(KeyEvent ke) {
-				viewer.refresh();
-			}
+	    // New to support the search
+	    searchText.addKeyListener(new KeyAdapter() {
+	      public void keyReleased(KeyEvent ke) {
+	        filter.setSearchText(searchText.getText());
+	        viewer.refresh();
+	      }
 
-		});
+	    });
+	    filter = new GenericFilter(this);
+	    viewer.addFilter(filter);
 
 	}
 
