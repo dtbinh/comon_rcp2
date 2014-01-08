@@ -12,21 +12,21 @@ import java.util.List;
 import org.eclipse.zest.layouts.progress.ProgressEvent;
 import org.eclipse.zest.layouts.progress.ProgressListener;
 
+import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.activities.PActivity;
 import edu.umd.cs.piccolo.activities.PActivityScheduler;
 import edu.umd.cs.piccolo.util.PUtil;
-import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
 /**
  * Schedules and managers activities (listens for completion).
  * 
  * @author Chris Callendar
  */
-public class ActivityManager implements PActivity.PActivityDelegate {
+public class ActivityManagerSwing implements PActivity.PActivityDelegate {
 	
 	private static final long MIN_PAINT_INTERVAL = 10;
 	
-	private PSWTCanvas canvas;
+	private PCanvas canvas;
 	private PActivityScheduler scheduler;
 	private boolean activitiesFinished;
 	private HashSet<PActivity> activitiesSet;
@@ -38,7 +38,7 @@ public class ActivityManager implements PActivity.PActivityDelegate {
 	 * not be scheduled.
 	 * @param scheduler the scheduler, can be null
 	 */
-	public ActivityManager(PSWTCanvas canvas, PActivityScheduler scheduler, PActivity activity) {
+	public ActivityManagerSwing(PCanvas canvas, PActivityScheduler scheduler, PActivity activity) {
 		this.canvas = canvas;
 		this.scheduler = scheduler;
 		
@@ -52,7 +52,7 @@ public class ActivityManager implements PActivity.PActivityDelegate {
 	 * not be scheduled.
 	 * @param scheduler the scheduler, can be null
 	 */
-	public ActivityManager(PSWTCanvas canvas, PActivityScheduler scheduler) {
+	public ActivityManagerSwing(PCanvas canvas, PActivityScheduler scheduler) {
 		this.canvas = canvas;
 		this.scheduler = scheduler;
 		
@@ -148,9 +148,7 @@ public class ActivityManager implements PActivity.PActivityDelegate {
 				if ((canvas != null) && (canvas.getParent() != null)) {
 					if ((now - lastPaint) > MIN_PAINT_INTERVAL) {
 						lastPaint = now;
-						//TODO: change
-						canvas.paintImmediately();
-						//canvas.paintImmediately(canvas.getParent().getBounds());
+						canvas.paintImmediately(canvas.getParent().getBounds());
 					}
 				}
 			} catch (Exception e) {

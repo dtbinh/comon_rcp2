@@ -31,20 +31,28 @@ public class OntologyGraphView extends ViewPart {
 	 * it.
 	 */
 	public void createPartControl(Composite parent) {
-	    Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
-	    Frame frame = SWT_AWT.new_Frame(composite);
-	    
-	    //JButton jbt1 = new JButton();
-	    
-	    
+		OntologyGraph.createInstance(parent);
 	    OntologyGraph graph = OntologyGraph.getInstance();
-	    JPanel graphPanel = new JPanel();
-	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
-	   // graphPanel.add(new JButton("btn1"));
-	    graphPanel.setVisible(true);
-	    //frame.add(graphPanel);
-	    frame.add(graph);
 	    graph.performLayout();
+		
+		
+		
+		
+		
+//		Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
+//	    Frame frame = SWT_AWT.new_Frame(composite);
+//	    
+//	    //JButton jbt1 = new JButton();
+//	    
+//	    
+//	    OntologyGraph graph = OntologyGraph.getInstance();
+//	    JPanel graphPanel = new JPanel();
+//	    graphPanel.add(new PScrollPane(graph),BorderLayout.CENTER);
+//	   // graphPanel.add(new JButton("btn1"));
+//	    graphPanel.setVisible(true);
+//	    //frame.add(graphPanel);
+//	    frame.add(graph);
+//	    graph.performLayout();
 
 	}
 

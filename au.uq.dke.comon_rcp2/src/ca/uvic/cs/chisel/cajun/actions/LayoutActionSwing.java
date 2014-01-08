@@ -19,13 +19,13 @@ import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.util.ActivityManager;
+import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.activities.PActivity;
 import edu.umd.cs.piccolo.activities.PTransformActivity;
 import edu.umd.cs.piccolo.util.PUtil;
-import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
-public class LayoutAction extends CajunAction {
+public class LayoutActionSwing extends CajunAction {
 	private static final long serialVersionUID = -7385859217531335673L;
 	
 	private static final int MAX_NODES_TO_ANIMATE = 200;
@@ -42,11 +42,11 @@ public class LayoutAction extends CajunAction {
 	/** list of relationship types that the layout should be applied to */
 	private List<Object> layoutRelTypes;
 	
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph) {
+	public LayoutActionSwing(String name, Icon icon, LayoutAlgorithm layout, IGraph graph) {
 		this(name, icon, layout, graph, true);
 	}
 
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph, boolean animate) {
+	public LayoutActionSwing(String name, Icon icon, LayoutAlgorithm layout, IGraph graph, boolean animate) {
 		super(name, icon);
 		this.layout = layout;
 		this.graph = graph;
@@ -100,13 +100,11 @@ public class LayoutAction extends CajunAction {
 		}
 		DefaultGraphArc[] rels = filteredArcs.toArray(new DefaultGraphArc[filteredArcs.size()]);
 
-		PSWTCanvas canvas = graph.getCanvas();
+		PCanvas canvas = graph.getCanvas();
 
 		double x = 0, y = 0;
-//		double w = Math.max(0, canvas.getWidth() - 10);
-//		double h = Math.max(0, canvas.getHeight() - 10);
-		double w = 500;
-		double h = 500;
+		double w = Math.max(0, canvas.getWidth() - 10);
+		double h = Math.max(0, canvas.getHeight() - 10);
 
 		// to allow extra room for wide nodes
 		if (w > 400) {

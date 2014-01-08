@@ -16,7 +16,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JToolTip;
 import javax.swing.border.Border;
 
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.zest.layouts.LayoutStyles;
 import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.GridLayoutAlgorithm;
@@ -38,9 +37,9 @@ import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
 import ca.uvic.cs.chisel.cajun.graph.handlers.GraphPopupListener;
 import ca.uvic.cs.chisel.cajun.graph.handlers.KeyHandlerDelegate;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNodeStyle;
+import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionEvent;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
-import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import ca.uvic.cs.chisel.cajun.graph.node.NodeCollection;
 import ca.uvic.cs.chisel.cajun.resources.ResourceHandler;
@@ -50,10 +49,8 @@ import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PInputEventListener;
-import edu.umd.cs.piccolo.util.PPaintContext;
-import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
-public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
+public abstract class AbstractGraphSwingBak extends PCanvas implements IGraph {
 	private static final long serialVersionUID = -2767059869604101888L;
 
 	public static final int ARC_LAYER_INDEX = 0;
@@ -126,15 +123,13 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		}
 	};
 
-	
-	//TODO: AWT FocusListener
 	private FocusListener focusListener = new FocusListener() {
 		public void focusGained(FocusEvent e) {
-		//	getCanvas().setBorder(FOCUS_GAINED_BORDER);
+			getCanvas().setBorder(FOCUS_GAINED_BORDER);
 		}
 
 		public void focusLost(FocusEvent e) {
-			//getCanvas().setBorder(FOCUS_LOST_BORDER);
+			getCanvas().setBorder(FOCUS_LOST_BORDER);
 		}
 	};
 
@@ -146,16 +141,15 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		}
 	};
 
-	public AbstractGraph(Composite parent, IGraphModel model) {
-		this(parent);
+	public AbstractGraphSwingBak(IGraphModel model) {
+		this();
 
 		// do this last after the layers and listeners have be created
 		setModel(model);
 	}
 
-	public AbstractGraph(Composite parent) {
-		//TODO constructor
-		super(parent, PPaintContext.HIGH_QUALITY_RENDERING);
+	public AbstractGraphSwingBak() {
+		super();
 		this.model = new DefaultGraphModel();
 
 		this.graphModelListeners = new ArrayList<GraphModelListener>();
@@ -178,11 +172,10 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		this.nodeStyle = new DefaultGraphNodeStyle();
 		this.arcStyle = new DefaultGraphArcStyle();
 
-		//TODO: addFocusListener
-		//addFocusListener(focusListener);
+		addFocusListener(focusListener);
 
-		//TODO: register to use our custom tooltips
-		//CustomToolTipManager.sharedInstance().registerComponent(this);
+		// register to use our custom tooltips
+		CustomToolTipManager.sharedInstance().registerComponent(this);
 
 		initializeLayers();
 
@@ -228,7 +221,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		return filterManager;
 	}
 
-	public Composite getGraphComponent() {
+	public JComponent getGraphComponent() {
 		return this;
 	}
 	
@@ -238,7 +231,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		}
 	}
 
-	public PSWTCanvas getCanvas() {
+	public PCanvas getCanvas() {
 		return this;
 	}
 
@@ -254,14 +247,12 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		//TODO: addPropertyChangeListener
-		//super.addPropertyChangeListener(listener);
+		super.addPropertyChangeListener(listener);
 	}
 
 	@Override
 	public synchronized void removePropertyChangeListener(PropertyChangeListener listener) {
-		//TODO: removePropertyChangeListener
-		//super.removePropertyChangeListener(listener);
+		super.removePropertyChangeListener(listener);
 	}
 
 	public JPopupMenu getNodeContextMenu() {
@@ -359,8 +350,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 
 		loadModel();
 
-		//TODO: firePropertyChange
-		//firePropertyChange(GRAPH_MODEL_PROPERTY, oldModel, this.model);
+		firePropertyChange(GRAPH_MODEL_PROPERTY, oldModel, this.model);
 	}
 
 	public void setGraphArcStyle(IGraphArcStyle style) {
@@ -374,8 +364,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 				arc.setArcStyle(this.arcStyle);
 			}
 
-			//TODO: firePropertyChange
-			//firePropertyChange(GRAPH_ARC_STYLE_PROPERTY, oldStyle, this.arcStyle);
+			firePropertyChange(GRAPH_ARC_STYLE_PROPERTY, oldStyle, this.arcStyle);
 		}
 	}
 
@@ -394,8 +383,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 				node.setNodeStyle(this.nodeStyle);
 			}
 
-			//TODO: firePropertyChange
-			//firePropertyChange(GRAPH_NODE_STYLE_PROPERTY, oldStyle, this.nodeStyle);
+			firePropertyChange(GRAPH_NODE_STYLE_PROPERTY, oldStyle, this.nodeStyle);
 		}
 	}
 

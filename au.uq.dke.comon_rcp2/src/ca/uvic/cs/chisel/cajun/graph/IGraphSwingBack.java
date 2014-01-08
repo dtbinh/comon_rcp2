@@ -4,18 +4,18 @@ import java.awt.geom.Rectangle2D;
 import java.beans.PropertyChangeListener;
 import java.util.Collection;
 
-import org.eclipse.swt.widgets.Composite;
+import javax.swing.JComponent;
+import javax.swing.JPopupMenu;
 
 import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
-import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNodeStyle;
 import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.event.PInputEventListener;
-import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
-public interface IGraph {
+public interface IGraphSwingBack {
 
 	// Property change names
 	public static final String GRAPH_MODEL_PROPERTY = "model";
@@ -44,19 +44,19 @@ public interface IGraph {
 	/**
 	 * Returns the swing graph component.
 	 */
-	public Composite getGraphComponent();
+	public JComponent getGraphComponent();
 	
 	/**
 	 * Returns the graph canvas.
 	 */
-	public PSWTCanvas getCanvas();
+	public PCanvas getCanvas();
 	
 	/** Returns the node right-click context menu. */
-//	public PopupMenu getNodeContextMenu();
+	public JPopupMenu getNodeContextMenu();
 	/** Returns the arc right-click context menu. */
-//	public PopupMenu getArcContextMenu();
+	public JPopupMenu getArcContextMenu();
 	/** Returns the canvas right-click context menu. */
-//	public JPopupMenu getCanvasContextMenu();
+	public JPopupMenu getCanvasContextMenu();
 	
 	/**
 	 * @return the current {@link IGraphModel}, won't be null
@@ -65,7 +65,7 @@ public interface IGraph {
 	
 	/**
 	 * Sets the {@link IGraphModel} and fires a PropertyChangeEvent using the
-	 * {@link IGraph#GRAPH_MODEL_PROPERTY} property name.
+	 * {@link IGraphSwingBack#GRAPH_MODEL_PROPERTY} property name.
 	 * @param model
 	 */
 	public void setModel(IGraphModel model);
@@ -102,7 +102,7 @@ public interface IGraph {
 	
 	public void clear();
 	public void repaint();
-	//public Rectangle2D getBounds();
+	public Rectangle2D getBounds();
 	
 	/**
 	 * Sets the node style for all nodes in the graph.

@@ -69,6 +69,6 @@ public class RecordsAddingUnit {
 
 		});
 
-		//maincomposite.setBounds(10, 5, 775, 505);
+		maincomposite.setBounds(10, 5, 775, 505);
 	}
 }

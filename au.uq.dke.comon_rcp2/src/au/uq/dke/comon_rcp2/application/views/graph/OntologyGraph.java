@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.widgets.Composite;
 
 import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
 import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
@@ -18,10 +19,15 @@ public class OntologyGraph extends FlatGraph {
 
 	public static OntologyGraph getInstance() {
 		if (instance == null) {
-			instance = new OntologyGraph();
+			//TODO Exception
 		}
-
 		return instance;
+	}
+	
+	public static void createInstance(Composite parent){
+		if (instance == null) {
+			instance = new OntologyGraph(parent);
+		}
 	}
 
 	public void performLayoutWithFilter() {
@@ -47,8 +53,8 @@ public class OntologyGraph extends FlatGraph {
 
 	private Collection<ViewerFilter> viewerFilters = new ArrayList<ViewerFilter>();
 
-	private OntologyGraph() {
-		super();
+	private OntologyGraph(Composite parent) {
+		super(parent);
 		super.setModel(graphModel);
 	}
 

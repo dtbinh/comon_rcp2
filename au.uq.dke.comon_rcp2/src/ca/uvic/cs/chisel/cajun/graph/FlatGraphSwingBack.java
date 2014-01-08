@@ -1,7 +1,5 @@
 package ca.uvic.cs.chisel.cajun.graph;
 
-import org.eclipse.swt.widgets.Composite;
-
 import ca.uvic.cs.chisel.cajun.filter.FilterManager;
 import ca.uvic.cs.chisel.cajun.graph.handlers.CameraDragPanHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.CameraKeyPanHandler;
@@ -15,37 +13,37 @@ import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-public class FlatGraph extends AbstractGraph {
+public class FlatGraphSwingBack extends AbstractGraph {
 	private static final long serialVersionUID = 2134657503991199239L;
 	
 	private boolean showNodeTooltips;
 	
 	private AnimationHandler animationHandler;
 	
-	public FlatGraph(Composite parent) {
-		this(parent, new DefaultGraphModel());
+	public FlatGraphSwingBack() {
+		this(new DefaultGraphModel());
 		
 		this.showNodeTooltips = true;
 	}
 	
-	public FlatGraph(Composite parent, IGraphModel model) {
-		super(parent, model);
+	public FlatGraphSwingBack(IGraphModel model) {
+		super(model);
 
 		setDefaultRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 		setAnimatingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 		setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 
-		//this.animationHandler = new AnimationHandler(this);
+		this.animationHandler = new AnimationHandler(this);
 
 		PCamera camera = getCamera();
 
 		// use our custom pan handler (when the canvas is dragged)
-		//setPanEventHandler(new CameraDragPanHandler());
+		setPanEventHandler(new CameraDragPanHandler());
 		// this causes panning to happen when the arrow keys are pressed
 		camera.addInputEventListener(new CameraKeyPanHandler(camera));
 		
 		// disable key zooming - we'll use our own handler
-		//setZoomEventHandler(null);
+		setZoomEventHandler(null);
         // handles keyboard (+/-) and mouse wheel zoom events
         camera.addInputEventListener(new ZoomHandler(camera));
 

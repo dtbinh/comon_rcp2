@@ -1,11 +1,15 @@
 package ca.uvic.cs.chisel.cajun.graph.util;
 
+import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import ca.uvic.cs.chisel.cajun.graph.AbstractGraph;
 import ca.uvic.cs.chisel.cajun.graph.handlers.PNormalZoomHandler;
 import ca.uvic.cs.chisel.cajun.util.GeometryUtils;
-import edu.umd.cs.piccolo.PSWTCanvas;
+import edu.umd.cs.piccolo.PCanvas;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.activities.PActivity;
@@ -13,19 +17,18 @@ import edu.umd.cs.piccolo.activities.PActivityScheduler;
 import edu.umd.cs.piccolo.activities.PTransformActivity;
 import edu.umd.cs.piccolo.util.PAffineTransform;
 import edu.umd.cs.piccolo.util.PUtil;
-import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
 /**
- * Utility class for working with a {@link PSWTCanvas} and performing animations.
+ * Utility class for working with a {@link PCanvas} and performing animations.
  *
  * @author Chris
  * @since  9-Nov-07
  */
-public class AnimationHandler {
+public class AnimationHandlerSwingBack {
 
-	private PSWTCanvas canvas;
+	private PCanvas canvas;
 
-	public AnimationHandler(PSWTCanvas canvas) {
+	public AnimationHandlerSwingBack(PCanvas canvas) {
 		this.canvas = canvas;
 	}
 
