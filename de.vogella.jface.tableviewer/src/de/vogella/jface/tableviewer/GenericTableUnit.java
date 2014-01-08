@@ -31,8 +31,8 @@ import de.vogella.jface.tableviewer.filter.PersonFilter;
 import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
 
 /**
- * @author wangwei first instanize then set dataInput & set if hide the search
- *         then init the widgets and table
+ * @author wangwei first instanize, then set dataInput & set if hide the search
+ *         , then init the widgets and table
  */
 public class GenericTableUnit {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
@@ -71,6 +71,9 @@ public class GenericTableUnit {
 		declaredFields = this.beanType.getDeclaredFields();
 	}
 
+	public void refresh(){
+		this.viewer.refresh();
+	}
 
 	public void init() {
 
