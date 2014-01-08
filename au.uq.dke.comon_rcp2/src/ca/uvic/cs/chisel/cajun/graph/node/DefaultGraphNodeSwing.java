@@ -44,15 +44,15 @@ import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
 /**
- * Default graph node implementation. Displays some text and possible an
- * image/icon.
+ * Default graph node implementation. Displays some text and possible an image/icon.
  * 
  * @author Chris Callendar
- * @since 30-Oct-07
+ * @since  30-Oct-07
  */
-public class DefaultGraphNode extends PNode implements IGraphNode {
+public class DefaultGraphNodeSwing extends PNode implements IGraphNode {
 
 	private static final long serialVersionUID = 3223950711940456476L;
+
 
 	private BasicIconNode tableIconNode;
 	private BasicIconNode dashboardIconNode;
@@ -107,7 +107,10 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		return ellipse;
 	}
 
-	public DefaultGraphNode(Object userObject) {
+
+
+
+	public DefaultGraphNodeSwing(Object userObject) {
 		super();
 
 		this.userObject = userObject;
@@ -125,21 +128,21 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		this.setChildrenPickable(true);
 
 		textNode = new GraphTextNode(this);
-		// textNode.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
+		textNode.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
 		// make this node match the text size
-		// textNode.setConstrainWidthToTextWidth(true);
-		// textNode.setConstrainHeightToTextHeight(true);
-		textNode.setPickable(true);
+		textNode.setConstrainWidthToTextWidth(true);
+		textNode.setConstrainHeightToTextHeight(true);
+		textNode.setPickable(false);
 
-		//childrenCountIcon = new HiddenChildrenCountIcon(this, "1");
-		//childrenCountIcon.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
+		childrenCountIcon = new HiddenChildrenCountIcon(this, "1");
+		childrenCountIcon.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
 		// make this node match the text size
-		//childrenCountIcon.setConstrainWidthToTextWidth(true);
-		//childrenCountIcon.setConstrainHeightToTextHeight(true);
-		//childrenCountIcon.setPickable(false);
+		childrenCountIcon.setConstrainWidthToTextWidth(true);
+		childrenCountIcon.setConstrainHeightToTextHeight(true);
+		childrenCountIcon.setPickable(false);
 
 		addChild(textNode);
-		// addChild(childrenCountIcon);
+		//addChild(childrenCountIcon);
 
 		setType(type);
 
@@ -197,12 +200,12 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		}
 	}
 
-	// TODO: redirect to graph model to get result
+	//TODO: redirect to graph model to get result
 	public Collection<IGraphArc> getArcs() {
 		return arcs;
 	}
 
-	// TODO: redirect to graph model to get result
+	//TODO: redirect to graph model to get result
 	public Collection<IGraphArc> getArcs(boolean incoming, boolean outgoing) {
 		Collection<IGraphArc> graphArcs;
 		if (incoming && outgoing) {
@@ -222,7 +225,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		return graphArcs;
 	}
 
-	// TODO: redirect to graph model to get result
+	//TODO: redirect to graph model to get result
 	public void addArc(IGraphArc arc) {
 		if (!this.arcs.contains(arc)) {
 			this.arcs.add(arc);
@@ -260,10 +263,10 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	}
 
 	public String getText() {
-		return ("get text of node");
-		// return ((INodeUserObject)userObject).getText();
-
+		return ((INodeUserObject)userObject).getText();
 	}
+
+
 
 	public void setText(String s) {
 		if (s == null) {
@@ -276,8 +279,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		// TODO let user choose between eliding the label and splitting into
 		// lines?
 
-		// textNode.setText(StringUtil.splitTextIntoLines(s,
-		// UIConstants.MAX_LINES, UIConstants.MAX_TEXT_CHARS));
+		textNode.setText(StringUtil.splitTextIntoLines(s, UIConstants.MAX_LINES, UIConstants.MAX_TEXT_CHARS));
 	}
 
 	/**
@@ -295,6 +297,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	 * Also puts a cap on the max number of lines.
 	 */
 
+
 	@Override
 	public String toString() {
 		return this.getText();
@@ -309,6 +312,22 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		this.tooltip = tooltip;
 	}
 
+	public void setIcon(Icon icon) {
+		if (pImage != null) {
+			pImage.removeAllChildren();
+			pImage.removeFromParent();
+			pImage.getImage().flush();
+		}
+		if ((icon != null) && (icon instanceof ImageIcon)) {
+			iconWidth = icon.getIconWidth();
+			iconHeight = icon.getIconHeight();
+			pImage = new PImage(((ImageIcon) icon).getImage());
+			pImage.setPickable(false);
+			addChild(pImage);
+			initBounds();
+		}
+	}
+
 	public boolean isSelected() {
 		return selected;
 	}
@@ -318,7 +337,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 			this.selected = selected;
 			updateArcs();
 			textNode.invalidatePaint();
-			//childrenCountIcon.invalidatePaint();
+			childrenCountIcon.invalidatePaint();
 			invalidatePaint();
 		}
 	}
@@ -332,7 +351,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 			this.highlighted = highlighted;
 			bubbleNode();
 			textNode.invalidatePaint();
-			//childrenCountIcon.invalidatePaint();
+			childrenCountIcon.invalidatePaint();
 			invalidatePaint();
 		}
 	}
@@ -414,7 +433,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	}
 
 	/**
-	 * Sets the bounds of this node based on the text size. Takes into
+	 * Sets the bounds of this node based on the icon and text size. Takes into
 	 * consideration the maximum node width too.
 	 */
 
@@ -445,8 +464,6 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 
 		this.setSize(bw, bh);
 
-		textNode.setBounds(10, 10, 30, 30);
-
 	}
 
 	// This method is important to override so that the geometry of
@@ -461,11 +478,9 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 			// double tw = textBounds.getWidth();
 			// double th = textBounds.getHeight();
 
-//			textNode.setBounds(centerX - textNode.getWidth() / 2, centerY
-//					- textNode.getHeight() / 2, textNode.getWidth(),
-//					textNode.getHeight());
-			
-			textNode.setBounds(10, 10, 30, 30);
+			textNode.setBounds(centerX - textNode.getWidth() / 2, centerY
+					- textNode.getHeight() / 2, textNode.getWidth(),
+					textNode.getHeight());
 
 			if (this.tableIconNode != null) {
 				this.tableIconNode
@@ -473,21 +488,21 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 			}
 
 			if (this.dashboardIconNode != null) {
-				this.dashboardIconNode.setBounds(centerX - 50, centerY - 50,
-						30, 30);
+				this.dashboardIconNode
+						.setBounds(centerX - 50, centerY - 50, 30, 30);
 			}
 			getEllipse().setFrame(centerX - getEllipse().getWidth() / 2,
 					centerY - getEllipse().getHeight() / 2,
 					getEllipse().getWidth(), getEllipse().getHeight());
 
-//			double cw = childrenCountIcon.getWidth();
-//			double ch = childrenCountIcon.getHeight();
-//			double d = Math.max(cw, ch);
-//			// childrenCountIcon.setBounds(getX(), getY() + getHeight()/2, d,
-//			// d);
-//			childrenCountIcon.setBounds(getEllipse().getX() - d / 2,
-//					getEllipse().getY() + getEllipse().getHeight() / 2 - d / 2,
-//					d, d);
+			double cw = childrenCountIcon.getWidth();
+			double ch = childrenCountIcon.getHeight();
+			double d = Math.max(cw, ch);
+			// childrenCountIcon.setBounds(getX(), getY() + getHeight()/2, d,
+			// d);
+			childrenCountIcon.setBounds(getEllipse().getX() - d / 2,
+					getEllipse().getY() + getEllipse().getHeight() / 2 - d / 2,
+					d, d);
 
 			updateArcLocations();
 			invalidatePaint();
@@ -590,8 +605,8 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	}
 
 	public int compareTo(Object o) {
-		if (o instanceof DefaultGraphNode) {
-			DefaultGraphNode node = (DefaultGraphNode) o;
+		if (o instanceof DefaultGraphNodeSwing) {
+			DefaultGraphNodeSwing node = (DefaultGraphNodeSwing) o;
 			return this.getText().compareToIgnoreCase(node.getText());
 		}
 		return 0;
@@ -599,6 +614,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 
 	@Override
 	protected void paint(PPaintContext paintContext) {
+		this.setText("test text");
 		Graphics2D g2 = paintContext.getGraphics();
 
 		// this.setB
@@ -616,37 +632,35 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		// Paint borderPaint = Color.red;
 		// Stroke borderStroke = new PFixedWidthStroke(3f);
 
-		Shape ellipseShape = getEllipse();
-		Shape fullShape = this.getBoundsReference();
+		Ellipse2D ellipse = getEllipse();
+		ellipse.setFrame(ellipse.getX(), ellipse.getY(), 40, 40);
+		Shape drawShape = getEllipse();
 		
+		//mock
+//		bg = Display.getCurrent().getSystemColor(SWT.COLOR_BLUE);
+		bg = Color.RED;
 
-		// 0. paint the ellipse
-		g2.setPaint(Color.blue);
-		g2.setStroke(borderStroke);
-		g2.draw(ellipseShape);
-
-		// // 1. paint the background shape
-		// if (bg != null) {
-		// g2.setPaint(Color.green);
-		// g2.fill(fullShape);
-		// }
+		// 1. paint the background shape
+		if (bg != null) {
+			g2.setPaint(bg);
+			g2.fill(drawShape);
+		}
 
 		// 2. paint the border
 		if ((borderPaint != null) && (borderStroke != null)) {
-			// g2.setPaint(borderPaint);
-			g2.setPaint(Color.green);
+			g2.setPaint(borderPaint);
 			g2.setStroke(borderStroke);
-			g2.draw(fullShape);
+			g2.draw(drawShape);
 		}
 
-		// childrenCountIcon.setBounds(
-		// getEllipse().getX() - childrenCountIcon.getWidth() / 2,
-		// getEllipse().getY() + getEllipse().getHeight() / 2
-		// - childrenCountIcon.getHeight() / 2,
-		// childrenCountIcon.getWidth(), childrenCountIcon.getHeight());
-		//
-		// //super.paint(paintContext);
-		// // addOverlayIcons(style.getOverlayIcons(this));
+		childrenCountIcon.setBounds(
+				getEllipse().getX() - childrenCountIcon.getWidth() / 2,
+				getEllipse().getY() + getEllipse().getHeight() / 2
+						- childrenCountIcon.getHeight() / 2,
+				childrenCountIcon.getWidth(), childrenCountIcon.getHeight());
+
+		super.paint(paintContext);
+		// addOverlayIcons(style.getOverlayIcons(this));
 	}
 
 	/**
@@ -699,6 +713,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 				+ h, gp.getColor2(), gp.isCyclic());
 		return gradient;
 	}
+
 
 	public boolean isFixedLocation() {
 		return fixedLocation;

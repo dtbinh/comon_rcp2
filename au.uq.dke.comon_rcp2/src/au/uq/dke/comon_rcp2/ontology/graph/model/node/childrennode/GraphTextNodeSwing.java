@@ -5,10 +5,10 @@ import java.awt.Font;
 import java.awt.Paint;
 
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
+import edu.umd.cs.piccolo.nodes.PText;
 import edu.umd.cs.piccolo.util.PPaintContext;
-import edu.umd.cs.piccolox.swt.PSWTText;
 
-public class GraphTextNode extends PSWTText {
+public class GraphTextNodeSwing extends PText {
 	private static final long serialVersionUID = -871571524212274580L;
 
 	private boolean ignoreInvalidatePaint = false;
@@ -16,9 +16,8 @@ public class GraphTextNode extends PSWTText {
 	private IGraphNode graphNode;
 
 	
-	public GraphTextNode(IGraphNode graphNode){
+	public GraphTextNodeSwing(IGraphNode graphNode){
 		this.graphNode = graphNode;
-		this.setText("node text");
 	}
 
 	@Override
@@ -31,7 +30,7 @@ public class GraphTextNode extends PSWTText {
 	}
 
 	@Override
-	public Paint getPenPaint() {
+	public Paint getTextPaint() {
 		Paint paint = null;
 		if (paint == null) {
 			paint = Color.black;
@@ -40,13 +39,13 @@ public class GraphTextNode extends PSWTText {
 	}
 
 	@Override
-	public void paint(PPaintContext paintContext) {
+	protected void paint(PPaintContext paintContext) {
 		// update the text paint - the super paint method doesn't call our
 		// getTextPaint() method
-		Paint p = getPenPaint();
-		if (!p.equals(super.getPenPaint())) {
+		Paint p = getTextPaint();
+		if (!p.equals(super.getTextPaint())) {
 			ignoreInvalidatePaint = true;
-			setPenPaint(getPenPaint());
+			setTextPaint(getTextPaint());
 			ignoreInvalidatePaint = false;
 		}
 		// the font is never set in the super paint class?
