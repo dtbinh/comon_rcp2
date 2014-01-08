@@ -10,11 +10,11 @@ import edu.umd.cs.piccolox.swt.PSWTText;
 
 public class GraphTextNode extends PSWTText {
 
-	@Override
-	protected void internalUpdateBounds(double x, double y, double width,
-			double height) {
-		//super.internalUpdateBounds(x, y, width, height);
-	}
+//	@Override
+//	protected void internalUpdateBounds(double x, double y, double width,
+//			double height) {
+//		//super.internalUpdateBounds(x, y, width, height);
+//	}
 
 	private static final long serialVersionUID = -871571524212274580L;
 

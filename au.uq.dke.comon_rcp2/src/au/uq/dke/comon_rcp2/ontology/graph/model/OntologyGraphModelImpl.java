@@ -60,8 +60,8 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	    OntologyRelation rel = new OntologyRelation (srcObject, dstObject, relType);
 	    
 	    IGraphNode srcNode = this.addNode(srcObject);
-	    //IGraphNode dstNode = this.addNode(dstObject);
-	    //this.addArc(rel, srcNode, dstNode);
+	    IGraphNode dstNode = this.addNode(dstObject);
+	    this.addArc(rel, srcNode, dstNode);
 	    this.generateTreeInfo();
 
 		
