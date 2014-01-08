@@ -445,7 +445,8 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 
 		this.setSize(bw, bh);
 
-		textNode.setBounds(10, 10, 30, 30);
+//		textNode.setBounds(10, 10, 30, 30);
+//		int a = 1;
 
 	}
 
@@ -464,8 +465,10 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 //			textNode.setBounds(centerX - textNode.getWidth() / 2, centerY
 //					- textNode.getHeight() / 2, textNode.getWidth(),
 //					textNode.getHeight());
+			textNode.setTranslation(centerX - textNode.getWidth() / 2, centerY
+					- textNode.getHeight() / 2);
 			
-			textNode.setBounds(10, 10, 30, 30);
+//			textNode.setBounds(120, 120, 40, 40);
 
 			if (this.tableIconNode != null) {
 				this.tableIconNode
