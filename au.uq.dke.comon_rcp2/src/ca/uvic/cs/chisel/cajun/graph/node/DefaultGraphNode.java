@@ -1,7 +1,6 @@
 package ca.uvic.cs.chisel.cajun.graph.node;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -22,15 +21,10 @@ import javax.swing.ImageIcon;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.zest.layouts.constraints.BasicEntityConstraint;
 import org.eclipse.zest.layouts.constraints.LabelLayoutConstraint;
 import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
-import au.uq.dke.comon_rcp2.common.utils.StringUtil;
-import au.uq.dke.comon_rcp2.constant.UIConstants;
-import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.BasicIconNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.GraphTextNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.HiddenChildrenCountIcon;
@@ -42,15 +36,9 @@ import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.util.PBounds;
 import edu.umd.cs.piccolo.util.PPaintContext;
+import edu.umd.cs.piccolox.swt.PSWTPath;
 
-/**
- * Default graph node implementation. Displays some text and possible an
- * image/icon.
- * 
- * @author Chris Callendar
- * @since 30-Oct-07
- */
-public class DefaultGraphNode extends PNode implements IGraphNode {
+public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 
 	private static final long serialVersionUID = 3223950711940456476L;
 
@@ -99,7 +87,10 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 	private HiddenChildrenCountIcon childrenCountIcon;
 
 	private final static int MAX_TOOLTIP_LINES = 20;
+	
+	PSWTPath shapePath;
 
+	
 	// This nodes uses an internal Ellipse2D to define its shape.
 	public Ellipse2D getEllipse() {
 		if (ellipse == null)
@@ -109,6 +100,7 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 
 	public DefaultGraphNode(Object userObject) {
 		super();
+
 
 		this.userObject = userObject;
 
@@ -142,6 +134,11 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 		// addChild(childrenCountIcon);
 
 		setType(type);
+
+		shapePath = PSWTPath.createEllipse(300, 25, 100, 50);
+		shapePath.setPaint(Color.yellow);
+		shapePath.setPickable(false);
+        this.addChild(shapePath);
 
 		initBounds();
 
@@ -482,6 +479,8 @@ public class DefaultGraphNode extends PNode implements IGraphNode {
 			getEllipse().setFrame(centerX - getEllipse().getWidth() / 2,
 					centerY - getEllipse().getHeight() / 2,
 					getEllipse().getWidth(), getEllipse().getHeight());
+			
+			this.shapePath.setBounds(getEllipse().getBounds2D());
 
 //			double cw = childrenCountIcon.getWidth();
 //			double ch = childrenCountIcon.getHeight();
