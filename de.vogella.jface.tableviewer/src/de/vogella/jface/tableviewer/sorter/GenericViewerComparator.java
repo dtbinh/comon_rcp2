@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.metawidget.util.ClassUtils;
 
-import de.vogella.jface.tableviewer.RefactoredView;
+import de.vogella.jface.tableviewer.GenericTableUnit;
 
 public class GenericViewerComparator extends ViewerComparator {
 
@@ -16,9 +16,9 @@ public class GenericViewerComparator extends ViewerComparator {
 	private static final int DESCENDING = 1;
 	private int direction = DESCENDING;
 
-	private RefactoredView viewer;
+	private GenericTableUnit viewer;
 
-	public GenericViewerComparator(RefactoredView viewer) {
+	public GenericViewerComparator(GenericTableUnit viewer) {
 		this.viewer = viewer;
 		this.lastSelectedColumnNumber = 0;
 		direction = DESCENDING;

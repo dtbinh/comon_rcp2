@@ -2,6 +2,7 @@ package de.vogella.jface.tableviewer;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -23,15 +24,21 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 import org.metawidget.util.ClassUtils;
 
+import de.vogella.jface.tableviewer.edit.GenericCellLabelProvider;
 import de.vogella.jface.tableviewer.edit.GenericEditingSupport;
 import de.vogella.jface.tableviewer.filter.GenericFilter;
 import de.vogella.jface.tableviewer.filter.PersonFilter;
 import de.vogella.jface.tableviewer.sorter.GenericViewerComparator;
 
-public class RefactoredView {
+/**
+ * @author wangwei first instanize then set dataInput & set if hide the search
+ *         then init the widgets and table
+ */
+public class GenericTableUnit {
 	public static final String ID = "de.vogella.jface.tableviewer.view";
 	private TableViewer viewer;
 	private GenericFilter filter;
+	private boolean searchServiceVisible = true;
 
 	private Class beanType;
 	private Field[] declaredFields;
@@ -40,43 +47,63 @@ public class RefactoredView {
 		return declaredFields;
 	}
 
-	private int i;
+	private int fieldIndex;
+	private Collection dataInput;
+	private Composite parent;
+
+	public Collection getDataInput() {
+		return dataInput;
+	}
+
+	public void setDataInput(Collection dataInput) {
+		this.dataInput = dataInput;
+	}
+
+	Label searchLabel;
+	Text searchText = null;
 
 	private GenericViewerComparator comparator;
 
-	public RefactoredView(Class beanType) {
+	public GenericTableUnit(Composite parent, Class beanType, boolean searchServiceVisible) {
+		this.parent = parent;
 		this.beanType = beanType;
+		this.searchServiceVisible = searchServiceVisible;
 		declaredFields = this.beanType.getDeclaredFields();
-
 	}
 
-	public void createPartControl(Composite parent) {
+
+	public void init() {
+
+		// New to support the search
+		if (this.searchServiceVisible == true) {
+			searchLabel = new Label(parent, SWT.NONE);
+			searchLabel.setText("Search: ");
+			searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
+			searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
+					| GridData.HORIZONTAL_ALIGN_FILL));
+
+			searchText.addKeyListener(new KeyAdapter() {
+				public void keyReleased(KeyEvent ke) {
+					filter.setSearchText(searchText.getText());
+					viewer.refresh();
+				}
+
+			});
+		}
+
 		GridLayout layout = new GridLayout(2, false);
 		parent.setLayout(layout);
-		Label searchLabel = new Label(parent, SWT.NONE);
-		searchLabel.setText("Search: ");
-		final Text searchText = new Text(parent, SWT.BORDER | SWT.SEARCH);
-		searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
-				| GridData.HORIZONTAL_ALIGN_FILL));
-		createViewer(parent);
+		createViewer();
 		// Set the sorter for the table
 		comparator = new GenericViewerComparator(this);
 		viewer.setComparator(comparator);
+		filter = new GenericFilter(this);
+		viewer.addFilter(filter);
 
-	    // New to support the search
-	    searchText.addKeyListener(new KeyAdapter() {
-	      public void keyReleased(KeyEvent ke) {
-	        filter.setSearchText(searchText.getText());
-	        viewer.refresh();
-	      }
-
-	    });
-	    filter = new GenericFilter(this);
-	    viewer.addFilter(filter);
 
 	}
 
-	private void createViewer(Composite parent) {
+	private void createViewer() {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 		createColumns(parent, viewer);
@@ -88,21 +115,7 @@ public class RefactoredView {
 		// Get the content for the viewer, setInput will call getElements in the
 		// contentProvider
 
-		// TODO: fix this
-		List<Object> beanList = new ArrayList();
-
-		for (int i = 0; i < 3; i++) {
-			Object bean = null;
-			try {
-				bean = this.beanType.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			beanList.add(bean);
-		}
-
-		viewer.setInput(beanList);
+		viewer.setInput(dataInput);
 		// make the selection available to other views
 
 		// Layout the viewer
@@ -119,39 +132,16 @@ public class RefactoredView {
 		return viewer;
 	}
 
-	class MyCellLabelProvider extends CellLabelProvider {
-		private int columnNumber;
-
-		public int getColumnNumber() {
-			return columnNumber;
-		}
-
-		public MyCellLabelProvider(int columnNumber) {
-			this.columnNumber = columnNumber;
-		}
-
-		@Override
-		public void update(ViewerCell cell) {
-			try {
-				Object fieldValue = ClassUtils.getProperty(cell.getElement(),
-						declaredFields[this.getColumnNumber()].getName());
-				cell.setText(fieldValue.toString());
-			} catch (RuntimeException e) {
-				// TODO exception
-			}
-		}
-
-	}
-
 	// This will create the columns for the table
 	private void createColumns(final Composite parent, final TableViewer viewer) {
 
-		for (i = 0; i < declaredFields.length; i++) {
+		for (fieldIndex = 0; fieldIndex < declaredFields.length; fieldIndex++) {
 
 			TableViewerColumn col = createTableViewerColumn(
-					declaredFields[i].getName(), 100, i);
-			col.setLabelProvider(new MyCellLabelProvider(i));
-			col.setEditingSupport(new GenericEditingSupport(viewer, declaredFields[i]));
+					declaredFields[fieldIndex].getName(), 100, fieldIndex);
+			col.setLabelProvider(new GenericCellLabelProvider(this, fieldIndex));
+			col.setEditingSupport(new GenericEditingSupport(viewer,
+					declaredFields[fieldIndex]));
 
 		}
 

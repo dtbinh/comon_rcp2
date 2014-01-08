@@ -6,21 +6,21 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.metawidget.util.ClassUtils;
 
-import de.vogella.jface.tableviewer.RefactoredView;
+import de.vogella.jface.tableviewer.GenericTableUnit;
 import de.vogella.jface.tableviewer.model.Person;
 
 public class GenericFilter extends ViewerFilter {
 
   private String searchString;
   
-  private RefactoredView viewer;
+  private GenericTableUnit viewer;
 
   public void setSearchText(String s) {
     // ensure that the value can be used for matching 
     this.searchString = ".*" + s + ".*";
   }
   
-  public GenericFilter(RefactoredView viewer){
+  public GenericFilter(GenericTableUnit viewer){
 	  this.viewer = viewer;
   }
 
