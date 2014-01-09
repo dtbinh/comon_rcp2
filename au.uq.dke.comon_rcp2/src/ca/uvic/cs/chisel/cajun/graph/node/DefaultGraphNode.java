@@ -116,7 +116,12 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 		this.setPickable(true);
 		this.setChildrenPickable(true);
 
-		textNode = new GraphTextNode(this);
+		shapePath = PSWTPath.createEllipse(300, 25, 100, 50);
+		shapePath.setPaint(Color.yellow);
+		shapePath.setPickable(false);
+        this.addChild(shapePath);
+
+        textNode = new GraphTextNode(this);
 		// textNode.setHorizontalAlignment(Component.CENTER_ALIGNMENT);
 		// make this node match the text size
 		// textNode.setConstrainWidthToTextWidth(true);
@@ -130,15 +135,11 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 		//childrenCountIcon.setConstrainHeightToTextHeight(true);
 		//childrenCountIcon.setPickable(false);
 
-		addChild(textNode);
+		shapePath.addChild(textNode);
 		// addChild(childrenCountIcon);
 
 		setType(type);
 
-		shapePath = PSWTPath.createEllipse(300, 25, 100, 50);
-		shapePath.setPaint(Color.yellow);
-		shapePath.setPickable(false);
-        this.addChild(shapePath);
 
 		initBounds();
 
