@@ -46,11 +46,12 @@
                id="au.uq.dke.comon_rcp2.OntologyGraphView">
          </view>
           <view
-               id="au.uq.dke.comon_rcp2.ontologyNavigatorView"
-               minimized="false"
-               relationship="left"
-               relative="org.eclipse.ui.editorss"
-               standalone="true">
+                id="au.uq.dke.comon_rcp2.ontologyNavigatorView"
+                minimized="true"
+                relationship="left"
+                relative="org.eclipse.ui.editorss"
+                standalone="true"
+                visible="false">
          </view>
       </perspectiveExtension>
    </extension>

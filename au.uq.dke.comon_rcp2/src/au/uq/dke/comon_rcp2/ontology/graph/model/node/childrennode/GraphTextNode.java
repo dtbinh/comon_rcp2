@@ -21,11 +21,13 @@ public class GraphTextNode extends PSWTText {
 	private boolean ignoreInvalidatePaint = false;
 
 	private IGraphNode graphNode;
-
+	
+	private Font font = new Font("Verdana", Font.PLAIN, 6);
 	
 	public GraphTextNode(IGraphNode graphNode){
 		this.graphNode = graphNode;
 		this.setText("node text");
+		this.setFont(font);
 	}
 
 	@Override
