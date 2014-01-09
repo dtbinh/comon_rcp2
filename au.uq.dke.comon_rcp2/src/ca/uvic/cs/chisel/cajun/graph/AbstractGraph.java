@@ -27,7 +27,7 @@ import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 import org.eclipse.zest.layouts.progress.ProgressListener;
 
-import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
+import ca.uvic.cs.chisel.cajun.actions.LayoutManager;
 import ca.uvic.cs.chisel.cajun.constants.LayoutConstants;
 import ca.uvic.cs.chisel.cajun.filter.FilterChangedEvent;
 import ca.uvic.cs.chisel.cajun.filter.FilterChangedListener;
@@ -75,8 +75,8 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 	private Color ttBackground = Color.white;
 	private Font ttFont = null;
 
-	private List<LayoutAction> layouts;
-	private LayoutAction lastLayout;
+	private List<LayoutManager> layouts;
+	private LayoutManager lastLayout;
 
 	// we keep track of these listeners, and make sure they are always
 	// added to the current model (and removed from the old models)
@@ -160,7 +160,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 
 		this.graphModelListeners = new ArrayList<GraphModelListener>();
 
-		this.layouts = new ArrayList<LayoutAction>();
+		this.layouts = new ArrayList<LayoutManager>();
 		addDefaultLayouts();
 
 		this.graphPopupListener = new GraphPopupListener();
@@ -233,7 +233,7 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 	}
 	
 	public void addLayoutListener(ProgressListener listener) {
-		for(LayoutAction layout : layouts) {
+		for(LayoutManager layout : layouts) {
 			layout.addProgressListener(listener);
 		}
 	}
@@ -470,19 +470,19 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 
 	protected void addDefaultLayouts() {
 		int style = LayoutStyles.NO_LAYOUT_NODE_RESIZING;
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_GRID_BY_ALPHA, ResourceHandler.getIcon("icon_grid_layout.gif"), new GridLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_RADIAL, ResourceHandler.getIcon("icon_radial_layout.gif"), new RadialLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_SPRING, ResourceHandler.getIcon("icon_spring_layout.gif"), new SpringLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_TREE_VERTICAL, ResourceHandler.getIcon("icon_tree_layout.gif"), new TreeLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_TREE_HORIZONTAL, ResourceHandler.getIcon("icon_tree_layout_horizontal.gif"), new HorizontalTreeLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_DIRECTED_VERTICAL, ResourceHandler.getIcon("icon_tree_layout.gif"), new DirectedGraphLayoutAlgorithm(style), this));
-		addLayout(new LayoutAction(LayoutConstants.LAYOUT_DIRECTED_HORIZONTAL, ResourceHandler.getIcon("icon_tree_layout_horizontal.gif"), new HorizontalDirectedGraphLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_GRID_BY_ALPHA, ResourceHandler.getIcon("icon_grid_layout.gif"), new GridLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_RADIAL, ResourceHandler.getIcon("icon_radial_layout.gif"), new RadialLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_SPRING, ResourceHandler.getIcon("icon_spring_layout.gif"), new SpringLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_TREE_VERTICAL, ResourceHandler.getIcon("icon_tree_layout.gif"), new TreeLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_TREE_HORIZONTAL, ResourceHandler.getIcon("icon_tree_layout_horizontal.gif"), new HorizontalTreeLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_DIRECTED_VERTICAL, ResourceHandler.getIcon("icon_tree_layout.gif"), new DirectedGraphLayoutAlgorithm(style), this));
+		addLayout(new LayoutManager(LayoutConstants.LAYOUT_DIRECTED_HORIZONTAL, ResourceHandler.getIcon("icon_tree_layout_horizontal.gif"), new HorizontalDirectedGraphLayoutAlgorithm(style), this));
 		
 		// important - set the last layout
 		this.lastLayout = getLayout(LayoutConstants.LAYOUT_DIRECTED_VERTICAL);
 	}
 
-	public void addLayout(LayoutAction layout) {
+	public void addLayout(LayoutManager layout) {
 		if (!this.layouts.contains(layout)) {
 			this.layouts.add(layout);
 			if (lastLayout == null) {
@@ -491,8 +491,8 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		}
 	}
 	
-	public LayoutAction getLayout(String name) {
-		for (LayoutAction layout : layouts) {
+	public LayoutManager getLayout(String name) {
+		for (LayoutManager layout : layouts) {
 			if (layout.getName().equals(name)) {
 				return layout;
 			}
@@ -500,11 +500,11 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		return null;
 	}
 
-	public void removeLayout(LayoutAction layout) {
+	public void removeLayout(LayoutManager layout) {
 		layouts.remove(layout);
 	}
 
-	public Collection<LayoutAction> getLayouts() {
+	public Collection<LayoutManager> getLayouts() {
 		return layouts;
 	}
 
@@ -514,17 +514,17 @@ public abstract class AbstractGraph extends PSWTCanvas implements IGraph {
 		}
 	}
 
-	public void performLayout(LayoutAction layout) {
+	public void performLayout(LayoutManager layout) {
 		if (layout != null) {
 			layout.runLayout();
 		}
 	}
 
-	public void setLastLayout(LayoutAction layout) {
+	public void setLastLayout(LayoutManager layout) {
 		this.lastLayout = layout;
 	}
 
-	public LayoutAction getLastLayout() {
+	public LayoutManager getLastLayout() {
 		return lastLayout;
 	}
 

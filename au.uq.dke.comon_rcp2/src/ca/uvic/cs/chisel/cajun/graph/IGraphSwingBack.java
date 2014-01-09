@@ -7,7 +7,7 @@ import java.util.Collection;
 import javax.swing.JComponent;
 import javax.swing.JPopupMenu;
 
-import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
+import ca.uvic.cs.chisel.cajun.actions.LayoutManager;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArcStyle;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.GraphNodeCollectionListener;
@@ -120,19 +120,19 @@ public interface IGraphSwingBack {
 	 * Adds a layout to the graph.
 	 * @param layout the layout to add
 	 */
-	public void addLayout(LayoutAction layout);
+	public void addLayout(LayoutManager layout);
 	
 	/**
 	 * Removes a layout from the graph.
 	 * @param layout the layout to remove
 	 */
-	public void removeLayout(LayoutAction layout);
+	public void removeLayout(LayoutManager layout);
 	
 	/**
 	 * Returns all the layouts currently supported on this graph.
 	 * @return a collection of layouts
 	 */
-	public Collection<LayoutAction> getLayouts();
+	public Collection<LayoutManager> getLayouts();
 	
 	/**
 	 * Runs the layout using the last run layout.
@@ -144,7 +144,7 @@ public interface IGraphSwingBack {
 	 * Runs the given layout on all the visible nodes in the graph.
 	 * @param layout
 	 */
-	public void performLayout(LayoutAction layout);
+	public void performLayout(LayoutManager layout);
 	
 	public void setShowNodeTooltips(boolean showNodeTooltips);
 	

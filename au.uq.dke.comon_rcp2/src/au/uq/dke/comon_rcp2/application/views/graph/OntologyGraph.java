@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.widgets.Composite;
 
 import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
-import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
+import ca.uvic.cs.chisel.cajun.actions.LayoutManager;
 import ca.uvic.cs.chisel.cajun.graph.FlatGraph;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
@@ -41,7 +41,7 @@ public class OntologyGraph extends FlatGraph {
 
 	@Deprecated
 	@Override
-	public void performLayout(LayoutAction layout) {
+	public void performLayout(LayoutManager layout) {
 	}
 
 	@Deprecated

@@ -25,7 +25,7 @@ import javax.swing.JToolBar;
 import ca.uvic.cs.chisel.cajun.actions.CajunAction;
 import ca.uvic.cs.chisel.cajun.actions.ClearOrphansAction;
 import ca.uvic.cs.chisel.cajun.actions.FocusOnHomeAction;
-import ca.uvic.cs.chisel.cajun.actions.LayoutAction;
+import ca.uvic.cs.chisel.cajun.actions.LayoutManager;
 import ca.uvic.cs.chisel.cajun.actions.NoZoomAction;
 import ca.uvic.cs.chisel.cajun.actions.ZoomInAction;
 import ca.uvic.cs.chisel.cajun.actions.ZoomOutAction;
@@ -101,7 +101,7 @@ public class DefaultFlatGraphView extends JPanel {
 		getToolBar().addSeparator();
 
 		// Layouts
-		for (LayoutAction action : graph.getLayouts()) {
+		for (LayoutManager action : graph.getLayouts()) {
 			addToolBarAction(action);
 		}
 

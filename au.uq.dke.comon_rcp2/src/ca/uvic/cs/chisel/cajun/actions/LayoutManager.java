@@ -10,9 +10,10 @@ import javax.swing.Icon;
 
 import org.eclipse.zest.layouts.InvalidLayoutConfiguration;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
+import org.eclipse.zest.layouts.algorithms.DirectedGraphLayoutAlgorithm;
 import org.eclipse.zest.layouts.progress.ProgressListener;
 
-import ca.uvic.cs.chisel.cajun.graph.AbstractGraph;
+import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
 import ca.uvic.cs.chisel.cajun.graph.IGraph;
 import ca.uvic.cs.chisel.cajun.graph.arc.DefaultGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
@@ -25,44 +26,42 @@ import edu.umd.cs.piccolo.activities.PTransformActivity;
 import edu.umd.cs.piccolo.util.PUtil;
 import edu.umd.cs.piccolox.swt.PSWTCanvas;
 
-public class LayoutAction extends CajunAction {
+public class LayoutManager extends CajunAction {
 	private static final long serialVersionUID = -7385859217531335673L;
 	
 	private static final int MAX_NODES_TO_ANIMATE = 200;
 	private static final double DELTA = 0.01;
 
-	private LayoutAlgorithm layout;
-	private IGraph graph;
+	private static LayoutAlgorithm CURRENT_LAYOUT_ALGORITHM = new DirectedGraphLayoutAlgorithm();
 	private boolean animate;
 	private int maxNodesToAnimate = MAX_NODES_TO_ANIMATE;
 	private boolean resizeNodes;
 	
-	private ActivityManager manager;
+	private ActivityManager activityManager;
 
 	/** list of relationship types that the layout should be applied to */
 	private List<Object> layoutRelTypes;
 	
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph) {
+	public LayoutManager(String name, Icon icon, LayoutAlgorithm layout, IGraph graph) {
 		this(name, icon, layout, graph, true);
 	}
 
-	public LayoutAction(String name, Icon icon, LayoutAlgorithm layout, IGraph graph, boolean animate) {
+	public LayoutManager(String name, Icon icon, LayoutAlgorithm layoutAlgorithm, IGraph graph, boolean animate) {
 		super(name, icon);
-		this.layout = layout;
-		this.graph = graph;
+		CURRENT_LAYOUT_ALGORITHM = layoutAlgorithm;
 		this.animate = animate;
 		this.resizeNodes = false;
 		this.layoutRelTypes = new ArrayList<Object>();
 		
-		this.manager = new ActivityManager(graph.getCanvas(), graph.getCanvas().getRoot().getActivityScheduler());
+		this.activityManager = new ActivityManager(graph.getCanvas(), graph.getCanvas().getRoot().getActivityScheduler());
 	}
 	
 	public LayoutAlgorithm getLayout() {
-		return layout;
+		return CURRENT_LAYOUT_ALGORITHM;
 	}
 
 	public void setLayout(LayoutAlgorithm layout) {
-		this.layout = layout;
+		this.CURRENT_LAYOUT_ALGORITHM = layout;
 	}
 
 	public void setLayoutRelTypes(List<Object> layoutRelTypes) {
@@ -70,19 +69,19 @@ public class LayoutAction extends CajunAction {
 	}
 	
 	public void addProgressListener(ProgressListener listener) {
-		manager.addProgressListener(listener);
+		activityManager.addProgressListener(listener);
 	}
 
 	public void doAction() {
 		// save this action as the last executed action
-		((AbstractGraph) graph).setLastLayout(this);
+		OntologyGraph.getInstance().setLastLayout(this);
 		runLayout();
 	}
 	
 	public void runLayout() {
 		// run the layout only on the visible nodes?  Or all nodes?
-		Collection<IGraphNode> nodes = graph.getModel().getVisibleNodes();
-		Collection<IGraphArc> arcs = graph.getModel().getVisibleArcs();
+		Collection<IGraphNode> nodes = OntologyGraph.getInstance().getModel().getVisibleNodes();
+		Collection<IGraphArc> arcs = OntologyGraph.getInstance().getModel().getVisibleArcs();
 		DefaultGraphNode[] entities = nodes.toArray(new DefaultGraphNode[nodes.size()]);
 		
 		Collection<IGraphArc> filteredArcs;
@@ -100,7 +99,7 @@ public class LayoutAction extends CajunAction {
 		}
 		DefaultGraphArc[] rels = filteredArcs.toArray(new DefaultGraphArc[filteredArcs.size()]);
 
-		PSWTCanvas canvas = graph.getCanvas();
+		PSWTCanvas canvas = OntologyGraph.getInstance().getCanvas();
 
 		double x = 0, y = 0;
 //		double w = Math.max(0, canvas.getWidth() - 10);
@@ -119,8 +118,7 @@ public class LayoutAction extends CajunAction {
 	
 		try {
 			// define a local version of the layout in order to avoid threading issues
-			LayoutAlgorithm layoutAlgorithm = getLayoutAlgorithm();
-			layoutAlgorithm.applyLayout(entities, rels, x, y, w, h, false, false);
+			CURRENT_LAYOUT_ALGORITHM.applyLayout(entities, rels, x, y, w, h, false, false);
 
 			if (animate && (nodes.size() > maxNodesToAnimate)) {
 				animate = false;
@@ -145,7 +143,7 @@ public class LayoutAction extends CajunAction {
 			
 			if (animate) {
 				//ActivityManager manager = new ActivityManager(canvas, scheduler, activities);
-				manager.setActivities(activities);
+				activityManager.setActivities(activities);
 				// wait until all nodes have finished moving
 				// @tag question : why did Chris put this in here?  it blocks the UI thread
 				//manager.waitForActivitiesToFinish();
@@ -230,7 +228,7 @@ public class LayoutAction extends CajunAction {
 	private LayoutAlgorithm getLayoutAlgorithm() {
 		Class<LayoutAlgorithm> c;
 		try {
-			c = (Class<LayoutAlgorithm>) Class.forName(layout.getClass().getName());
+			c = (Class<LayoutAlgorithm>) Class.forName(CURRENT_LAYOUT_ALGORITHM.getClass().getName());
 			return c.newInstance();
 		} catch (ClassNotFoundException e) {
 			//  Auto-generated catch block
@@ -244,5 +242,14 @@ public class LayoutAction extends CajunAction {
 		}
 
 		return null;
+	}
+
+	public static LayoutAlgorithm getCURRENT_LAYOUT_ALGORITHM() {
+		return CURRENT_LAYOUT_ALGORITHM;
+	}
+
+	public static void setCURRENT_LAYOUT_ALGORITHM(
+			LayoutAlgorithm cURRENT_LAYOUT_ALGORITHM) {
+		CURRENT_LAYOUT_ALGORITHM = cURRENT_LAYOUT_ALGORITHM;
 	}
 }
