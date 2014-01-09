@@ -83,18 +83,18 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	    OntologyRelation rel23_24 = new OntologyRelation (obj23, obj24, relType);
 	    
 	    this.addArc(rel1_21);
-	    this.addArc(rel1_22);
-	    this.addArc(rel1_23);
-	    this.addArc(rel1_24);
-
-	    this.addArc(rel21_22);
-	    this.addArc(rel21_23);
-	    this.addArc(rel21_24);
-	    
-	    this.addArc(rel22_23);
+//	    this.addArc(rel1_22);
+//	    this.addArc(rel1_23);
+//	    this.addArc(rel1_24);
+//
+//	    this.addArc(rel21_22);
+//	    this.addArc(rel21_23);
+//	    this.addArc(rel21_24);
+//	    
+//	    this.addArc(rel22_23);
 	    this.addArc(rel22_24);
-	    
-	    this.addArc(rel23_24);
+//	    
+//	    this.addArc(rel23_24);
 
 	    
 	    this.generateTreeInfo();
