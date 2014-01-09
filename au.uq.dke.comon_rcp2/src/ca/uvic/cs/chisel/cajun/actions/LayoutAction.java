@@ -119,8 +119,8 @@ public class LayoutAction extends CajunAction {
 	
 		try {
 			// define a local version of the layout in order to avoid threading issues
-			LayoutAlgorithm layout = getLayoutAlgorithm();
-			layout.applyLayout(entities, rels, x, y, w, h, false, false);
+			LayoutAlgorithm layoutAlgorithm = getLayoutAlgorithm();
+			layoutAlgorithm.applyLayout(entities, rels, x, y, w, h, false, false);
 
 			if (animate && (nodes.size() > maxNodesToAnimate)) {
 				animate = false;

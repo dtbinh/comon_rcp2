@@ -29,7 +29,9 @@
 package piccoloswttest;
 
 import java.awt.Color;
+import java.awt.geom.Ellipse2D;
 
+import org.eclipse.draw2d.Ellipse;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -55,13 +57,16 @@ public final class SWTBasicExample {
 
         // create some SWT nodes
         //    and add them as child nodes to the canvas' camera's first layer
-        PSWTPath rect = PSWTPath.createRectangle(25, 25, 50, 50);
-        rect.setPaint(Color.RED);
-        canvas.getLayer().addChild(rect);
+        Ellipse2D.Float ellipse = new Ellipse2D.Float(320, 125, 100, 50);
+        MyPSWTPath rect1 = new MyPSWTPath(ellipse);
+        rect1.setPaint(Color.RED);
+        canvas.getLayer().addChild(rect1);
 
-        rect = PSWTPath.createRectangle(300, 25, 100, 50);
+        PSWTPath  rect = PSWTPath.createRectangle(300, 25, 100, 50);
         rect.setPaint(Color.BLUE);
         canvas.getLayer().addChild(rect);
+        
+        rect.setStrokeColor(Color.green);
 
         PSWTPath circle = PSWTPath.createEllipse(100, 200, 50, 50);
         circle.setPaint(Color.GREEN);

@@ -5,7 +5,7 @@
 	<classpathentry excluding="au/uq/dke/comon_rcp2/ontology/ui/model/GraphModelBak.java|au/uq/dke/comon_rcp2/ontology/ui/view/TopView.java|au/uq/dke/comon_rcp2/ontology/ui/model/node/BasicGraphNode_back.java|ca/uvic/cs/chisel/cajun/SampleGraphModel.java|au/uq/dke/comon_rcp2/EntryPoint.java|au/uq/dke/comon_rcp2/EntryPointTest.java|ca/uvic/cs/chisel/cajun/graph/handlers/ShowDashboardHandler.java|ca/uvic/cs/chisel/cajun/graph/handlers/ShowRecordsTableHandler.java|ca/uvic/cs/chisel/cajun/graph/handlers/ToolTipListener.java" kind="src" path="src"/>
 	<classpathentry kind="lib" path="thirdparties/draw2d-3.2.100-v20070529.jar"/>
 	<classpathentry kind="lib" path="thirdparties/junit.jar"/>
-	<classpathentry kind="lib" path="thirdparties/layouts.jar"/>
+	<classpathentry kind="lib" path="thirdparties/layouts.jar" sourcepath="thirdpartsource/org.eclipse.zest.layouts.source_1.1.0.201308190730.jar"/>
 	<classpathentry kind="lib" path="thirdparties/log4j.jar" sourcepath="C:/Users/uqwwan10/.sourceattacher/log4j-1.2.14-sources.jar"/>
 	<classpathentry kind="lib" path="thirdparties/looks.jar"/>
 	<classpathentry kind="lib" path="thirdparties/org.apache.felix.bundlerepository-1.4.2.jar"/>
