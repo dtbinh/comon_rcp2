@@ -9,9 +9,9 @@ import ca.uvic.cs.chisel.cajun.graph.handlers.FocusOnExtentsHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.HighlightHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.NodeDragHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.NodeExpandCollapseHandler;
+import ca.uvic.cs.chisel.cajun.graph.handlers.RotationHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.SelectionHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandler;
-import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandlerSwing;
 import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.event.PPanEventHandler;
@@ -67,6 +67,8 @@ public class FlatGraph extends AbstractGraph {
         camera.addInputEventListener(new FocusOnExtentsHandler(animationHandler));
 
         camera.addInputEventListener(new NodeExpandCollapseHandler());
+        
+        camera.addInputEventListener(new RotationHandler());
 	}
 	
     public void setPanEventHandler(final PPanEventHandler handler) {

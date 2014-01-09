@@ -21,6 +21,7 @@ import edu.umd.cs.piccolo.event.PInputEventFilter;
  */
 public class NodeSelectionHandler extends PBasicInputEventHandler {
 
+
 	private NodeCollection selectedNodes;
 
 	public NodeSelectionHandler(NodeCollection selectedNodes) {
