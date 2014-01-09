@@ -25,6 +25,7 @@ import org.eclipse.zest.layouts.constraints.BasicEntityConstraint;
 import org.eclipse.zest.layouts.constraints.LabelLayoutConstraint;
 import org.eclipse.zest.layouts.constraints.LayoutConstraint;
 
+import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.BasicIconNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.GraphTextNode;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.childrennode.HiddenChildrenCountIcon;
@@ -45,7 +46,7 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 	private BasicIconNode tableIconNode;
 	private BasicIconNode dashboardIconNode;
 
-	private Object userObject;
+	private INodeUserObject userObject;
 	private Object type;
 	private String tooltip;
 
@@ -98,7 +99,7 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 		return ellipse;
 	}
 
-	public DefaultGraphNode(Object userObject) {
+	public DefaultGraphNode(INodeUserObject userObject) {
 		super();
 
 
@@ -126,7 +127,8 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 		// make this node match the text size
 		// textNode.setConstrainWidthToTextWidth(true);
 		// textNode.setConstrainHeightToTextHeight(true);
-		textNode.setPickable(true);
+		textNode.setPickable(false);
+		textNode.setText(userObject.getText());
 
 		//childrenCountIcon = new HiddenChildrenCountIcon(this, "1");
 		//childrenCountIcon.setHorizontalAlignment(Component.CENTER_ALIGNMENT);

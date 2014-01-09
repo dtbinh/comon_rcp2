@@ -97,6 +97,7 @@ public class LayoutManager extends CajunAction {
 				}
 			}
 		}
+		
 		DefaultGraphArc[] rels = filteredArcs.toArray(new DefaultGraphArc[filteredArcs.size()]);
 
 		PSWTCanvas canvas = OntologyGraph.getInstance().getCanvas();

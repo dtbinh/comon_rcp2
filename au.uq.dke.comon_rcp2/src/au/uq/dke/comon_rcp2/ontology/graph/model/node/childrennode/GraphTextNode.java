@@ -26,7 +26,6 @@ public class GraphTextNode extends PSWTText {
 	
 	public GraphTextNode(IGraphNode graphNode){
 		this.graphNode = graphNode;
-		this.setText("node text");
 		this.setFont(font);
 	}
 

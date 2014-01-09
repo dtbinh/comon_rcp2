@@ -41,7 +41,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 
 	private OntologyGraphModelImpl(){
 		super();
-		populateData();
+		populateMockData();
 	}
 	
 	public static OntologyGraphModelImpl getInstance(){
@@ -52,16 +52,51 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		return instance;
 	}
 	
-	private void populateData() {
-	    OntologyClass srcObject = new OntologyClass("src");
-	    OntologyClass dstObject = new OntologyClass("dst");
+	private void populateMockData() {
+	    OntologyClass obj1 = new OntologyClass("1");
+	    OntologyClass obj21 = new OntologyClass("21");
+	    OntologyClass obj22 = new OntologyClass("22");
+	    OntologyClass obj23 = new OntologyClass("23");
+	    OntologyClass obj24 = new OntologyClass("24");
+	    
+	    this.addNode(obj1);
+	    this.addNode(obj21);
+	    this.addNode(obj22);
+	    this.addNode(obj23);
+	    this.addNode(obj24);
+	    
+	    
 	    OntologyRelationType relType = new OntologyRelationType("has subclass");
 	    
-	    OntologyRelation rel = new OntologyRelation (srcObject, dstObject, relType);
+	    OntologyRelation rel1_21 = new OntologyRelation (obj1, obj21, relType);
+	    OntologyRelation rel1_22 = new OntologyRelation (obj1, obj22, relType);
+	    OntologyRelation rel1_23 = new OntologyRelation (obj1, obj23, relType);
+	    OntologyRelation rel1_24 = new OntologyRelation (obj1, obj24, relType);
+
+	    OntologyRelation rel21_22 = new OntologyRelation (obj21, obj22, relType);
+	    OntologyRelation rel21_23 = new OntologyRelation (obj21, obj23, relType);
+	    OntologyRelation rel21_24 = new OntologyRelation (obj21, obj24, relType);
+
+	    OntologyRelation rel22_23 = new OntologyRelation (obj22, obj23, relType);
+	    OntologyRelation rel22_24 = new OntologyRelation (obj22, obj24, relType);
 	    
-	    IGraphNode srcNode = this.addNode(srcObject);
-	    IGraphNode dstNode = this.addNode(dstObject);
-	    this.addArc(rel, srcNode, dstNode);
+	    OntologyRelation rel23_24 = new OntologyRelation (obj23, obj24, relType);
+	    
+	    this.addArc(rel1_21);
+	    this.addArc(rel1_22);
+	    this.addArc(rel1_23);
+	    this.addArc(rel1_24);
+
+	    this.addArc(rel21_22);
+	    this.addArc(rel21_23);
+	    this.addArc(rel21_24);
+	    
+	    this.addArc(rel22_23);
+	    this.addArc(rel22_24);
+	    
+	    this.addArc(rel23_24);
+
+	    
 	    this.generateTreeInfo();
 
 		
@@ -114,7 +149,17 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		return null;
 	}
 
+	public IGraphArc addArc(IArcUserObject userObject) {
+		IGraphNode srcNode = this.getNode(userObject.getSrcClass());
+		IGraphNode dstNode = this.getNode(userObject.getDstClass());
+		return super.addArc(userObject, srcNode, dstNode);
+	}
+	
+	/* (non-Javadoc)
+	 * @see au.uq.dke.comon_rcp2.ontology.graph.model.IOntologyGraphModel#addArc(au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject, ca.uvic.cs.chisel.cajun.graph.node.IGraphNode, ca.uvic.cs.chisel.cajun.graph.node.IGraphNode)
+	 */
 	@Override
+	@Deprecated
 	public IGraphArc addArc(IArcUserObject userObject, IGraphNode src,
 			IGraphNode dest) {
 		return super.addArc(userObject, src, dest);
