@@ -7,6 +7,7 @@ import java.awt.Shape;
 import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.nodes.PImage;
 import edu.umd.cs.piccolo.nodes.PPath;
 import edu.umd.cs.piccolo.util.PPaintContext;
+import edu.umd.cs.piccolox.swt.PSWTPath;
 
 public class DefaultGraphArc extends PPath implements IGraphArc {
 	private static final long serialVersionUID = 1530720146193007435L;
@@ -64,6 +66,8 @@ public class DefaultGraphArc extends PPath implements IGraphArc {
 	private ArcLabel arcLabel;
 
 	private Point2D middlePoint;
+	
+	private PSWTPath swtLine = PSWTPath.createPolyline(new Point2D[]{new Point2D.Double()});
 
 	public Point2D getMiddlePoint() {
 		return middlePoint;
@@ -102,6 +106,7 @@ public class DefaultGraphArc extends PPath implements IGraphArc {
 		//addChild(arcLabel);
 
 		// this.updateArcPath();
+		this.addChild(swtLine);
 	}
 
 	public void setShowArrowHead(boolean showArrowHead) {
@@ -239,6 +244,12 @@ public class DefaultGraphArc extends PPath implements IGraphArc {
 		double startY = srcBounds.getCenterY();
 		double endX = destBounds.getCenterX();
 		double endY = destBounds.getCenterY();
+		
+		float xp[] = new float[]{(float) startX, (float) endX};
+		float yp[] = new float[]{(float) startY, (float) endY};
+		
+		
+		swtLine.setPathToPolyline(xp, yp);
 
 		if (src == dest) {
 			final double diam = SELF_ARC_DIAMETER * (curveFactor + 1);
@@ -385,7 +396,10 @@ public class DefaultGraphArc extends PPath implements IGraphArc {
 		if ((stroke != null) && (paint != null)) {
 			g2.setPaint(paint);
 			g2.setStroke(stroke);
+			
+			GeneralPath pathReference = getPathReference();
 			g2.draw(getPathReference());
+			
 
 			if (showArrowHead) {
 				Shape shape = endArrowHead.getShape();

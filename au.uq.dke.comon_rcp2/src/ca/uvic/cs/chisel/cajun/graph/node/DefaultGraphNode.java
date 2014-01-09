@@ -88,7 +88,7 @@ public class DefaultGraphNode extends PSWTPath implements IGraphNode {
 
 	private final static int MAX_TOOLTIP_LINES = 20;
 	
-	PSWTPath shapePath;
+	private PSWTPath shapePath;
 
 	
 	// This nodes uses an internal Ellipse2D to define its shape.
