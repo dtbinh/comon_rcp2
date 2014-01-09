@@ -13,7 +13,7 @@ import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
 import edu.umd.cs.piccolo.PCamera;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
-public class FlatGraphSwingBack extends AbstractGraph {
+public class FlatGraphSwingBack extends AbstractGraphSwingBak {
 	private static final long serialVersionUID = 2134657503991199239L;
 	
 	private boolean showNodeTooltips;

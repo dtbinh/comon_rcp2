@@ -1,11 +1,15 @@
 package ca.uvic.cs.chisel.cajun.graph.util;
 
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.Collection;
+
+import org.eclipse.swt.graphics.Rectangle;
 
 import ca.uvic.cs.chisel.cajun.graph.AbstractGraph;
 import ca.uvic.cs.chisel.cajun.graph.handlers.PNormalZoomHandler;
 import ca.uvic.cs.chisel.cajun.util.GeometryUtils;
-import edu.umd.cs.piccolo.PSWTCanvas;
 import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.activities.PActivity;
@@ -40,7 +44,7 @@ public class AnimationHandler {
     public Rectangle2D.Double getDisplayBounds() {
 		Rectangle bounds = canvas.getBounds();
 		if ((bounds == null) || (bounds.width < 0) || (bounds.height < 0)) {
-			bounds.setBounds(0, 0, 1000, 1000);
+			bounds =  new Rectangle(0, 0, 1000, 1000);
 			canvas.setBounds(bounds);
 		}
 		return new Rectangle2D.Double(bounds.x, bounds.y, bounds.width, bounds.height);

@@ -50,7 +50,7 @@ import edu.umd.cs.piccolo.PLayer;
 import edu.umd.cs.piccolo.PNode;
 import edu.umd.cs.piccolo.event.PInputEventListener;
 
-public abstract class AbstractGraphSwingBak extends PCanvas implements IGraph {
+public abstract class AbstractGraphSwingBak extends PCanvas implements IGraphSwing {
 	private static final long serialVersionUID = -2767059869604101888L;
 
 	public static final int ARC_LAYER_INDEX = 0;

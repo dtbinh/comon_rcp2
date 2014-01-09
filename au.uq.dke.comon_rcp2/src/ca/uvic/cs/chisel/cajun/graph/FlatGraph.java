@@ -11,12 +11,18 @@ import ca.uvic.cs.chisel.cajun.graph.handlers.NodeDragHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.NodeExpandCollapseHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.SelectionHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandler;
+import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandlerSwing;
 import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
 import edu.umd.cs.piccolo.PCamera;
+import edu.umd.cs.piccolo.event.PPanEventHandler;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
 public class FlatGraph extends AbstractGraph {
-	private static final long serialVersionUID = 2134657503991199239L;
+    /** The one and only pan handler. */
+    private transient PPanEventHandler panEventHandler;
+
+    
+    private static final long serialVersionUID = 2134657503991199239L;
 	
 	private boolean showNodeTooltips;
 	
@@ -35,19 +41,20 @@ public class FlatGraph extends AbstractGraph {
 		setAnimatingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 		setInteractingRenderQuality(PPaintContext.HIGH_QUALITY_RENDERING);
 
-		//this.animationHandler = new AnimationHandler(this);
+		this.animationHandler = new AnimationHandler(this);
 
 		PCamera camera = getCamera();
 
 		// use our custom pan handler (when the canvas is dragged)
-		//setPanEventHandler(new CameraDragPanHandler());
+		setPanEventHandler(new CameraDragPanHandler());
 		// this causes panning to happen when the arrow keys are pressed
 		camera.addInputEventListener(new CameraKeyPanHandler(camera));
 		
 		// disable key zooming - we'll use our own handler
 		//setZoomEventHandler(null);
         // handles keyboard (+/-) and mouse wheel zoom events
-        camera.addInputEventListener(new ZoomHandler(camera));
+        this.addMouseWheelListener(new ZoomHandler(camera));
+		//this.addInputEventListener(new ZoomHandlerSwing(camera));
 
         // handles dragging of nodes
 		camera.addInputEventListener(new NodeDragHandler());
@@ -61,6 +68,19 @@ public class FlatGraph extends AbstractGraph {
 
         camera.addInputEventListener(new NodeExpandCollapseHandler());
 	}
+	
+    public void setPanEventHandler(final PPanEventHandler handler) {
+        if (panEventHandler != null) {
+            removeInputEventListener(panEventHandler);
+        }
+
+        panEventHandler = handler;
+
+        if (panEventHandler != null) {
+            addInputEventListener(panEventHandler);
+        }
+    }
+
 
 	public AnimationHandler getAnimationHandler() {
 		return animationHandler;
