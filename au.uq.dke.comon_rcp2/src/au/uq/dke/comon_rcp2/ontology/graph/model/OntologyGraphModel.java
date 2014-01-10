@@ -43,8 +43,8 @@ public class OntologyGraphModel extends DefaultGraphModel implements
 
 	private OntologyGraphModel(){
 		super();
-		//populateMockData();
-		populateComonOntology();
+		populateMockData();
+		//populateComonOntology();
 		generateTreeInfo();
 		
 	}
