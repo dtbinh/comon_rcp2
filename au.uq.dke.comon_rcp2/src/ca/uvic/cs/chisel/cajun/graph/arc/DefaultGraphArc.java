@@ -385,36 +385,36 @@ public class DefaultGraphArc extends PPath implements IGraphArc {
 
 	@Override
 	protected void paint(PPaintContext paintContext) {
-		Graphics2D g2 = paintContext.getGraphics();
-
-		Stroke stroke = getStroke();
-		Paint paint = getStrokePaint();
-		
-//		Stroke stroke = new PFixedWidthStroke(3f);
-//		Paint paint = Color.green;
-		
-		if ((stroke != null) && (paint != null)) {
-			g2.setPaint(paint);
-			g2.setStroke(stroke);
-			
-			GeneralPath pathReference = getPathReference();
-			g2.draw(getPathReference());
-			
-
-			if (showArrowHead) {
-				Shape shape = endArrowHead.getShape();
-				g2.fill(shape);
-				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
-				g2.draw(shape);
-			}
-
-			if (this.getType().toString().contains("associate")) {
-				Shape shape = startArrowHead.getShape();
-				g2.fill(shape);
-				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
-				g2.draw(shape);
-			}
-		}
+//		Graphics2D g2 = paintContext.getGraphics();
+//
+//		Stroke stroke = getStroke();
+//		Paint paint = getStrokePaint();
+//		
+////		Stroke stroke = new PFixedWidthStroke(3f);
+////		Paint paint = Color.green;
+//		
+//		if ((stroke != null) && (paint != null)) {
+//			g2.setPaint(paint);
+//			g2.setStroke(stroke);
+//			
+//			GeneralPath pathReference = getPathReference();
+//			//g2.draw(getPathReference());
+//			
+//
+//			if (showArrowHead) {
+//				Shape shape = endArrowHead.getShape();
+//				g2.fill(shape);
+//				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
+//				//g2.draw(shape);
+//			}
+//
+//			if (this.getType().toString().contains("associate")) {
+//				Shape shape = startArrowHead.getShape();
+//				g2.fill(shape);
+//				g2.setStroke(UIConstants.ARROWHEAD_STROKE);
+//				//g2.draw(shape);
+//			}
+//		}
 	}
 
 	private class Segment {
