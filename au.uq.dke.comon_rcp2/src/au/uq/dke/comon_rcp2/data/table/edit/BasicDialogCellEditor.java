@@ -1,6 +1,7 @@
 package au.uq.dke.comon_rcp2.data.table.edit;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
 import au.uq.dke.comon_rcp2.data.model.data.businessProcessManagement.ProcessRule;
+import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
 import au.uq.dke.comon_rcp2.data.table.GenericTableUnit;
 import au.uq.dke.comon_rcp2.data.table.RecordsAddingUnit;
 import au.uq.dke.comon_rcp2.data.table.model.ProcessObject;
@@ -39,23 +41,11 @@ public class BasicDialogCellEditor extends DialogCellEditor {
 		// MessageDialog.openInformation(cellEditorWindow.getShell(), "Test",
 		// "It works");
 
-		cellEditorWindow.getData();
-		Set<Object> fullSet = new HashSet();
-		Set<Object> selectedSet = new HashSet();
-
 		Class beanType = SetUtils.getSetElementType(this.field);
-		GenericTableUnit view;
+		cellEditorWindow.getData();
+		Collection<Object> fullSet = MockDataServiceImpl.getInstance().getDataSet(beanType);
+		Collection<Object> selectedSet = new HashSet();
 
-		for (int i = 0; i < 3; i++) {
-			Object bean = null;
-			try {
-				bean = beanType.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			fullSet.add(bean);
-		}
 		
 		Shell shell = new Shell(Display.getCurrent());
 

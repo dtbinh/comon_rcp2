@@ -39,6 +39,8 @@ public class MockDataServiceImpl implements IDataService {
 				}
 				beanList.add(bean);
 			}
+			
+			dataMap.put(beanType, beanList);
 			return beanList;
 		}
 

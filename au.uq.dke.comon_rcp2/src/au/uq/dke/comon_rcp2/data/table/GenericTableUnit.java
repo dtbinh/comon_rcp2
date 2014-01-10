@@ -25,8 +25,8 @@ import org.eclipse.swt.widgets.Text;
 
 import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
 import au.uq.dke.comon_rcp2.data.table.edit.GenericEditingSupport;
+import au.uq.dke.comon_rcp2.data.table.filter.GenericFilter;
 import au.uq.dke.comon_rcp2.data.table.labelprovider.GenericCellLabelProvider;
-import au.uq.dke.comon_rcp2.data.table.model.GenericFilter;
 import au.uq.dke.comon_rcp2.data.table.sorter.GenericViewerComparator;
 
 /**
@@ -59,18 +59,16 @@ public class GenericTableUnit {
 		return dataInput;
 	}
 
-	public void setDataInput(Collection dataInput) {
-		this.dataInput = dataInput;
-	}
 
 	Label searchLabel;
 	Text searchText = null;
 
 	private GenericViewerComparator comparator;
 
-	public GenericTableUnit(Composite parent, Class beanType, boolean searchServiceVisible) {
+	public GenericTableUnit(Composite parent, Class beanType, Collection dataInput, boolean searchServiceVisible) {
 		this.parent = parent;
 		this.beanType = beanType;
+		this.dataInput = dataInput;
 		this.searchServiceVisible = searchServiceVisible;
 		declaredFields = this.beanType.getDeclaredFields();
 	}
@@ -106,7 +104,7 @@ public class GenericTableUnit {
 		viewer.setComparator(comparator);
 		filter = new GenericFilter(this);
 		viewer.addFilter(filter);
-		viewer.setInput(MockDataServiceImpl.getInstance().getDataSet(beanType));
+		viewer.setInput(dataInput);
 		
 		//add button
 		addBtn = new Button(this.parent, SWT.PUSH);
@@ -121,7 +119,7 @@ public class GenericTableUnit {
 				} catch (InstantiationException | IllegalAccessException e2) {
 					e2.printStackTrace();
 				}
-				MockDataServiceImpl.getInstance().getDataSet(beanType).add(bean);
+				dataInput.add(bean);
 				GenericTableUnit.this.refresh();
 			
 			}
@@ -142,7 +140,7 @@ public class GenericTableUnit {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Object bean = null;
-				MockDataServiceImpl.getInstance().getDataSet(beanType).remove(bean);
+				dataInput.remove(bean);
 				GenericTableUnit.this.refresh();
 			
 			}

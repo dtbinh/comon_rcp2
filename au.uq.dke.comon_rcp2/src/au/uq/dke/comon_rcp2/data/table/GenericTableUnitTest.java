@@ -1,19 +1,14 @@
 package au.uq.dke.comon_rcp2.data.table;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
 import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
 import au.uq.dke.comon_rcp2.data.table.model.ProcessObject;
-import au.uq.dke.comon_rcp2.data.table.model.ProcessRule;
 
 public class GenericTableUnitTest {
 	
@@ -27,20 +22,8 @@ public class GenericTableUnitTest {
 		Shell shell = new Shell(display);
 
 
-		
-		view = new GenericTableUnit(shell, beanType, true);
-		
-		for (int i = 0; i < 3; i++) {
-			Object bean = null;
-			try {
-				bean = beanType.newInstance();
-			} catch (InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			MockDataServiceImpl.getInstance().getDataSet(beanType).add(bean);
-		}
-
+		Collection dataInput = MockDataServiceImpl.getInstance().getDataSet(beanType);
+		view = new GenericTableUnit(shell, beanType, dataInput, true);
 		view.init();
 		
 

@@ -39,8 +39,7 @@ public class RecordsAddingUnit {
 		this.selectedSet = selectedSet;
 		this.fullSet = fullSet;
 
-		fullUnit = new GenericTableUnit(maincomposite, this.beanType, true);
-		fullUnit.setDataInput(this.fullSet);
+		fullUnit = new GenericTableUnit(maincomposite, this.beanType, this.fullSet, true);
 		fullUnit.init();
 		fullUnit.getAddBtn().setVisible(false);
 		fullUnit.getDeleteBtn().setVisible(false);
@@ -49,8 +48,7 @@ public class RecordsAddingUnit {
 		//fullUnit.getViewer().getTable().set
 
 		//TODO: disable edit
-		selectedUnit = new GenericTableUnit(maincomposite, this.beanType, false);
-		selectedUnit.setDataInput(this.selectedSet);
+		selectedUnit = new GenericTableUnit(maincomposite, this.beanType, this.selectedSet, false);
 		selectedUnit.init();
 		selectedUnit.getAddBtn().setVisible(false);
 		selectedUnit.getDeleteBtn().setVisible(false);

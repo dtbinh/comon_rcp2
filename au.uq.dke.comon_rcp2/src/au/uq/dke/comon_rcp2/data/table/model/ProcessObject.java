@@ -10,9 +10,9 @@ public class ProcessObject extends Parent {
 		name = "object " + number ++;
 		level = "level " + (10 - number);
 		
-		for(int i = 0; i < 2; i++){
-			this.associatedProcessRules.add(new ProcessRule());
-		}
+//		for(int i = 0; i < 2; i++){
+//			this.associatedProcessRules.add(new ProcessRule());
+//		}
 	}
 	
 	
@@ -35,9 +35,9 @@ public class ProcessObject extends Parent {
 		this.associatedProcessRules = associatedProcessRules;
 	}
 
-	private String name = "object " + number ++;
+	private String name;
 	
-	private String level = "level " + (10 - number);
+	private String level;
 	public String getLevel() {
 		return level;
 	}
