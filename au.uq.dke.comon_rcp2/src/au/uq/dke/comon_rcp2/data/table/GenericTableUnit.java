@@ -2,6 +2,7 @@ package au.uq.dke.comon_rcp2.data.table;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,9 +19,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
@@ -38,10 +42,9 @@ public class GenericTableUnit {
 	private TableViewer viewer;
 	private GenericFilter filter;
 	private boolean searchServiceVisible = true;
-	
+
 	Button addBtn;
 	Button deleteBtn;
-
 
 	private Class beanType;
 
@@ -59,13 +62,13 @@ public class GenericTableUnit {
 		return dataInput;
 	}
 
-
 	Label searchLabel;
 	Text searchText = null;
 
 	private GenericViewerComparator comparator;
 
-	public GenericTableUnit(Composite parent, Class beanType, Collection dataInput, boolean searchServiceVisible) {
+	public GenericTableUnit(Composite parent, Class beanType,
+			Collection dataInput, boolean searchServiceVisible) {
 		this.parent = parent;
 		this.beanType = beanType;
 		this.dataInput = dataInput;
@@ -73,7 +76,7 @@ public class GenericTableUnit {
 		declaredFields = this.beanType.getDeclaredFields();
 	}
 
-	public void refresh(){
+	public void refresh() {
 		this.viewer.refresh();
 	}
 
@@ -105,11 +108,11 @@ public class GenericTableUnit {
 		filter = new GenericFilter(this);
 		viewer.addFilter(filter);
 		viewer.setInput(dataInput);
-		
-		//add button
+
+		// add button
 		addBtn = new Button(this.parent, SWT.PUSH);
 		addBtn.setText("Add");
-		addBtn.addSelectionListener(new SelectionListener(){
+		addBtn.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -121,48 +124,69 @@ public class GenericTableUnit {
 				}
 				dataInput.add(bean);
 				GenericTableUnit.this.refresh();
-			
+
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-		
-		//delete button
+
+		// delete button
 		deleteBtn = new Button(this.parent, SWT.PUSH);
 		deleteBtn.setText("Delete");
-		deleteBtn.addSelectionListener(new SelectionListener(){
+		deleteBtn.addSelectionListener(new SelectionListener() {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Object bean = null;
 				dataInput.remove(bean);
 				GenericTableUnit.this.refresh();
-			
+
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
-	
-
-
 
 	}
 
 	private void createViewer() {
-		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL
+		viewer = new TableViewer(parent, SWT.CHECK | SWT.MULTI | SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
 		createColumns(parent, viewer);
 		final Table table = viewer.getTable();
+		table.addListener(SWT.Selection, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				TableItem tableItem = (TableItem)event.item;
+				boolean checked = tableItem.getChecked() ;
+				ArrayList<TableItem> selection = 	new ArrayList<TableItem>(Arrays.asList(table.getSelection()));
+				if(checked == true){
+					selection.add(tableItem);
+					TableItem[] selectionArray = new TableItem[selection.size()];
+					for(int i = 0; i< selectionArray.length; i++){
+						selectionArray[i] = selection.get(i);
+					}
+					table.setSelection(selectionArray);
+				}else{
+					selection.remove(tableItem);
+					TableItem[] selectionArray = new TableItem[selection.size()];
+					for(int i = 0; i< selectionArray.length; i++){
+						selectionArray[i] = selection.get(i);
+					}
+					table.setSelection(selectionArray);
+				}
+				
+			}
+		});
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
