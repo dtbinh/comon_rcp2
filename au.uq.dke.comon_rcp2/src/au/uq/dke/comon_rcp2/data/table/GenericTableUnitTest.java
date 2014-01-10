@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
+import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
 import au.uq.dke.comon_rcp2.data.table.model.ProcessObject;
 import au.uq.dke.comon_rcp2.data.table.model.ProcessRule;
 
@@ -29,7 +30,6 @@ public class GenericTableUnitTest {
 		
 		view = new GenericTableUnit(shell, beanType, true);
 		
-		beanList = view.getBeanList();
 		for (int i = 0; i < 3; i++) {
 			Object bean = null;
 			try {
@@ -38,7 +38,7 @@ public class GenericTableUnitTest {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			beanList.add(bean);
+			MockDataServiceImpl.getInstance().getDataSet(beanType).add(bean);
 		}
 
 		view.init();

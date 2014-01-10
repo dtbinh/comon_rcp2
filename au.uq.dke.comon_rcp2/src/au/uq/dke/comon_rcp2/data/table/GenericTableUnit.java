@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
+import au.uq.dke.comon_rcp2.data.service.MockDataServiceImpl;
 import au.uq.dke.comon_rcp2.data.table.edit.GenericEditingSupport;
 import au.uq.dke.comon_rcp2.data.table.labelprovider.GenericCellLabelProvider;
 import au.uq.dke.comon_rcp2.data.table.model.GenericFilter;
@@ -43,15 +44,6 @@ public class GenericTableUnit {
 
 
 	private Class beanType;
-	List<Object> beanList = new ArrayList();
-
-	public List<Object> getBeanList() {
-		return beanList;
-	}
-
-	public void setBeanList(List<Object> beanList) {
-		this.beanList = beanList;
-	}
 
 	private Field[] declaredFields;
 
@@ -114,7 +106,7 @@ public class GenericTableUnit {
 		viewer.setComparator(comparator);
 		filter = new GenericFilter(this);
 		viewer.addFilter(filter);
-		viewer.setInput(beanList);
+		viewer.setInput(MockDataServiceImpl.getInstance().getDataSet(beanType));
 		
 		//add button
 		addBtn = new Button(this.parent, SWT.PUSH);
@@ -129,7 +121,7 @@ public class GenericTableUnit {
 				} catch (InstantiationException | IllegalAccessException e2) {
 					e2.printStackTrace();
 				}
-				beanList.add(bean);
+				MockDataServiceImpl.getInstance().getDataSet(beanType).add(bean);
 				GenericTableUnit.this.refresh();
 			
 			}
@@ -150,7 +142,7 @@ public class GenericTableUnit {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Object bean = null;
-				beanList.remove(bean);
+				MockDataServiceImpl.getInstance().getDataSet(beanType).remove(bean);
 				GenericTableUnit.this.refresh();
 			
 			}
