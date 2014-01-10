@@ -5,7 +5,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import au.uq.dke.comon_rcp2.ontology.graph.model.IOntologyGraphModel;
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;

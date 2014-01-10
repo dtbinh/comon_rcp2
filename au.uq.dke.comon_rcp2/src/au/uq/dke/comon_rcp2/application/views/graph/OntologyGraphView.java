@@ -1,25 +1,18 @@
 package au.uq.dke.comon_rcp2.application.views.graph;
 
-import java.awt.BorderLayout;
-import java.awt.Frame;
-
-import javax.swing.JPanel;
-
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.awt.SWT_AWT;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
-import edu.umd.cs.piccolox.swing.PScrollPane;
+import au.uq.dke.comon_rcp2.application.views.filters.FilterManager;
 
 public class OntologyGraphView extends ViewPart {
 	public static final String ID = "au.uq.dke.comon_rcp2.view";
@@ -33,7 +26,7 @@ public class OntologyGraphView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		OntologyGraph.createInstance(parent);
 	    OntologyGraph graph = OntologyGraph.getInstance();
-	    graph.performLayoutWithoutFilter();
+	    graph.performLayoutWithFilter();
 		
 		
 		

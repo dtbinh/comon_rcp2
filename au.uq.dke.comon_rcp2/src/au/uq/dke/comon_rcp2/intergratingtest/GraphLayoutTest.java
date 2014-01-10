@@ -1,13 +1,13 @@
 package au.uq.dke.comon_rcp2.intergratingtest;
 
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyClass;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
 public class GraphLayoutTest {
-	OntologyGraphModelImpl graphModel = OntologyGraphModelImpl.getInstance();
+	OntologyGraphModel graphModel = OntologyGraphModel.getInstance();
 	
 	public void populateMockData() {
 	    OntologyClass srcObject = new OntologyClass("src");

@@ -105,8 +105,8 @@ public class LayoutManager extends CajunAction {
 		double x = 0, y = 0;
 //		double w = Math.max(0, canvas.getWidth() - 10);
 //		double h = Math.max(0, canvas.getHeight() - 10);
-		double w = 500;
-		double h = 500;
+		double w = 1500;
+		double h = 1500;
 
 		// to allow extra room for wide nodes
 		if (w > 400) {

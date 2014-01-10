@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 import ca.uvic.cs.chisel.cajun.graph.node.DefaultGraphNode;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.PNode;
@@ -107,7 +107,7 @@ public class RotationHandler extends PBasicInputEventHandler {
 					.getRotateInstance(sign * deltaRadians, ANCHOR_X, ANCHOR_Y);
 
 			// rotate all visible nodes
-			Collection<IGraphNode> visibleNodes = OntologyGraphModelImpl.getInstance().getVisibleNodes();
+			Collection<IGraphNode> visibleNodes = OntologyGraphModel.getInstance().getVisibleNodes();
 			List<OWLEntity> desendantsNode = null;
 //			List<OWLEntity> desendantsNode = EntryPoint.getGraphModel().getDesendantList(
 //					(OWLEntity) anchorIGraphNode.getUserObject(), false);

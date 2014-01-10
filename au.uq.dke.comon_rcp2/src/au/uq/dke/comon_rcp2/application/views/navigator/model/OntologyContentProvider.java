@@ -6,14 +6,14 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 import au.uq.dke.comon_rcp2.ontology.graph.model.node.BasicGraphNode;
 
 
 
 public class OntologyContentProvider implements ITreeContentProvider {
 	private NavigatorRoot navigatorRoot = new NavigatorRoot();
-	private OntologyGraphModelImpl ontologyGraphModel = OntologyGraphModelImpl.getInstance();
+	private OntologyGraphModel ontologyGraphModel = OntologyGraphModel.getInstance();
 
 	@Override
 	public void dispose() {

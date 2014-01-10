@@ -8,6 +8,8 @@ import au.uq.dke.comon_rcp2.application.views.navigator.model.NavigatorRoot;
 
 
 public class OntologyNavigator extends CommonNavigator {
+	
+	public static final String ID = "au.uq.dke.comon_rcp2.ontologyNavigatorView";
 
 	NavigatorRoot navigatorRoot = new NavigatorRoot();
 	

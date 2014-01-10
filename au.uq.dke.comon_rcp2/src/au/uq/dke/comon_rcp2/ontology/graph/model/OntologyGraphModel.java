@@ -25,10 +25,10 @@ import ca.uvic.cs.chisel.cajun.graph.GraphModelListener;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 
-public class OntologyGraphModelImpl extends DefaultGraphModel implements
+public class OntologyGraphModel extends DefaultGraphModel implements
 		IOntologyGraphModel{
 	
-	private static OntologyGraphModelImpl instance = null;
+	private static OntologyGraphModel instance = null;
 
 	private MutableTree rootTreeNode = null;
 	
@@ -41,7 +41,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	private static Collection<OntologyRelation> ontologyRelations = ontologyModelService
 			.getAllOntologyRelations();
 
-	private OntologyGraphModelImpl(){
+	private OntologyGraphModel(){
 		super();
 		//populateMockData();
 		populateComonOntology();
@@ -49,9 +49,9 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		
 	}
 	
-	public static OntologyGraphModelImpl getInstance(){
+	public static OntologyGraphModel getInstance(){
 		if(instance == null){
-			instance = new OntologyGraphModelImpl();
+			instance = new OntologyGraphModel();
 		}
 		
 		return instance;

@@ -6,8 +6,9 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.application.views.filters.FilterManager;
+import au.uq.dke.comon_rcp2.application.views.filters.NodeLevelViewerFilter;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -25,7 +26,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setInitialSize(new Point(800, 600));
 		configurer.setShowCoolBar(false);
 		configurer.setShowStatusLine(false);
-		OntologyGraphModelImpl.getInstance();
+		
+		OntologyGraphModel.getInstance();
+		FilterManager filterManager = FilterManager.getInstance();
+		filterManager.addFilter(new NodeLevelViewerFilter());
 	}
 
 	@Override

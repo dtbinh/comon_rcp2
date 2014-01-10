@@ -3,7 +3,7 @@ package ca.uvic.cs.chisel.cajun.graph.handlers;
 import java.util.Collection;
 
 import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.INodeUserObject;
 import ca.uvic.cs.chisel.cajun.graph.node.IGraphNode;
 import edu.umd.cs.piccolo.event.PBasicInputEventHandler;
@@ -36,7 +36,7 @@ public class NodeExpandCollapseHandler extends PBasicInputEventHandler {
 		boolean isExpanded = false;// if any one of the children is visible,
 									// then it is expanded
 
-		Collection<IGraphNode> children = OntologyGraphModelImpl.getInstance()
+		Collection<IGraphNode> children = OntologyGraphModel.getInstance()
 				.getChildren((INodeUserObject) parentGraphNode.getUserObject());
 		
 		for(IGraphNode child : children){

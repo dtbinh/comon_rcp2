@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.PlatformObject;
 
-import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModel;
 
 public class NavigatorRoot extends PlatformObject {
 	
@@ -13,7 +13,7 @@ public class NavigatorRoot extends PlatformObject {
 	
 	public Collection getOntologyRoots(){
 		
-		OntologyGraphModelImpl ontologyGraphModel = OntologyGraphModelImpl.getInstance();
+		OntologyGraphModel ontologyGraphModel = OntologyGraphModel.getInstance();
 		
 		
 		Collection roots = new ArrayList();
