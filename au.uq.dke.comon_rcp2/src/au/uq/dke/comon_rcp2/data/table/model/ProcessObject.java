@@ -1,4 +1,4 @@
-package table.model;
+package au.uq.dke.comon_rcp2.data.table.model;
 
 import java.util.HashSet;
 import java.util.Set;

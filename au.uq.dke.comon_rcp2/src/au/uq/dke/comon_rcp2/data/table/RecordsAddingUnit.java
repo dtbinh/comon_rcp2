@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.table;
 
 import java.awt.Color;
 import java.util.Collection;

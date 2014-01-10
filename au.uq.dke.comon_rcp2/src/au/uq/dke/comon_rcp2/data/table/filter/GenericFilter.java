@@ -1,4 +1,4 @@
-package table.filter;
+package au.uq.dke.comon_rcp2.data.table.filter;
 
 import java.lang.reflect.Field;
 
@@ -6,7 +6,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.metawidget.util.ClassUtils;
 
-import table.GenericTableUnit;
+import au.uq.dke.comon_rcp2.data.table.GenericTableUnit;
 
 public class GenericFilter extends ViewerFilter {
 

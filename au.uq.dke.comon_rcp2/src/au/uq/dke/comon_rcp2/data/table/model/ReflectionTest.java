@@ -1,4 +1,4 @@
-package table.model;
+package au.uq.dke.comon_rcp2.data.table.model;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.metawidget.util.ClassUtils;
 
-import table.SetUtils;
+import au.uq.dke.comon_rcp2.data.utils.SetUtils;
 
 public class ReflectionTest extends TestCase{
 

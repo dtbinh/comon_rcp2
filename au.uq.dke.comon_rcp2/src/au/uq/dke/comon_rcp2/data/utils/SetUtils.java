@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;

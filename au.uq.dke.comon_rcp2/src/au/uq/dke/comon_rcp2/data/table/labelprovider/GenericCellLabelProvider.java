@@ -1,10 +1,10 @@
-package table.labelprovider;
+package au.uq.dke.comon_rcp2.data.table.labelprovider;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.metawidget.util.ClassUtils;
 
-import table.GenericTableUnit;
+import au.uq.dke.comon_rcp2.data.table.GenericTableUnit;
 
 public class GenericCellLabelProvider extends CellLabelProvider {
 	private int columnNumber;

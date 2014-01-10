@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.table;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
-import table.model.ProcessObject;
+import au.uq.dke.comon_rcp2.data.table.model.ProcessObject;
 
 public class RecordsAddingUnitTest {
 

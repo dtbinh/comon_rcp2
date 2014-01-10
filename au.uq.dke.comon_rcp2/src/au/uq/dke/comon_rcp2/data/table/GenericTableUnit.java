@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.table;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
@@ -19,10 +19,10 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import table.edit.GenericEditingSupport;
-import table.labelprovider.GenericCellLabelProvider;
-import table.model.GenericFilter;
-import table.sorter.GenericViewerComparator;
+import au.uq.dke.comon_rcp2.data.table.edit.GenericEditingSupport;
+import au.uq.dke.comon_rcp2.data.table.labelprovider.GenericCellLabelProvider;
+import au.uq.dke.comon_rcp2.data.table.model.GenericFilter;
+import au.uq.dke.comon_rcp2.data.table.sorter.GenericViewerComparator;
 
 /**
  * @author wangwei first instanize, then set dataInput & set if hide the search

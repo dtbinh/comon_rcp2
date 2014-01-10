@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.table;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;

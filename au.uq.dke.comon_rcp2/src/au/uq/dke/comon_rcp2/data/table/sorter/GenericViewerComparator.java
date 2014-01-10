@@ -1,4 +1,4 @@
-package table.sorter;
+package au.uq.dke.comon_rcp2.data.table.sorter;
 
 import java.lang.reflect.Field;
 
@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.metawidget.util.ClassUtils;
 
-import table.GenericTableUnit;
+import au.uq.dke.comon_rcp2.data.table.GenericTableUnit;
 
 public class GenericViewerComparator extends ViewerComparator {
 

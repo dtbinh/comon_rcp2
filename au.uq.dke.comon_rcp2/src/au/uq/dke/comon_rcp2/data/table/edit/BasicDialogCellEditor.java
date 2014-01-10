@@ -1,4 +1,4 @@
-package table.edit;
+package au.uq.dke.comon_rcp2.data.table.edit;
 
 import java.util.HashSet;
 import java.util.Set;

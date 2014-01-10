@@ -1,4 +1,4 @@
-package table;
+package au.uq.dke.comon_rcp2.data.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
-import table.model.ProcessRule;
+import au.uq.dke.comon_rcp2.data.table.model.ProcessRule;
 
 public class GenericTableUnitTest {
 	
