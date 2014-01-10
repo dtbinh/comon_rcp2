@@ -7,8 +7,7 @@ import javax.persistence.Transient;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
 
 @Entity
-public class OntologyRelation extends OntologyItem implements IArcUserObject{
-	
+public class OntologyRelation extends OntologyItem implements IArcUserObject {
 
 	@Override
 	@Transient
@@ -16,17 +15,17 @@ public class OntologyRelation extends OntologyItem implements IArcUserObject{
 		// TODO Auto-generated method stub
 		return "type";
 	}
-	
-	public OntologyRelation(){
-		
+
+	public OntologyRelation() {
+
 	}
-	
-	public OntologyRelation(OntologyClass srcClass, OntologyClass dstClass, OntologyRelationType relationType){
+
+	public OntologyRelation(OntologyClass srcClass, OntologyClass dstClass,
+			OntologyRelationType relationType) {
 		this.srcClass = srcClass;
 		this.dstClass = dstClass;
 		this.relationType = relationType;
 	}
-	
 
 	@OneToOne
 	public OntologyClass getSrcClass() {
@@ -56,9 +55,14 @@ public class OntologyRelation extends OntologyItem implements IArcUserObject{
 	}
 
 	OntologyClass srcClass;
-	
+
 	OntologyClass dstClass;
-	
+
 	OntologyRelationType relationType;
+
+	public String toString() {
+		return srcClass.toString() + " " + relationType.toString() + " "
+				+ dstClass.toString();
+	}
 
 }

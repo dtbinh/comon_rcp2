@@ -28,5 +28,7 @@ public class OntologyItem {
 
 	public Long id;
 	
-	
+	public String toString(){
+		return this.getId().toString();
+	}
 }

@@ -35,6 +35,7 @@ public class HibernateTest {
 //        session.save(relation1);
          
         List<OntologyClass> classes = session.createQuery("from OntologyClass").list();
+        
         List<OntologyRelation> relations = session.createQuery("from OntologyRelation").list();
         List<OntologyRelationType> relationtypes = session.createQuery("from OntologyRelationType").list();
         

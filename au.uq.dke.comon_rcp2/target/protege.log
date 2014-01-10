@@ -18,7 +18,7 @@ HHH000228: Running hbm2ddl schema update
 HHH000102: Fetching database metadata
 HHH000396: Updating schema
 HHH000261: Table found: comontest1.ontologyclass
-HHH000037: Columns: [id, description, name]
+HHH000037: Columns: [id, description, name, iri]
 HHH000108: Foreign keys: []
 HHH000126: Indexes: [primary]
 HHH000261: Table found: comontest1.ontologyitem

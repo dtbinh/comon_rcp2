@@ -11,6 +11,8 @@ public class OntologyClass extends OntologyItem implements INodeUserObject{
 	
 	public String name = null;
 	
+	public String IRI = null;
+	
 	public String description = null;
 	
 	public OntologyClass(){
@@ -43,6 +45,18 @@ public class OntologyClass extends OntologyItem implements INodeUserObject{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getIRI() {
+		return IRI;
+	}
+
+	public void setIRI(String iRI) {
+		IRI = iRI;
+	}
+	
+	public String toString(){
+		return "(" + super.toString() + ")" + this.getName();
 	}
 
 }

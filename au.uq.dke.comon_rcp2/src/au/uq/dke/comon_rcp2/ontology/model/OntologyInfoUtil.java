@@ -21,45 +21,19 @@ public class OntologyInfoUtil {
 			.getAllOntologyClasses();
 	private static Collection<OntologyRelation> ontologyRelations = ontologyModelService
 			.getAllOntologyRelations();
-	private static Collection<RelationType> relationTypes = ontologyModelService
-			.getAllRelationTypes();
 
 	private static Collection<OntologyClass> roots = null;
 
 	private static Collection<MutableTree> trees = null;
 
-	public static void parseOntology() {
-
-		// build trees
-		roots = getRoots();
-
-		for (OntologyClass root : roots) {
-			MutableTree tree = generateMutableTree(root);
-			trees.add(tree);
-		}
-
-		// set values in ontologyClass
-
-		for (MutableTree tree : trees) {
-			for (@SuppressWarnings("unchecked")
-			Enumeration<MutableTree> e = tree
-					.breadthFirstEnumeration(); e.hasMoreElements();) {
-				MutableTree node = e.nextElement();
-				OntologyClass ontologyClass = (OntologyClass) node
-						.getUserObject();
-
-				ontologyClass.setRoot(node.isRoot());
-				ontologyClass.setHasChildren(!node.isLeaf());
-				ontologyClass.setLevel(node.getLevel());
-				ontologyClass.getChildren().addAll(node.get)
-
-			}
-		}
-
-	}
 
 	private static Collection<OntologyClass> getRoots() {
 		return null;
+	}
+	
+	public static String getNameFromIRI(String iri){
+		String name = iri.substring(iri.lastIndexOf("#") + 1, iri.length());
+		return name;
 	}
 
 	private static MutableTree generateMutableTree(OntologyClass root) {

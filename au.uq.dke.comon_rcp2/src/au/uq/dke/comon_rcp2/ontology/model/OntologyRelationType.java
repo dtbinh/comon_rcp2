@@ -22,5 +22,9 @@ public class OntologyRelationType extends OntologyItem {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	public String toString(){
+		return "(" + super.toString() + ")" + this.getType();
+	}
 
 }
