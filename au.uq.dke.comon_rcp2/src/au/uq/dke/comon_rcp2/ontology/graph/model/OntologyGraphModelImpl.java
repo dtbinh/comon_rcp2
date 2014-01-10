@@ -2,13 +2,13 @@ package au.uq.dke.comon_rcp2.ontology.graph.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.Viewer;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
-import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
 import au.uq.dke.comon_rcp2.ontology.OntologyConstants;
 import au.uq.dke.comon_rcp2.ontology.graph.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
@@ -19,6 +19,7 @@ import au.uq.dke.comon_rcp2.ontology.model.OntologyRelation;
 import au.uq.dke.comon_rcp2.ontology.model.OntologyRelationType;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.IOntologyModelService;
 import au.uq.dke.comon_rcp2.ontology.model.persistence.OntologyModelServiceMockImpl;
+import au.uq.dke.comon_rcp2.persistence.HibernateUtil;
 import ca.uvic.cs.chisel.cajun.graph.DefaultGraphModel;
 import ca.uvic.cs.chisel.cajun.graph.GraphModelListener;
 import ca.uvic.cs.chisel.cajun.graph.arc.IGraphArc;
@@ -53,6 +54,28 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 		}
 		
 		return instance;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void populateComonOntology(){
+        SessionFactory sf = HibernateUtil.getSessionFactory();
+        Session session = sf.openSession();
+        session.beginTransaction();
+ 
+         
+        List<OntologyClass> classes = session.createQuery("from OntologyClass").list();
+        List<OntologyRelation> relations = session.createQuery("from OntologyRelation").list();
+        List<OntologyRelationType> relationtypes = session.createQuery("from OntologyRelationType").list();
+
+        
+        for(OntologyClass ontologyClass : classes){
+        	this.addNode(ontologyClass);
+        }
+        
+        for(OntologyRelation ontologyRelation : relations){
+        	this.addArc(ontologyRelation);
+        }
+        
 	}
 	
 	private void populateMockData() {
