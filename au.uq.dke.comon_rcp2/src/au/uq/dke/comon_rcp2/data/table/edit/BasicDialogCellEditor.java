@@ -53,9 +53,9 @@ public class BasicDialogCellEditor extends DialogCellEditor {
 		shell.pack();
 		shell.open();
 
-//		Set<ProcessRule> newSet = new HashSet<ProcessRule>();
-//		newSet.add(new ProcessRule());
-//		newSet.addAll(((Set) this.getValue()));
+		Set<ProcessRule> newSet = new HashSet<ProcessRule>();
+		newSet.add(new ProcessRule());
+		newSet.addAll(((Set) this.getValue()));
 		return null;
 	}
 
