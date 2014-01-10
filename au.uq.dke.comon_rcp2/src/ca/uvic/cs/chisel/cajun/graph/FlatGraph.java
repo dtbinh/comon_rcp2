@@ -11,6 +11,7 @@ import ca.uvic.cs.chisel.cajun.graph.handlers.NodeDragHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.NodeExpandCollapseHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.RotationHandler;
 import ca.uvic.cs.chisel.cajun.graph.handlers.SelectionHandler;
+import ca.uvic.cs.chisel.cajun.graph.handlers.ShowRecordsTableHandler2;
 import ca.uvic.cs.chisel.cajun.graph.handlers.ZoomHandler;
 import ca.uvic.cs.chisel.cajun.graph.util.AnimationHandler;
 import edu.umd.cs.piccolo.PCamera;
@@ -18,22 +19,21 @@ import edu.umd.cs.piccolo.event.PPanEventHandler;
 import edu.umd.cs.piccolo.util.PPaintContext;
 
 public class FlatGraph extends AbstractGraph {
-    /** The one and only pan handler. */
-    private transient PPanEventHandler panEventHandler;
+	/** The one and only pan handler. */
+	private transient PPanEventHandler panEventHandler;
 
-    
-    private static final long serialVersionUID = 2134657503991199239L;
-	
+	private static final long serialVersionUID = 2134657503991199239L;
+
 	private boolean showNodeTooltips;
-	
+
 	private AnimationHandler animationHandler;
-	
+
 	public FlatGraph(Composite parent) {
 		this(parent, new DefaultGraphModel());
-		
+
 		this.showNodeTooltips = true;
 	}
-	
+
 	public FlatGraph(Composite parent, IGraphModel model) {
 		super(parent, model);
 
@@ -49,40 +49,42 @@ public class FlatGraph extends AbstractGraph {
 		setPanEventHandler(new CameraDragPanHandler());
 		// this causes panning to happen when the arrow keys are pressed
 		camera.addInputEventListener(new CameraKeyPanHandler(camera));
-		
-		// disable key zooming - we'll use our own handler
-		//setZoomEventHandler(null);
-        // handles keyboard (+/-) and mouse wheel zoom events
-        this.addMouseWheelListener(new ZoomHandler(camera));
-		//this.addInputEventListener(new ZoomHandlerSwing(camera));
 
-        // handles dragging of nodes
+		// disable key zooming - we'll use our own handler
+		// setZoomEventHandler(null);
+		// handles keyboard (+/-) and mouse wheel zoom events
+		this.addMouseWheelListener(new ZoomHandler(camera));
+		// this.addInputEventListener(new ZoomHandlerSwing(camera));
+
+		// handles dragging of nodes
 		camera.addInputEventListener(new NodeDragHandler());
 		// handles node selections
-        camera.addInputEventListener(new SelectionHandler(getNodeSelection()));
-        //  handles highlighting nodes and arcs
-        camera.addInputEventListener(new HighlightHandler());
-        
-        // ensures that all nodes are displayed on the canvas
-        camera.addInputEventListener(new FocusOnExtentsHandler(animationHandler));
+		camera.addInputEventListener(new SelectionHandler(getNodeSelection()));
 
-        camera.addInputEventListener(new NodeExpandCollapseHandler());
-        
-        camera.addInputEventListener(new RotationHandler());
+		camera.addInputEventListener(new ShowRecordsTableHandler2());
+
+		// handles highlighting nodes and arcs
+		camera.addInputEventListener(new HighlightHandler());
+
+		// ensures that all nodes are displayed on the canvas
+		camera.addInputEventListener(new FocusOnExtentsHandler(animationHandler));
+
+		camera.addInputEventListener(new NodeExpandCollapseHandler());
+
+		camera.addInputEventListener(new RotationHandler());
 	}
-	
-    public void setPanEventHandler(final PPanEventHandler handler) {
-        if (panEventHandler != null) {
-            removeInputEventListener(panEventHandler);
-        }
 
-        panEventHandler = handler;
+	public void setPanEventHandler(final PPanEventHandler handler) {
+		if (panEventHandler != null) {
+			removeInputEventListener(panEventHandler);
+		}
 
-        if (panEventHandler != null) {
-            addInputEventListener(panEventHandler);
-        }
-    }
+		panEventHandler = handler;
 
+		if (panEventHandler != null) {
+			addInputEventListener(panEventHandler);
+		}
+	}
 
 	public AnimationHandler getAnimationHandler() {
 		return animationHandler;
