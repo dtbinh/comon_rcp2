@@ -26,7 +26,7 @@ public class GenericEditingSupport extends EditingSupport {
     //TODO: add other types
     else if(Object.class.isAssignableFrom(type)){
     	
-    	this.editor = new BasicDialogCellEditor(viewer.getTable());
+    	this.editor = new BasicDialogCellEditor(viewer.getTable(), this.field);
     }else{
         this.editor = new TextCellEditor(viewer.getTable());
   	
