@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.Viewer;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 import uk.ac.manchester.cs.bhig.util.Tree;
+import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
 import au.uq.dke.comon_rcp2.ontology.OntologyConstants;
 import au.uq.dke.comon_rcp2.ontology.graph.model.arc.BasicGraphArc;
 import au.uq.dke.comon_rcp2.ontology.graph.model.facade.IArcUserObject;
@@ -42,6 +43,8 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	private OntologyGraphModelImpl(){
 		super();
 		populateMockData();
+	//	OntologyGraph.getInstance().performLayoutWithoutFilter();
+		
 	}
 	
 	public static OntologyGraphModelImpl getInstance(){

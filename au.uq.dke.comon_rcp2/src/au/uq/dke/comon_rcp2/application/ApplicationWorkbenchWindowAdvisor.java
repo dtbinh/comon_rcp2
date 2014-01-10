@@ -7,6 +7,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 import au.uq.dke.comon_rcp2.application.views.graph.OntologyGraph;
+import au.uq.dke.comon_rcp2.ontology.graph.model.OntologyGraphModelImpl;
 
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -24,6 +25,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 		configurer.setInitialSize(new Point(800, 600));
 		configurer.setShowCoolBar(false);
 		configurer.setShowStatusLine(false);
+		OntologyGraphModelImpl.getInstance();
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
 	@Override
 	public void postWindowOpen() {
-		OntologyGraph.getInstance().performLayoutWithoutFilter();
+		//OntologyGraph.getInstance().performLayoutWithoutFilter();
 		super.postWindowOpen();
 	}
 }
