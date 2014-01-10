@@ -29,13 +29,15 @@ public class HibernateTest {
         OntologyRelation relation1 = new OntologyRelation(cls1, cls2, type1);
         
          
-        session.save(cls1);
-        session.save(cls2);
-        session.save(type1);
-        session.save(relation1);
- 
+//        session.save(cls1);
+//        session.save(cls2);
+//        session.save(type1);
+//        session.save(relation1);
          
         List<OntologyClass> classes = session.createQuery("from OntologyClass").list();
+        List<OntologyRelation> relations = session.createQuery("from OntologyRelation").list();
+        List<OntologyRelationType> relationtypes = session.createQuery("from OntologyRelationType").list();
+        
         for (OntologyClass cls : classes) {
             System.out.println(cls.getName());
         }
