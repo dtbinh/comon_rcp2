@@ -70,15 +70,18 @@ public class ZoomHandler implements MouseWheelListener {
 	public void mouseScrolled(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int count = e.count;
-		if (count < 0) {
+		if (count > 0) {
 			// zoom in
-			zoomIn();
-			stopZoom();
-		} else if (count > 0) {
+			while ((count--) > 0) {
+				zoomIn();
+			}
+		} else if (count < 0) {
 			// zoom out
-			zoomOut();
-			stopZoom();
+			while ((count++) < 0) {
+				zoomOut();
+			}
 		}
+		stopZoom();
 
 	}
 }
