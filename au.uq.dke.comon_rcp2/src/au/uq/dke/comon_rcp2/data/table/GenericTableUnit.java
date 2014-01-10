@@ -1,7 +1,9 @@
 package au.uq.dke.comon_rcp2.data.table;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -11,8 +13,10 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
@@ -33,8 +37,22 @@ public class GenericTableUnit {
 	private TableViewer viewer;
 	private GenericFilter filter;
 	private boolean searchServiceVisible = true;
+	
+	Button addBtn;
+	Button deleteBtn;
+
 
 	private Class beanType;
+	List<Object> beanList = new ArrayList();
+
+	public List<Object> getBeanList() {
+		return beanList;
+	}
+
+	public void setBeanList(List<Object> beanList) {
+		this.beanList = beanList;
+	}
+
 	private Field[] declaredFields;
 
 	public Field[] getDeclaredFields() {
@@ -96,6 +114,56 @@ public class GenericTableUnit {
 		viewer.setComparator(comparator);
 		filter = new GenericFilter(this);
 		viewer.addFilter(filter);
+		viewer.setInput(beanList);
+		
+		//add button
+		addBtn = new Button(this.parent, SWT.PUSH);
+		addBtn.setText("Add");
+		addBtn.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Object bean = null;
+				try {
+					bean = beanType.newInstance();
+				} catch (InstantiationException | IllegalAccessException e2) {
+					e2.printStackTrace();
+				}
+				beanList.add(bean);
+				GenericTableUnit.this.refresh();
+			
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		//delete button
+		deleteBtn = new Button(this.parent, SWT.PUSH);
+		deleteBtn.setText("Delete");
+		deleteBtn.addSelectionListener(new SelectionListener(){
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Object bean = null;
+				beanList.remove(bean);
+				GenericTableUnit.this.refresh();
+			
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	
+
 
 
 	}
@@ -168,11 +236,20 @@ public class GenericTableUnit {
 		return viewerColumn;
 	}
 
-	/**
-	 * Passing the focus request to the viewer's control.
-	 */
-
-	public void setFocus() {
-		viewer.getControl().setFocus();
+	public Button getAddBtn() {
+		return addBtn;
 	}
+
+	public void setAddBtn(Button addBtn) {
+		this.addBtn = addBtn;
+	}
+
+	public Button getDeleteBtn() {
+		return deleteBtn;
+	}
+
+	public void setDeleteBtn(Button deleteBtn) {
+		this.deleteBtn = deleteBtn;
+	}
+
 }

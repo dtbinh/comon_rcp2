@@ -16,7 +16,7 @@ import au.uq.dke.comon_rcp2.data.table.model.ProcessRule;
 
 public class GenericTableUnitTest {
 	
-	List<Object> beanList = new ArrayList();
+	List<Object> beanList = null;
 	Class beanType = ProcessObject.class;
 	GenericTableUnit view;
 
@@ -26,6 +26,10 @@ public class GenericTableUnitTest {
 		Shell shell = new Shell(display);
 
 
+		
+		view = new GenericTableUnit(shell, beanType, true);
+		
+		beanList = view.getBeanList();
 		for (int i = 0; i < 3; i++) {
 			Object bean = null;
 			try {
@@ -36,34 +40,9 @@ public class GenericTableUnitTest {
 			}
 			beanList.add(bean);
 		}
-		
-		view = new GenericTableUnit(shell, beanType, true);
-		view.setDataInput(beanList);
+
 		view.init();
 		
-		Button addBtn = new Button(shell, SWT.PUSH);
-		addBtn.addSelectionListener(new SelectionListener(){
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				Object bean = null;
-				try {
-					bean = beanType.newInstance();
-				} catch (InstantiationException | IllegalAccessException e2) {
-					e2.printStackTrace();
-				}
-				beanList.add(bean);
-				view.refresh();
-			
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 
 		shell.pack();
 		shell.open();
