@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer;
+package test.reflectonTest;
 
 import java.util.ArrayList;
 import java.util.List;

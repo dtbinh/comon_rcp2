@@ -1,10 +1,10 @@
-package de.vogella.jface.tableviewer.edit;
+package table.labelprovider;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.metawidget.util.ClassUtils;
 
-import test.reflectonTest.GenericTableUnit;
+import table.GenericTableUnit;
 
 public class GenericCellLabelProvider extends CellLabelProvider {
 	private int columnNumber;

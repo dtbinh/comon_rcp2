@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer;
+package table;
 
 import java.awt.Color;
 import java.util.Collection;

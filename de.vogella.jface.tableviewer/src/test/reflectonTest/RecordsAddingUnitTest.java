@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer;
+package test.reflectonTest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,8 +6,6 @@ import java.util.Set;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
-
-import test.reflectonTest.model.ProcessObject;
 
 public class RecordsAddingUnitTest {
 

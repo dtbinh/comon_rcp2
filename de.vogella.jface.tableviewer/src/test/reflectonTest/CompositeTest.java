@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer;
+package test.reflectonTest;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;

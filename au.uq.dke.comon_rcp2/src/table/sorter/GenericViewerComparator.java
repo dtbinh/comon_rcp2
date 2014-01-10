@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer.sorter;
+package table.sorter;
 
 import java.lang.reflect.Field;
 
@@ -7,7 +7,7 @@ import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.metawidget.util.ClassUtils;
 
-import test.reflectonTest.GenericTableUnit;
+import table.GenericTableUnit;
 
 public class GenericViewerComparator extends ViewerComparator {
 

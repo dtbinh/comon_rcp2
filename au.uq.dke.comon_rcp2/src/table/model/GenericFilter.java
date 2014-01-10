@@ -1,4 +1,4 @@
-package de.vogella.jface.tableviewer.filter;
+package table.model;
 
 import java.lang.reflect.Field;
 
@@ -6,8 +6,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.metawidget.util.ClassUtils;
 
-import test.reflectonTest.GenericTableUnit;
-import de.vogella.jface.tableviewer.model.Person;
+import table.GenericTableUnit;
 
 public class GenericFilter extends ViewerFilter {
 
