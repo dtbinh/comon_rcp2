@@ -38,7 +38,10 @@ public class RecordsAddingUnit {
 		fullUnit = new GenericTableUnit(maincomposite, this.beanType, true);
 		fullUnit.setDataInput(this.fullSet);
 		fullUnit.init();
+		//TODO: disable edit
+		//fullUnit.getViewer().getTable().set
 
+		//TODO: disable edit
 		selectedUnit = new GenericTableUnit(maincomposite, this.beanType, false);
 		selectedUnit.setDataInput(this.selectedSet);
 		selectedUnit.init();

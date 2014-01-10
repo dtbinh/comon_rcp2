@@ -11,12 +11,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.junit.Test;
 
+import au.uq.dke.comon_rcp2.data.table.model.ProcessObject;
 import au.uq.dke.comon_rcp2.data.table.model.ProcessRule;
 
 public class GenericTableUnitTest {
 	
 	List<Object> beanList = new ArrayList();
-	Class beanType = ProcessRule.class;
+	Class beanType = ProcessObject.class;
 	GenericTableUnit view;
 
 	@Test
