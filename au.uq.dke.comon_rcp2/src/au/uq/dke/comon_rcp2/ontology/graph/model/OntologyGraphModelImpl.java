@@ -44,7 +44,7 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 	private OntologyGraphModelImpl(){
 		super();
 		populateMockData();
-	//	OntologyGraph.getInstance().performLayoutWithoutFilter();
+		generateTreeInfo();
 		
 	}
 	
@@ -123,7 +123,6 @@ public class OntologyGraphModelImpl extends DefaultGraphModel implements
 //	    this.addArc(rel23_24);
 
 	    
-	    this.generateTreeInfo();
 
 		
 	}
