@@ -123,9 +123,14 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="au.uq.dke.comon_rcp2.WorkbenchPreferencePage4"
-            id="au.uq.dke.comon_rcp2.page4"
-            name="name">
+            class="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
+            id="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
+            name="Sample Preferences">
+      </page>
+      <page
+            class="au.uq.dke.comon_rcp2.preferences.GraphPreferencePage"
+            id="au.uq.dke.comon_rcp2.prefrencepage.graph"
+            name="Graph">
       </page>
    </extension>
 

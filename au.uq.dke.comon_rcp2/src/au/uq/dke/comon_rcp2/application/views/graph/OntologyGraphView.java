@@ -26,7 +26,7 @@ public class OntologyGraphView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		OntologyGraph.createInstance(parent);
 	    OntologyGraph graph = OntologyGraph.getInstance();
-	    graph.performLayoutWithFilter();
+	   // graph.performLayoutWithFilter();
 		
 		
 		
