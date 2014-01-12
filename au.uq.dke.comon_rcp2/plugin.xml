@@ -67,6 +67,16 @@
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu">
+         <menu
+               label="Window">
+            <command
+                  commandId="org.eclipse.ui.window.preferences"
+                  label="Preference">
+            </command>
+         </menu>
+      </menuContribution>
    </extension>
    <extension
          id="product"
@@ -108,6 +118,25 @@
             </contentExtension>
          </includes>
       </viewerContentBinding>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="au.uq.dke.comon_rcp2.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
+            id="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
+            name="Sample Preferences">
+      </page>
+      <page
+            class="au.uq.dke.comon_rcp2.WorkbenchPreferencePage3"
+            id="au.uq.dke.comon_rcp2.page3"
+            name="name">
+      </page>
    </extension>
 
 </plugin>
