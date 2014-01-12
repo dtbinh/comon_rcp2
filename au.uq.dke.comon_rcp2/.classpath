@@ -83,6 +83,5 @@
 	<classpathentry kind="lib" path="thirdparties/spring-web-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="thirdparties/spring-webmvc-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="thirdparties/mysql-connector-java-5.1.28-bin.jar"/>
-	<classpathentry kind="lib" path="src/ca/uvic/cs/chisel/cajun/graph/handlers/ShowRecordsTableHandler.java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
