@@ -66,16 +66,11 @@
                   label="Exit">
             </command>
          </menu>
-      </menuContribution>
-      <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu">
-         <menu
-               label="Window">
-            <command
-                  commandId="org.eclipse.ui.window.preferences"
-                  label="Preference">
-            </command>
-         </menu>
+         <command
+               commandId="org.eclipse.ui.window.preferences"
+               label="preference"
+               style="push">
+         </command>
       </menuContribution>
    </extension>
    <extension
@@ -128,13 +123,8 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
-            id="au.uq.dke.comon_rcp2.preferences.SamplePreferencePage"
-            name="Sample Preferences">
-      </page>
-      <page
-            class="au.uq.dke.comon_rcp2.WorkbenchPreferencePage3"
-            id="au.uq.dke.comon_rcp2.page3"
+            class="au.uq.dke.comon_rcp2.WorkbenchPreferencePage4"
+            id="au.uq.dke.comon_rcp2.page4"
             name="name">
       </page>
    </extension>
