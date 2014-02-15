@@ -7,4 +7,5 @@ Export-Package: test.swt.tabelviewer
 Require-Bundle: org.eclipse.jface;bundle-version="3.9.1",
  org.eclipse.jface.databinding;bundle-version="1.6.200",
  org.eclipse.jface.databinding.source;bundle-version="1.6.200",
- org.eclipse.jface.text;bundle-version="3.8.101"
+ org.eclipse.jface.text;bundle-version="3.8.101",
+ org.eclipse.ui.forms;bundle-version="3.6.1"

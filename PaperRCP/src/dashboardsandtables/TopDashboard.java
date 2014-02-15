@@ -34,11 +34,13 @@ public class TopDashboard extends Composite {
 		toolkit.paintBordersFor(this);
 		
 		Form frmNewForm = toolkit.createForm(this);
-		frmNewForm.setBounds(26, 41, 852, 609);
+		frmNewForm.setBounds(10, 24, 1165, 655);
 		toolkit.paintBordersFor(frmNewForm);
 		frmNewForm.setText("New Form");
 		{
 			TableWrapLayout tableWrapLayout = new TableWrapLayout();
+			tableWrapLayout.makeColumnsEqualWidth = true;
+			tableWrapLayout.horizontalSpacing = 30;
 			tableWrapLayout.numColumns = 5;
 			frmNewForm.getBody().setLayout(tableWrapLayout);
 		}
@@ -73,8 +75,10 @@ public class TopDashboard extends Composite {
 		sctnNewSection.setClient(composite);
 		{
 			TableWrapLayout twl_composite = new TableWrapLayout();
+			twl_composite.numColumns = 2;
 			composite.setLayout(twl_composite);
 		}
+		new Label(composite, SWT.NONE);
 		
 		Section sctnNewSection_3 = toolkit.createSection(composite, Section.TWISTIE | Section.TITLE_BAR);
 		sctnNewSection_3.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.MIDDLE, 1, 1));
@@ -91,9 +95,6 @@ public class TopDashboard extends Composite {
 		Hyperlink hprlnkDetail = toolkit.createHyperlink(composite_2, "Detail", SWT.NONE);
 		toolkit.paintBordersFor(hprlnkDetail);
 		
-		Hyperlink hprlnkRisks = toolkit.createHyperlink(composite_2, "Risks:", SWT.NONE);
-		toolkit.paintBordersFor(hprlnkRisks);
-		
 		Hyperlink hprlnkConflicts = toolkit.createHyperlink(composite_2, "Conflicts:", SWT.NONE);
 		toolkit.paintBordersFor(hprlnkConflicts);
 		
@@ -102,6 +103,7 @@ public class TopDashboard extends Composite {
 		
 		Hyperlink hprlnkCompliance = toolkit.createHyperlink(composite_2, "Compliance:", SWT.NONE);
 		toolkit.paintBordersFor(hprlnkCompliance);
+		new Label(composite, SWT.NONE);
 		
 		Section sctnSox = toolkit.createSection(composite, Section.TWISTIE | Section.TITLE_BAR);
 		toolkit.paintBordersFor(sctnSox);
@@ -121,11 +123,17 @@ public class TopDashboard extends Composite {
 		toolkit.paintBordersFor(hprlnkNewHyperlink);
 		
 		Section sctnNewSection_2 = toolkit.createSection(frmNewForm.getBody(), Section.TWISTIE | Section.TITLE_BAR);
+		sctnNewSection_2.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
 		toolkit.paintBordersFor(sctnNewSection_2);
 		sctnNewSection_2.setText("Risk");
 		sctnNewSection_2.setExpanded(true);
 		
+		Hyperlink hprlnkRisks = toolkit.createHyperlink(sctnNewSection_2, "Risks:", SWT.NONE);
+		sctnNewSection_2.setClient(hprlnkRisks);
+		toolkit.paintBordersFor(hprlnkRisks);
+		
 		Section sctnRule = toolkit.createSection(frmNewForm.getBody(), Section.TWISTIE | Section.TITLE_BAR);
+		sctnRule.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 1));
 		toolkit.paintBordersFor(sctnRule);
 		sctnRule.setText("Rule");
 		
